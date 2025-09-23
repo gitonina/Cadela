@@ -5,40 +5,50 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import ToyoImage from '../assets/toyo.jpg'
-
 import type { CyclingRace } from '../types/cyclingRace';
 
-const CyclingRaceCard = () => {
+const CyclingRaceCard = (props: {race: CyclingRace}) => {
+  const { race } = props;
   return (
-    <Card sx={{ width: 500 }}>
+    <Card sx={{ width: 600 }}>
       <CardMedia
-        sx={{ height: 140 }}
-        image={ToyoImage}
+        sx={{ height: 180 }}
+        image={race.pathPhoto}
       />
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mx: 0.5 }}>
           <Typography fontWeight="bold" sx={{ fontSize: 29 }}>
-            Doble Toyo
+            {race.name}
           </Typography>
           <Typography variant="h5">
-            10/10/25
+            {race.date}
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', ml: 6, mr: 8, mt: 3, mb: 2 }}>
-          <Box sx={{ alignItems: 'center' }}>
-            <Typography color="grey" variant='h7'>
-              Distancia
-            </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            { race.isRaceCircuit ? 
+              <Typography color="grey" variant='h7'>
+                Distancia de Circuito
+              </Typography> :
+              <Typography color="grey" variant='h7'>
+                Distancia
+              </Typography>
+            }
             <Typography color="grey" variant='h4' fontWeight="bold">
-              100,32 km
+              {race.distance} km
             </Typography>
           </Box>
-          <Box sx={{ alignItems: 'center' }}>
-            <Typography color="grey" variant='h7'>
-              Desnivel positivo
-            </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            { race.isRaceCircuit ? 
+              <Typography color="grey" variant='h7'>
+                Desnivel positivo de Circuito
+              </Typography> :
+              <Typography color="grey" variant='h7'>
+                Desnivel positivo
+              </Typography>
+            }
             <Typography color="grey" variant='h4' fontWeight="bold">
-              1.302 m
+              {race.elevationGain} m
             </Typography>
           </Box>
         </Box>

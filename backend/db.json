@@ -35,5 +35,43 @@
       "dorsalnumber": "10",
       "category": "Damas Master (35 años y más)"
     }
+  ],
+  "cycling-races": [
+    {
+      "id": 1,
+      "name": "Doble Toyo",
+      "date": "12/10/25",
+      "distance": "84,05",
+      "elevationGain": "1.138",
+      "pathPhoto": "/src/assets/toyo.jpg",
+      "isRaceCircuit": false
+    },
+    {
+      "id": 2,
+      "name": "Autódromo Las Vizcachas",
+      "date": "19/10/25",
+      "distance": "1,61",
+      "elevationGain": "14",
+      "pathPhoto": "/src/assets/autodromo.png",
+      "isRaceCircuit": true
+    },
+    {
+      "id": 3,
+      "name": "Cuesta Barriga",
+      "date": "26/10/25",
+      "distance": "86,50",
+      "elevationGain": "744",
+      "pathPhoto": "/src/assets/barriga.jpg",
+      "isRaceCircuit": false
+    },
+    {
+      "id": 4,
+      "name": "Cuesta Chada",
+      "date": "2/11/25",
+      "distance": "103,54",
+      "elevationGain": "675",
+      "pathPhoto": "/src/assets/chada.jpg",
+      "isRaceCircuit": false
+    }
   ]
 }

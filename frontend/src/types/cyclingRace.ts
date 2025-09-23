@@ -3,6 +3,8 @@ export interface CyclingRace {
     id: number;
     name: string;
     date: string;
-    distance: number;
-    elevationGain: number;
+    distance?: string;
+    elevationGain?: string;
+    pathPhoto: string;
+    isRaceCircuit: boolean;
 };
