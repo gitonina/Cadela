@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { InscriptionData } from "../types/inscription";
 import type { SelectChangeEvent } from "@mui/material";
 import {
@@ -13,14 +14,24 @@ import {
   FormControl
 } from "@mui/material";
 
-interface Props{
-  form: InscriptionData;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  onSelectChange: (event:SelectChangeEvent) => void;
-}
+import inscriptionService from "../services/inscriptions";
 
-const InscriptionForm = ({ form, onChange, onSubmit, onSelectChange }: Props) => {
+const InscriptionForm = () => {
+  const [form, setForm] = useState<InscriptionData>({
+    club: "",
+    fullname: "",
+    dorsalnumber: "",
+    category: ""
+  });
+
+  const [inscriptions, setInscriptions] = useState<InscriptionData[]>([]);
+
+  const handleInscriptions = () => {
+    inscriptionService.getAllInscriptions().then((allInscriptions) => {
+      setInscriptions(allInscriptions);
+    })
+  }
+  useEffect(handleInscriptions, []);
 
   const categories = [
     "Intermedia(15 y 16 años)",
@@ -38,7 +49,35 @@ const InscriptionForm = ({ form, onChange, onSubmit, onSelectChange }: Props) =>
     "Federado INTERMEDIA",
     "Federado ELITE/TODO COMPETIDOR",
     "Federado DAMAS"
-  ]
+  ];
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const onSelectChange = (event: SelectChangeEvent) => {
+    const { name, value } = event.target;
+    setForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setForm({
+      club: "",
+      fullname: "",
+      dorsalnumber: "",
+      category: ""
+    });
+    inscriptionService.createIncription(form)
+    setInscriptions([...inscriptions, form]);
+  };
     
   return (
     <Container maxWidth="sm"> 
@@ -75,12 +114,12 @@ const InscriptionForm = ({ form, onChange, onSubmit, onSelectChange }: Props) =>
             required
           />
           <FormControl required>
-            <InputLabel id="demo-simple-select-required-label">Age</InputLabel>
+            <InputLabel id="category-select-label">Categoría</InputLabel>
             <Select
-              labelId="demo-simple-select-required-label"
-              id="demo-simple-select-required"
+              labelId="category-select-label"
+              id="category-select"
               value={form.category}
-              label="Age *"
+              label="Categoría *"
               onChange={onSelectChange}
               name="category"
             >
@@ -95,9 +134,17 @@ const InscriptionForm = ({ form, onChange, onSubmit, onSelectChange }: Props) =>
             Inscribirse
           </Button>
         </Box>
+        <Typography variant='h6' sx={{ mt: 2 }}>
+          Ciclistas Inscritos:
+        </Typography>
+          {inscriptions.map((inscription, index) => (
+            <Typography key={index} variant='body1'>
+              {index + 1}. {inscription.fullname} ({inscription.club}) N°{inscription.dorsalnumber} - {inscription.category}
+            </Typography>
+          ))}
       </Paper>
     </Container>
-  )
-}
+  );
+};
 
-export default InscriptionForm
+export default InscriptionForm;
