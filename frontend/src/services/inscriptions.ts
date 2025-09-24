@@ -12,3 +12,8 @@ export const create = async (newData: InscriptionData) => {
   const response = await axios.post<InscriptionData>(baseUrl, newData);
   return response.data;
 };
+
+export default {
+  getAllInscriptions: getAll,
+  createIncription: create,
+};
