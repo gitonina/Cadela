@@ -13,13 +13,13 @@ export default function HomePage() {
         <Box sx={{ textAlign: 'center', py: 8 }}>
             {/* Hero Section */}
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} sx={{ mb: 3 }}>
-                <DirectionsBikeIcon sx={{ fontSize: 48, color: 'primary.main' }} />
-                <Typography variant="h2" component="h1" fontWeight="bold" color="primary.main">
+                <DirectionsBikeIcon sx={{ fontSize: 48, color: 'secondary.main' }} />
+                <Typography variant="h2" component="h1" fontWeight="bold" color="secondary.main">
                 CICLISMO CADELA
                 </Typography>
             </Stack>
             
-            <Typography variant="h5" color="primary.light" sx={{ mb: 4, maxWidth: 700, mx: 'auto' }}>
+            <Typography variant="h5" color="secondary.light" sx={{ mb: 4, maxWidth: 700, mx: 'auto' }}>
                 Participa en las mejores carreras de ciclismo de Santiago
             </Typography>
 
