@@ -9,12 +9,19 @@ import LandscapeIcon from '@mui/icons-material/Landscape';
 import EventIcon from '@mui/icons-material/Event';
 import Stack from '@mui/material/Stack';
 
+import { useState } from 'react';
+
+import InscriptionForm from './InscriptionForm';
+
 export default function ActiveCyclingRaceCard() {
+
+  const [showRegister, setShowRegister] = useState<boolean>(false);
+
   return (
     <Card sx={{ maxWidth: 600 }}>
       <CardMedia
         sx={{ height: 200 }}
-        image="/src/assets/images/autodromo_vizcachas.jpg"
+        image="/src/assets//autodromo.png"
         title="autodromo vizcachas"
       />
       <CardContent>
@@ -24,17 +31,17 @@ export default function ActiveCyclingRaceCard() {
         <Stack direction="row" alignItems="center" justifyContent="center" sx={{ mb: 1 }}>
             <EventIcon fontSize="small" sx={{ mr: 0.5 }} />
             <Typography variant="subtitle1" color="text.secondary">
-                15 de Septiembre, 2024
+                19 de Octubre, 2025
             </Typography>
         </Stack>
         <Stack direction="row" justifyContent="space-between" mb={1}>
-            <Stack alignItems="center" direction="row" gap={1} color={"primary.main"}>
+            <Stack alignItems="center" direction="row" gap={1} color={"#1976d2"}>
                 <AvTimerIcon fontSize="small" />
                 <Typography> 2:00:00 hrs </Typography>
             </Stack>
-            <Stack alignItems="center" direction="row" gap={1} color={"primary.main"}>
+            <Stack alignItems="center" direction="row" gap={1} color={"#1976d2"}>
                 <LandscapeIcon fontSize="small" /> 
-                <Typography> 500 mts </Typography>
+                <Typography> 14 mts </Typography>
             </Stack>
         </Stack>
         <Typography variant='body2' sx={{ textAlign: 'left' }}>
@@ -47,16 +54,21 @@ export default function ActiveCyclingRaceCard() {
         
       </CardContent>
       <CardActions>
-        <Button size="small">Inscribirse</Button>
+        <Button size="small" color='info' onClick={() => setShowRegister(!showRegister)}>Inscribirse</Button>
         <Button 
           size="small" 
           href='https://www.relive.com/view/vMv8G1nVLPq'
           target="_blank"
           rel="noopener noreferrer"
+          color='info'
         >
           Circuito en Relieve
         </Button>
       </CardActions>
+
+      {showRegister && (
+        <InscriptionForm  />
+      )}
     </Card>
   );
 }
