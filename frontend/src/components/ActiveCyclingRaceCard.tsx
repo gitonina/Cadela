@@ -31,7 +31,7 @@ export default function ActiveCyclingRaceCard() {
         <Stack direction="row" alignItems="center" justifyContent="center" sx={{ mb: 1 }}>
             <EventIcon fontSize="small" sx={{ mr: 0.5 }} />
             <Typography variant="subtitle1" color="text.secondary">
-                15 de Septiembre, 2024
+                19 de Octubre, 2025
             </Typography>
         </Stack>
         <Stack direction="row" justifyContent="space-between" mb={1}>
@@ -41,7 +41,7 @@ export default function ActiveCyclingRaceCard() {
             </Stack>
             <Stack alignItems="center" direction="row" gap={1} color={"#1976d2"}>
                 <LandscapeIcon fontSize="small" /> 
-                <Typography> 500 mts </Typography>
+                <Typography> 14 mts </Typography>
             </Stack>
         </Stack>
         <Typography variant='body2' sx={{ textAlign: 'left' }}>
