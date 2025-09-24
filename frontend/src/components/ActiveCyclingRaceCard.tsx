@@ -9,7 +9,14 @@ import LandscapeIcon from '@mui/icons-material/Landscape';
 import EventIcon from '@mui/icons-material/Event';
 import Stack from '@mui/material/Stack';
 
+import { useState } from 'react';
+
+import InscriptionForm from './InscriptionForm';
+
 export default function ActiveCyclingRaceCard() {
+
+  const [showRegister, setShowRegister] = useState<boolean>(false);
+
   return (
     <Card sx={{ maxWidth: 600 }}>
       <CardMedia
@@ -28,11 +35,11 @@ export default function ActiveCyclingRaceCard() {
             </Typography>
         </Stack>
         <Stack direction="row" justifyContent="space-between" mb={1}>
-            <Stack alignItems="center" direction="row" gap={1} color={"primary.main"}>
+            <Stack alignItems="center" direction="row" gap={1} color={"#1976d2"}>
                 <AvTimerIcon fontSize="small" />
                 <Typography> 2:00:00 hrs </Typography>
             </Stack>
-            <Stack alignItems="center" direction="row" gap={1} color={"primary.main"}>
+            <Stack alignItems="center" direction="row" gap={1} color={"#1976d2"}>
                 <LandscapeIcon fontSize="small" /> 
                 <Typography> 500 mts </Typography>
             </Stack>
@@ -47,16 +54,21 @@ export default function ActiveCyclingRaceCard() {
         
       </CardContent>
       <CardActions>
-        <Button size="small">Inscribirse</Button>
+        <Button size="small" color='info' onClick={() => setShowRegister(!showRegister)}>Inscribirse</Button>
         <Button 
           size="small" 
           href='https://www.relive.com/view/vMv8G1nVLPq'
           target="_blank"
           rel="noopener noreferrer"
+          color='info'
         >
           Circuito en Relieve
         </Button>
       </CardActions>
+
+      {showRegister && (
+        <InscriptionForm  />
+      )}
     </Card>
   );
 }
