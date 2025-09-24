@@ -1,14 +1,14 @@
 {
   "inscriptions": [
     {
-      "id": 1,
+      "id": "1",
       "club": "Universidad de Chile",
       "fullname": "Juan Pérez",
       "dorsalnumber": "10",
       "category": "Adulto"
     },
     {
-      "id": 2,
+      "id": "2",
       "club": "Colo Colo",
       "fullname": "Pedro González",
       "dorsalnumber": "7",
@@ -38,16 +38,7 @@
   ],
   "cycling-races": [
     {
-      "id": 1,
-      "name": "Doble Toyo",
-      "date": "12/10/25",
-      "distance": "84,05",
-      "elevationGain": "1.138",
-      "pathPhoto": "/src/assets/toyo.jpg",
-      "isRaceCircuit": false
-    },
-    {
-      "id": 2,
+      "id": "1",
       "name": "Autódromo Las Vizcachas",
       "date": "19/10/25",
       "distance": "1,61",
@@ -56,7 +47,16 @@
       "isRaceCircuit": true
     },
     {
-      "id": 3,
+      "id": "2",
+      "name": "Doble Toyo",
+      "date": "22/10/25",
+      "distance": "84,05",
+      "elevationGain": "1.138",
+      "pathPhoto": "/src/assets/toyo.jpg",
+      "isRaceCircuit": false
+    },
+    {
+      "id": "3",
       "name": "Cuesta Barriga",
       "date": "26/10/25",
       "distance": "86,50",
@@ -65,7 +65,7 @@
       "isRaceCircuit": false
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Cuesta Chada",
       "date": "2/11/25",
       "distance": "103,54",
