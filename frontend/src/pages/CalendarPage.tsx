@@ -5,17 +5,21 @@ import CyclingRacesCalendar from "../components/CyclingRacesCalendar";
 
 export default function CalendarPage() {
     const navigate = useNavigate();
-
     return(
-        <Box sx={{ position: 'relative' }}>
+        <Box sx={{
+            alignItems: "center",
+            display:"flex",
+            flexDirection: 'column'
+        }}>
+            <CyclingRacesCalendar />
             <Button
                 onClick={() => navigate('/')}
                 variant="outlined"
                 startIcon={<HomeIcon />}
+                sx={{ m: 5 }}
             >
                 Inicio
             </Button>
-            <CyclingRacesCalendar />
         </Box>
     );
 }

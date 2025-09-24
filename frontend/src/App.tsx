@@ -7,7 +7,6 @@ import CalendarPage from './pages/CalendarPage'
 function App() {
   return (
     <Container maxWidth="md">
-
       {/* Routes */}
       <Routes>
         <Route path="/" element={<HomePage />} />
