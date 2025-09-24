@@ -21,7 +21,7 @@ export default function ActiveCyclingRaceCard() {
     <Card sx={{ maxWidth: 600 }}>
       <CardMedia
         sx={{ height: 200 }}
-        image="/src/assets/images/autodromo_vizcachas.jpg"
+        image="/src/assets//autodromo.png"
         title="autodromo vizcachas"
       />
       <CardContent>
