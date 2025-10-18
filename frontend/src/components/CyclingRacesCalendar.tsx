@@ -1,6 +1,5 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 
 import type { CyclingRace } from '../types/cyclingRace';
 import cyclingRacesService from '../services/cyclingRaces';
