@@ -25,8 +25,8 @@ inscriptionSchema.set("toJSON", {
   },
 });
 
-const inscription = mongoose.model("inscription", inscriptionSchema);
+const Inscription = mongoose.model("inscription", inscriptionSchema);
 
-export {inscription}
+export {Inscription}
 
 
