@@ -3,7 +3,7 @@ import { Circuit } from "../models/circuit";
 
 const router=express.Router()
 
-router.get("/circuits", (req: Request, res: Response, next: NextFunction) => {
+router.get("/", (req: Request, res: Response, next: NextFunction) => {
   Circuit.find({})
     .then((circuits) => {
       res.json(circuits);
@@ -11,11 +11,11 @@ router.get("/circuits", (req: Request, res: Response, next: NextFunction) => {
     .catch((error) => next(error));
 });
 
-router.post("/circuits", (request, response, next) => {
+router.post("/", (request, response, next) => {
   const body = request.body;
 
-  if (!body.content) {
-    return response.status(400).json({ error: "content missing" });
+  if (!body.name || !body.distance || !body.elevationGain) {
+    return response.status(400).json({ error: "metrics missing" });
   };
 
   const circuit = {

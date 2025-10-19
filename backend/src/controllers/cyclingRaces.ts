@@ -3,7 +3,7 @@ import { CyclingRace } from "../models/cyclingRace";
 
 const router=express.Router()
 
-router.get("/cycling-races", (req: Request, res: Response, next: NextFunction) => {
+router.get("/", (req: Request, res: Response, next: NextFunction) => {
   CyclingRace.find({})
     .then((cyclingRaces) => {
       res.json(cyclingRaces);
@@ -11,10 +11,10 @@ router.get("/cycling-races", (req: Request, res: Response, next: NextFunction) =
     .catch((error) => next(error));
 });
 
-router.post("/cycling-races", (request, response, next) => {
+router.post("/", (request, response, next) => {
   const body = request.body;
 
-  if (!body.content) {
+  if (!body.circuitId || !body.date) {
     return response.status(400).json({ error: "content missing" });
   };
 
