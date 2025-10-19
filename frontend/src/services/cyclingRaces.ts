@@ -8,6 +8,11 @@ export const getAllRaces = async () => {
   return request.data;
 };
 
+export const getRaceById = async (id: number) => {
+  const response = await axios.get<CyclingRace>(`${baseUrl}/${id}`);
+  return response.data;
+}
+
 export const create = async (newData: CyclingRace) => {
   const response = await axios.post<CyclingRace>(baseUrl, newData);
   return response.data;
