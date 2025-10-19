@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import express from "express";
-import User from "../models/User";
+import Cyclist from "../models/cyclist";
 import config from "../utils/config";
 import { withUser } from "../utils/middleware";
 
@@ -10,9 +10,9 @@ const router = express.Router();
 router.post("/", async (request, response) => {
   const { username, password } = request.body;
 
-  const user = await User.findOne({ username });
-  if (user) {
-    const passwordCorrect = await bcrypt.compare(password, user.password);
+  const cyclist = await Cyclist.findOne({ username });
+  if (cyclist) {
+    const passwordCorrect = await bcrypt.compare(password, cyclist.password);
 
     if (!passwordCorrect) {
       response.status(401).json({
@@ -20,9 +20,9 @@ router.post("/", async (request, response) => {
       });
     } else {
       const userForToken = {
-        username: user.username,
+        username: cyclist.name,
         csrf: crypto.randomUUID(),
-        id: user._id,
+        id: cyclist._id,
       };
 
       const token = jwt.sign(userForToken, config.JWT_SECRET, {
@@ -33,7 +33,7 @@ router.post("/", async (request, response) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
       });
-      response.status(200).send({ username: user.username, email: user.email });
+      response.status(200).send({ username: cyclist.name });
     }
   } else {
     response.status(401).json({
@@ -44,8 +44,8 @@ router.post("/", async (request, response) => {
 
 router.get("/me", withUser, async (request, response, next) => {
   const body = request.body;
-  const user = await User.findById(request.userId);
-  response.status(200).json(user);
+  const cyclist = await Cyclist.findById(request.userId);
+  response.status(200).json(cyclist);
 });
 
 router.post("/logout", (request, response) => {

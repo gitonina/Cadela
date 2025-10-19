@@ -1,14 +1,14 @@
 import bcrypt from "bcrypt";
 import express from "express";
-import User from "../models/cyclist";
+import Cyclist from "../models/cyclist";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const users = await User.find({})
+  const cyclists = await Cyclist.find({})
     .populate("", { content: 1 })
     .populate("", { content: 1 });
-  res.json(users);
+  res.json(cyclists);
 });
 
 router.post("/", async (request, response) => {
@@ -23,15 +23,14 @@ router.post("/", async (request, response) => {
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
-  const user = new User({
+  const cyclist = new Cyclist({
     username,
-    email,
     passwordHash,
   });
 
-  const savedUser = await user.save();
+  const savedCyclist = await cyclist.save();
 
-  response.status(201).json(savedUser);
+  response.status(201).json(savedCyclist);
 });
 
 export default router;

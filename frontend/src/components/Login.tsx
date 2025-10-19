@@ -36,9 +36,7 @@ export default function Login() {
                 <Button variant="contained" color="primary">
                   Entrar
                 </Button>
-                <Button variant="outlined" color="secondary">
-                  Entrar como invitado
-                </Button>
+               
               </Stack>
             </Stack>
           </form>

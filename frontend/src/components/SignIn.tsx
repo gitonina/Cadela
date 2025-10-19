@@ -38,11 +38,9 @@ export default function Signin() {
 
               <Stack direction="row" spacing={2}>
                 <Button variant="contained" color="primary">
-                  Entrar
+                  Registrar
                 </Button>
-                <Button variant="outlined" color="secondary">
-                  Entrar como invitado
-                </Button>
+         
               </Stack>
             </Stack>
           </form>

@@ -35,9 +35,8 @@ export default function HomePage() {
     const [password,setPassword]=useState("")
     const [cyclist,setCyclist]=useState<Cyclist | null>(null)
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
-    const [guestMode, setGuestMode] = useState(false);
-
-     useEffect(() => {
+   
+    useEffect(() => {
     const init = async () => {
       const loggedUser = await loginService.restoreLogin();
       if (loggedUser) {
