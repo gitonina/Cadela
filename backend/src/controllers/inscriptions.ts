@@ -3,7 +3,7 @@ import { Inscription } from "../models/inscription";
 
 const router=express.Router()
 
-router.get("/inscriptions", (req: Request, res: Response, next: NextFunction) => {
+router.get("/", (req: Request, res: Response, next: NextFunction) => {
   Inscription.find({})
     .then((inscriptions) => {
       res.json(inscriptions);
@@ -11,11 +11,11 @@ router.get("/inscriptions", (req: Request, res: Response, next: NextFunction) =>
     .catch((error) => next(error));
 });
 
-router.post("/inscriptions", (request, response, next) => {
+router.post("/", (request, response, next) => {
   const body = request.body;
 
-  if (!body.content) {
-    return response.status(400).json({ error: "content missing" });
+  if (!body.fullname || !body.dorsalnumber || !body.category) {
+    return response.status(400).json({ error: "missing required fields" });
   }
 
   const inscription = {
