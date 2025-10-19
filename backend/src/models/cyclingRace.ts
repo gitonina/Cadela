@@ -17,4 +17,4 @@ const cyclingRaceSchema = new mongoose.Schema<CyclingRace>({
     },
 });
 
-export const Circuit = mongoose.model("CyclingRace", cyclingRaceSchema);
+export const CyclingRace = mongoose.model("CyclingRace", cyclingRaceSchema);
