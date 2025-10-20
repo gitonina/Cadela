@@ -56,8 +56,8 @@ export default function ActiveCyclingRaceCard() {
         </Typography>
         
       </CardContent>
-      <CardActions>
-        <SubscribeButton raceId={raceId} categoryId={categoryId} />
+      <CardActions sx={{ flexDirection: "column", alignItems: "stretch" }}>
+        <SubscribeButton raceId={raceId} />
 
         <Button
           size="small"
