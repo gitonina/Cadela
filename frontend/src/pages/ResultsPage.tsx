@@ -143,12 +143,12 @@ export default function ResultsPage() {
     <Box sx={{ py: 4 }}>
       <Button
         component={Link}
-        to="/"
+        to="/results"
         variant="outlined"
         startIcon={<HomeIcon />}
         sx={{ mb: 3 }}
       >
-        Inicio
+        Volver a Resultados
       </Button>
 
       <Box
