@@ -5,22 +5,11 @@ import ActiveCyclingRaceCard from "../components/ActiveCyclingRaceCard";
 import Button from "@mui/material/Button";
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike'
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import type { Cyclist } from "../types/cyclist";
 import loginService from "../services/login";
-import { useEffect } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import {
-  Paper,
-  TextField,
-  List,
-  Divider,
-  Alert,
-} from "@mui/material";
+
+
 
 import Login from "../components/Login";
-import Signin from "../components/SignIn";
 
 
 
@@ -31,46 +20,12 @@ import Signin from "../components/SignIn";
 
 export default function HomePage() {
     const navigate = useNavigate();
-    const [username,setUsername]=useState("")
-    const [password,setPassword]=useState("")
-    const [cyclist,setCyclist]=useState<Cyclist | null>(null)
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
    
-    useEffect(() => {
-    const init = async () => {
-      const loggedUser = await loginService.restoreLogin();
-      if (loggedUser) {
-        setCyclist(loggedUser);
-      }
-    };
-    init();
-  }, []);
+  
 
 
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      const loggedUser = await loginService.login({ username, password });
-      setCyclist(loggedUser);
-      setUsername("");
-      setPassword("");
-    } catch (exception) {
-      setErrorMessage("Credenciales incorrectas");
-      setTimeout(() => setErrorMessage(null), 4000);
-    }
-  };
-
-  const handleLogout = () => {
-    loginService.logout();
-    setCyclist(null);
-    setGuestMode(false);
-  };
-
-//   const enterAsGuest = async () => {
-//     setGuestMode(true);
-//     const data = await postService.getAll();
-//     setComments(data);
-//   };
+ 
 
 
 
@@ -79,7 +34,7 @@ export default function HomePage() {
     return (
         
     <>
-      <Signin/>
+      <Login/>
         <Box sx={{ textAlign: 'center', py: 8 }}>
             {/* Hero Section */}
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} sx={{ mb: 3 }}>

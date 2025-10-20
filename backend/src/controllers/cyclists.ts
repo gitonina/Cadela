@@ -12,9 +12,9 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (request, response) => {
-  const { username, email, password } = request.body;
+  const { username, password } = request.body;
  
-  if (!username || !email || !password) {
+  if (!username || !password) {
     return response.status(400).json({ error: "username, password son requeridos" });
   }
 

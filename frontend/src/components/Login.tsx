@@ -1,3 +1,8 @@
+import loginService from "../services/login";
+import { useState } from "react";
+import { useEffect } from "react";
+import type { Cyclist } from "../types/cyclist";
+
 import {
   Stack,
   Typography,
@@ -10,20 +15,54 @@ import {
 
 
 
+
 export default function Login() {
+      const [name,setName]=useState("")
+      const [password,setPassword]=useState("")
+      const [cyclist,setCyclist]=useState<Cyclist | null>(null)
+      const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+      useEffect(() => {
+    const init = async () => {
+      const loggedUser = await loginService.restoreLogin();
+      if (loggedUser) {
+        setCyclist(loggedUser);
+      }
+    };
+    init();
+  }, []);
+
+       const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const loggedUser = await loginService.login({ name, password });
+      setCyclist(loggedUser);
+      setName("");
+      setPassword("");
+    } catch (exception) {
+      setErrorMessage("Credenciales incorrectas");
+      setTimeout(() => setErrorMessage(null), 4000);
+    }
+  };
+
+  const handleLogout = () => {
+    loginService.logout();
+    setCyclist(null);
+  };
   return (
   
    
       <Stack spacing={3} sx={{ maxWidth: 600, margin: "40px auto" }}>
         
 
-        <Alert severity="error">Error</Alert>
+       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+
 
         <Paper elevation={3} sx={{ p: 3 }}>
           <Typography variant="h6" gutterBottom>
             Iniciar sesión
           </Typography>
-          <form>
+          <form onSubmit={handleLogin}>
             <Stack spacing={2}>
               <TextField label="Usuario" variant="outlined" fullWidth />
               <TextField
@@ -55,6 +94,6 @@ export default function Login() {
           </Stack>
         </Paper>
       </Stack>
-   
-  );
+    );
+  
 }
