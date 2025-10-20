@@ -1,5 +1,5 @@
 export interface Cyclist{
-    rut:number,
+    rut:string,
     name:string,
     club:string,
     n_dorsal:number,

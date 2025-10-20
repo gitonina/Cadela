@@ -2,9 +2,12 @@ import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import  inscriptionService  from "../services/inscriptions";
 import loginService from "../services/login";
+import { useNavigate } from "react-router-dom";
+
 
 const SimpleSubscribeButton = ({ raceId, categoryId }: { raceId: string; categoryId: string }) => {
   const [user, setUser] = useState<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const init = async () => {
@@ -35,7 +38,7 @@ const SimpleSubscribeButton = ({ raceId, categoryId }: { raceId: string; categor
       Inscribirse
     </Button>
   ) : (
-    <Button variant="outlined" onClick={() => (window.location.href = "/")}>
+    <Button variant="outlined" onClick={() => navigate('/login')}>
       Inicia sesión
     </Button>
   );

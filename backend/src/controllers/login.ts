@@ -8,9 +8,9 @@ import { withUser } from "../utils/middleware";
 const router = express.Router();
 
 router.post("/", async (request, response) => {
-  const { username, password } = request.body;
+  const { name, password } = request.body;
 
-  const cyclist = await Cyclist.findOne({ username });
+  const cyclist = await Cyclist.findOne({ name });
   if (cyclist) {
     const passwordCorrect = await bcrypt.compare(password, cyclist.password);
 
