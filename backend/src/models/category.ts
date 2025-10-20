@@ -24,4 +24,4 @@ categorySchema.set("toJSON", {
 });
 
 
-export const Circuit = mongoose.model("Category", categorySchema);
+export const Category = mongoose.model("Category", categorySchema);
