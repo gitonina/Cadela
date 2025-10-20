@@ -1,5 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 import logger from "./logger";
+import jwt from "jsonwebtoken";
+import config from "./config";
+
+
+declare global {
+  namespace Express {
+    interface Request {
+      userId?: string; 
+    }
+  }
+}
 
 const requestLogger = (
   request: Request,
@@ -29,7 +40,44 @@ const errorHandler = (
   } else if (error.name === "ValidationError") {
     response.status(400).json({ error: error.message });
   }
+
+  else if (error.name === "JsonWebTokenError") {
+response.status(401).json({ error: "invalid token" });
+} else if (error.name === "TokenExpiredError") {
+response.status(401).json({ error: "token expired" });
+}
+
   next(error);
 };
+
+export const withUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const authReq = req;
+    const token = req.cookies?.token;
+    if (!token) {
+      res.status(401).json({ error: "missing token" });
+    } else {
+      const decodedToken = jwt.verify(token, config.JWT_SECRET);
+      const csrfToken = req.headers["x-csrf-token"];
+      if (
+        typeof decodedToken === "object" &&
+        decodedToken.id &&
+        decodedToken.csrf == csrfToken
+      ) {
+        authReq.userId = decodedToken.id;
+        next();
+      } else {
+        res.status(401).json({ error: "invalid token" });
+      }
+    }
+  } catch (error) {
+    res.status(401).json({ error: "invalid token" });
+  }
+};
+
 
 export default {requestLogger,unknownEndpoint,errorHandler};
