@@ -5,10 +5,26 @@ import ActiveCyclingRaceCard from "../components/ActiveCyclingRaceCard";
 import Button from "@mui/material/Button";
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike'
 import { useNavigate } from "react-router-dom";
-
+import loginService from "../services/login";
+import { useState, useEffect } from "react";
 export default function HomePage() {
     const navigate = useNavigate();
-  
+    const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const init = async () => {
+      const loggedUser = await loginService.restoreLogin();
+      setUser(loggedUser);
+    };
+    init();
+  }, []);
+
+  const handleLogout = async () => {
+    await loginService.logout();
+    setUser(null);
+    window.location.reload(); // 🔄 refresca para limpiar estados visibles
+  };
+
 
 
 
@@ -19,6 +35,30 @@ export default function HomePage() {
     return (
         
     <>
+       <Stack spacing={2} sx={{ p: 3 }}>
+      {user ? (
+        <>
+          <Typography variant="h6">
+             Bienvenido, {user.name}
+          </Typography>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleLogout}
+          >
+            Cerrar sesión
+          </Button>
+        </>
+      ) : (
+        <Typography variant="body1">
+          No has iniciado sesión.
+        </Typography>
+      )}
+    </Stack>
+     
+
+
+
         <Box sx={{ textAlign: 'center', py: 8 }}>
             {/* Hero Section */}
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} sx={{ mb: 3 }}>

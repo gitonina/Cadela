@@ -11,7 +11,7 @@ import signInRouter from "../src/controllers/cyclists";
 import logger from "./utils/logger";
 import path from "path";
 import cors from "cors";
-
+import cookieParser from "cookie-parser";
 const app = express();
 mongoose.set("strictQuery", false);
 
@@ -23,6 +23,7 @@ if (config.MONGODB_URI) {
   });
 }
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(middleware.requestLogger);
 app.use(express.static(path.resolve(__dirname, "dist")));
