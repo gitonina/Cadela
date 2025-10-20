@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export interface Circuit {
+export interface ICircuit {
     name: string;
     distance?: number;
     elevationGain?: number;
@@ -8,7 +8,7 @@ export interface Circuit {
     pathPhoto?: string;
 };
 
-const circuitSchema = new mongoose.Schema<Circuit>({
+const circuitSchema = new mongoose.Schema<ICircuit>({
     name: {
         type: String, 
         required: true 
@@ -32,6 +32,18 @@ const circuitSchema = new mongoose.Schema<Circuit>({
         default: null,
     }
 }, { timestamps: true });
+
+circuitSchema.set("toJSON", {
+  transform: (
+    document,
+    returnedObject: { id?: string; _id?: mongoose.Types.ObjectId; __v?: number }
+  ) => {
+    returnedObject.id = returnedObject._id?.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
+
 
 export const Circuit = mongoose.model("Circuit", circuitSchema);
 

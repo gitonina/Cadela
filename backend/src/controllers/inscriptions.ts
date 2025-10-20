@@ -14,15 +14,22 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
 router.post("/", (request, response, next) => {
   const body = request.body;
 
-  if (!body.fullname || !body.dorsalnumber || !body.category) {
+  /*if (!body.fullname || !body.dorsalnumber || !body.category) {*/
+  /*  return response.status(400).json({ error: "missing required fields" });*/
+  /*}*/
+
+  if (!body.cyclingRaceId || !body.cyclistId || !body.categoryId) {
     return response.status(400).json({ error: "missing required fields" });
   }
 
   const inscription = {
-    club: body.club,
-    fullname: body.fullname,
-    dorsalnumber: body.dorsalnumber,
-    category: body.category,
+    cyclingRaceId: body.cyclingRaceId,
+    cyclistId: body.cyclistId,
+    categoryId: body.categoryId,
+    /*club: body.club,*/
+    /*fullname: body.fullname,*/
+    /*dorsalnumber: body.dorsalnumber,*/
+    /*category: body.category,*/
   };
 
   const inscriptionDocument = new Inscription(inscription);

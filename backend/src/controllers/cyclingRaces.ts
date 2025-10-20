@@ -11,6 +11,22 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
     .catch((error) => next(error));
 });
 
+router.get("/upcoming", (req: Request, res: Response, next: NextFunction) => {
+  CyclingRace.find({})
+    .then((cyclingRaces) => {
+      res.json(cyclingRaces);
+    })
+    .catch((error) => next(error));
+});
+
+router.get("/past", (req: Request, res: Response, next: NextFunction) => {
+  CyclingRace.find({})
+    .then((cyclingRaces) => {
+      res.json(cyclingRaces);
+    })
+    .catch((error) => next(error));
+});
+
 router.post("/", (request, response, next) => {
   const body = request.body;
 
