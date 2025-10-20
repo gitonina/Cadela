@@ -9,13 +9,16 @@ import LandscapeIcon from '@mui/icons-material/Landscape';
 import EventIcon from '@mui/icons-material/Event';
 import Stack from '@mui/material/Stack';
 
-import { useState } from 'react';
+//import { useState } from 'react';
 
-import InscriptionForm from './InscriptionForm';
+import SubscribeButton from './SubscribeInscription';
 
 export default function ActiveCyclingRaceCard() {
 
-  const [showRegister, setShowRegister] = useState<boolean>(false);
+  //const [showRegister, setShowRegister] = useState<boolean>(false);
+
+  const raceId = "aqui deberia ir el race id :D"; 
+  const categoryId = "id de la categoria pues";
 
   return (
     <Card sx={{ maxWidth: 600 }}>
@@ -54,9 +57,10 @@ export default function ActiveCyclingRaceCard() {
         
       </CardContent>
       <CardActions>
-        <Button size="small" color='info' onClick={() => setShowRegister(!showRegister)}>Inscribirse</Button>
-        <Button 
-          size="small" 
+        <SubscribeButton raceId={raceId} categoryId={categoryId} />
+
+        <Button
+          size="small"
           href='https://www.relive.com/view/vMv8G1nVLPq'
           target="_blank"
           rel="noopener noreferrer"
@@ -65,10 +69,6 @@ export default function ActiveCyclingRaceCard() {
           Circuito en Relieve
         </Button>
       </CardActions>
-
-      {showRegister && (
-        <InscriptionForm  />
-      )}
     </Card>
   );
 }

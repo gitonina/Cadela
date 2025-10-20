@@ -8,8 +8,17 @@ import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
     const navigate = useNavigate();
+  
+
+
+
+
+
+
 
     return (
+        
+    <>
         <Box sx={{ textAlign: 'center', py: 8 }}>
             {/* Hero Section */}
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} sx={{ mb: 3 }}>
@@ -39,5 +48,7 @@ export default function HomePage() {
                 Ver calendario de carreras
             </Button>
         </Box>
+
+         </>
     )
 }

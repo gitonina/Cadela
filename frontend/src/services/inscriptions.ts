@@ -1,19 +1,25 @@
 import axios from "axios";
-import type { InscriptionData } from "../types/inscription";
+import axiosSecure from "../utils/axiosSecure";
+import type { Inscription } from "../types/inscription";
 
 const baseUrl = "api/inscriptions";
 
 export const getAll = async () => {
-  const response = await axios.get<InscriptionData[]>(baseUrl);
+  const response = await axios.get<Inscription[]>(baseUrl);
   return response.data;
 };
 
-export const create = async (newData: InscriptionData) => {
-  const response = await axios.post<InscriptionData>(baseUrl, newData);
+export const create = async (newData: Inscription) => {
+  const response = await axiosSecure.post<Inscription>(baseUrl, newData);
   return response.data;
+};
+
+export const deleteInscriptionById = async (inscriptionId: string): Promise<void> => {
+  await axiosSecure.delete(`${baseUrl}/${inscriptionId}`);
 };
 
 export default {
   getAllInscriptions: getAll,
-  createIncription: create,
+  createInscription: create,
+  deleteInscriptionById,
 };

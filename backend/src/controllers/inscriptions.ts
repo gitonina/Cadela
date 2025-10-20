@@ -1,49 +1,47 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Inscription } from "../models/inscription";
+import Cyclist from "../models/cyclist"
 
 const router=express.Router()
 
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
-  Inscription.find({})
-    .then((inscriptions) => {
-      res.json(inscriptions);
-    })
-    .catch((error) => next(error));
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const inscriptions = await Inscription.find({});
+    res.json(inscriptions);
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.post("/", (request, response, next) => {
-  const body = request.body;
+router.post("/", async (request, response, next) => {
+  try {
+    const body = request.body;
+    const user = await Cyclist.findById(body.cyclistId);
 
-  /*if (!body.fullname || !body.dorsalnumber || !body.category) {*/
-  /*  return response.status(400).json({ error: "missing required fields" });*/
-  /*}*/
+    if (!user) {
+      return response.status(400).json({error: "user not found",});
+    }
 
-  if (!body.cyclingRaceId || !body.cyclistId || !body.categoryId) {
+    if (!body.cyclingRaceId || !body.categoryId) {
     return response.status(400).json({ error: "missing required fields" });
-  }
-
-  const inscription = {
+    }
+    const inscription = new Inscription({
     cyclingRaceId: body.cyclingRaceId,
-    cyclistId: body.cyclistId,
+    cyclistId: user?.id,
     categoryId: body.categoryId,
-    /*club: body.club,*/
-    /*fullname: body.fullname,*/
-    /*dorsalnumber: body.dorsalnumber,*/
-    /*category: body.category,*/
-  };
-
-  const inscriptionDocument = new Inscription(inscription);
-    inscriptionDocument
-      .save()
-      .then((savedInscription) => {
-        response.status(201).json(savedInscription);
-      })
-      .catch((error) => {
-      if (error.name === "ValidationError") {
-        return response.status(400).json({ error: error.message });
-      }
-      next(error);
     });
+
+    const savedInscription = await inscription.save();
+    user.inscriptions = user.inscriptions.concat(savedInscription._id);
+    await user.save();
+
+    return response.status(201).json(savedInscription);
+  } catch (error: any) {
+    if (error.name === "ValidationError") {
+      return response.status(400).json({ error: error.message });
+    }
+    next(error);
+  }
 });
 
 export default router;
