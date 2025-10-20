@@ -18,7 +18,6 @@ export default function ActiveCyclingRaceCard() {
   //const [showRegister, setShowRegister] = useState<boolean>(false);
 
   const raceId = "aqui deberia ir el race id :D"; 
-  const categoryId = "id de la categoria pues";
 
   return (
     <Card sx={{ maxWidth: 600 }}>
@@ -56,8 +55,8 @@ export default function ActiveCyclingRaceCard() {
         </Typography>
         
       </CardContent>
-      <CardActions>
-        <SubscribeButton raceId={raceId} categoryId={categoryId} />
+      <CardActions sx={{ flexDirection: "column", alignItems: "stretch" }}>
+        <SubscribeButton raceId={raceId} />
 
         <Button
           size="small"
