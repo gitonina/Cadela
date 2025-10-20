@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 
 import type { CyclingRace } from '../types/cyclingRace';
 import cyclingRacesService from '../services/cyclingRaces';
-import CyclingRaceCard from './CiclyngRaceCard';
+import CyclingRaceCard from "./CyclingRaceCard";
 
 import { useEffect, useState } from 'react';
 

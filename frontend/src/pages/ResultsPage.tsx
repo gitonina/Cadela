@@ -11,7 +11,7 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import ResultsTable from "../components/ResultsTable";
 import type { CyclingRaceResults } from "../types/cyclingRaceResults";
-import CyclingRaceCard from "../components/CiclyngRaceCard";
+import CyclingRaceCard from "../components/CyclingRaceCard";
 import type { CyclingRace } from "../types/cyclingRace";
 import { getRaceById } from "../services/cyclingRaces";
 
