@@ -12,20 +12,25 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (request, response) => {
-  const { username, email, password } = request.body;
- 
-  if (!username || !email || !password) {
-    return response.status(400).json({ error: "username, password son requeridos" });
+const { rut, name, club, n_dorsal, password } = request.body; 
+  if (!rut || !name || !club || !n_dorsal || !password) {
+    return response.status(400).json({ error: "Todos los campos son requeridos" });
   }
 
- 
+   const existing = await Cyclist.findOne({ $or: [{ rut }, { n_dorsal }, { name }] });
+    if (existing) {
+      return response.status(400).json({ error: "Rut, nombre o número de dorsal ya registrados" });
+    }
 
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
   const cyclist = new Cyclist({
-    username,
-    passwordHash,
+      rut,
+      name,
+      club,
+      n_dorsal,
+      password: passwordHash,
   });
 
   const savedCyclist = await cyclist.save();

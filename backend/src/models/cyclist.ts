@@ -2,7 +2,7 @@ import mongoose,{Schema,Document} from 'mongoose'
 
 export interface ICyclist extends Document {
   id: string,
-  rut: number,
+  rut: string,
   name: string,
   club: string,
   n_dorsal: number,
@@ -11,13 +11,18 @@ export interface ICyclist extends Document {
 }
 
 const cyclistSchema = new Schema<ICyclist>({
-  rut: {type: Number,required: true,minlength: 7,
-    validate: {
-      validator: function(v) {
-        return v.toString().length === 10;
-      },
+rut: {
+  type: String,
+  required: true,
+  unique: true,
+  validate: {
+    validator: function(v) {
+      return v.length >= 7 && v.length <= 10;
     },
-  unique:true},
+    message: "El RUT debe tener entre 7 y 10 dígitos",
+  },
+},
+
   name: {type: String,required: true,minlength: 7},
   club: {type: String,required: true,minlength: 3},
   n_dorsal: {type: Number,required: true,minlength: 1,unique:true},

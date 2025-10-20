@@ -8,9 +8,11 @@ import { withUser } from "../utils/middleware";
 const router = express.Router();
 
 router.post("/", async (request, response) => {
-  const { username, password } = request.body;
-
-  const cyclist = await Cyclist.findOne({ username });
+  const { name, password } = request.body;
+    if (!name || !password) {
+    return response.status(400).json({ error: "Nombre y contraseña son requeridos" });
+  }
+  const cyclist = await Cyclist.findOne({ name });
   if (cyclist) {
     const passwordCorrect = await bcrypt.compare(password, cyclist.password);
 
@@ -20,9 +22,9 @@ router.post("/", async (request, response) => {
       });
     } else {
       const userForToken = {
-        username: cyclist.name,
-        csrf: crypto.randomUUID(),
         id: cyclist._id,
+        name: cyclist.name,
+        csrf: crypto.randomUUID(),
       };
 
       const token = jwt.sign(userForToken, config.JWT_SECRET, {

@@ -11,12 +11,14 @@ import {
   FormControl,
   Stack
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const SimpleSubscribeButton = ({ raceId, categoryId }: { raceId: string; categoryId: string }) => {
+
+const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
   const [user, setUser] = useState<any>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const init = async () => {
@@ -50,7 +52,7 @@ const SimpleSubscribeButton = ({ raceId, categoryId }: { raceId: string; categor
     const payload = {
       cyclistId: user.id,
       cyclingRaceId: raceId,
-      categoryId,
+      categoryId: selectedCategory,
     };
 
     try {
@@ -65,7 +67,7 @@ const SimpleSubscribeButton = ({ raceId, categoryId }: { raceId: string; categor
   
    if (!user) {
     return (
-      <Button variant="outlined" onClick={() => (window.location.href = "/")}>
+      <Button variant="outlined" onClick={() => navigate('/login')}>
         Inicia sesión
       </Button>
     );
