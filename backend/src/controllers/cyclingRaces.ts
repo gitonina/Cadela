@@ -5,6 +5,10 @@ const router=express.Router()
 
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
   CyclingRace.find({})
+    .populate({
+        path: 'circuitId',
+        select: 'name distance elevationGain kml_path pathPhoto'
+    })
     .then((cyclingRaces) => {
       res.json(cyclingRaces);
     })
@@ -12,7 +16,28 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.get("/upcoming", (req: Request, res: Response, next: NextFunction) => {
-  CyclingRace.find({})
+  CyclingRace.find({
+      date: { $gt: new Date() }
+    })
+    .populate({
+        path: 'circuitId',
+        select: 'name distance elevationGain kml_path pathPhoto'
+    })
+    .then((cyclingRaces) => {
+      res.json(cyclingRaces);
+    })
+    .catch((error) => next(error));
+});
+
+router.get("/next", (req: Request, res: Response, next: NextFunction) => {
+  CyclingRace.find({
+      date: { $gt: new Date() }
+    })
+    .limit(1)
+    .populate({
+        path: 'circuitId',
+        select: 'name distance elevationGain kml_path pathPhoto'
+    })
     .then((cyclingRaces) => {
       res.json(cyclingRaces);
     })
@@ -20,7 +45,13 @@ router.get("/upcoming", (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.get("/past", (req: Request, res: Response, next: NextFunction) => {
-  CyclingRace.find({})
+  CyclingRace.find({
+      date: { $lt: new Date() }
+    })
+    .populate({
+        path: 'circuitId',
+        select: 'name distance elevationGain kml_path pathPhoto'
+    })
     .then((cyclingRaces) => {
       res.json(cyclingRaces);
     })

@@ -44,6 +44,4 @@ circuitSchema.set("toJSON", {
   },
 });
 
-
 export const Circuit = mongoose.model("Circuit", circuitSchema);
-
