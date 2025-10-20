@@ -10,6 +10,8 @@ import loginRouter from "../src/controllers/login";
 import signInRouter from "../src/controllers/cyclists";
 import logger from "./utils/logger";
 import path from "path";
+import cors from "cors";
+
 const app = express();
 mongoose.set("strictQuery", false);
 
@@ -24,7 +26,12 @@ if (config.MONGODB_URI) {
 app.use(express.json());
 app.use(middleware.requestLogger);
 app.use(express.static(path.resolve(__dirname, "dist")));
-
+app.use(
+  cors({
+    origin: "http://localhost:5173", 
+    credentials: true, 
+  })
+);
 app.use("/api/inscriptions", inscriptionRouter);
 app.use("/api/circuits", circuitRouter);
 app.use("/api/cycling-races", cyclingRacesRouter);
