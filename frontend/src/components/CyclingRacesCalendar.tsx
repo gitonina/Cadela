@@ -7,17 +7,44 @@ import cyclingRacesService from "../services/cyclingRaces";
 import CyclingRaceCard from "./CyclingRaceCard";
 
 import { useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
 
 const CyclingRacesCalendar = () => {
   const [races, setRaces] = useState<CyclingRace[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const handleRaces = () => {
-    cyclingRacesService.getAllRaces().then((allRaces) => {
-      console.log(allRaces);
-      setRaces(allRaces);
-    });
-  };
-  useEffect(handleRaces, []);
+  useEffect(() => {
+    const handleRaces = async () => {
+      try {
+        setIsLoading(true);
+        const allRaces = await cyclingRacesService.getUpcomingRaces();
+        console.log(allRaces);
+        setRaces(allRaces);
+      } catch (error) {
+        console.error("Error fetching races:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    handleRaces();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="50vh"
+      >
+        <CircularProgress />
+        <Typography color="white" variant="h6" ml={2}>
+          Cargando calendario de carreras...
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <>
