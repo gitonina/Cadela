@@ -19,7 +19,7 @@ router.post("/", (request, response, next) => {
   };
 
   const circuit = {
-    name: body.circuitName,
+    name: body.name,
     distance: body.distance,
     elevationGain: body.elevationGain,
     kml_path: null,

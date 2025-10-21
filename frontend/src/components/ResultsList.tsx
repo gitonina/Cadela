@@ -1,15 +1,14 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 
 import type { CyclingRace } from "../types/cyclingRace";
 import cyclingRacesService from "../services/cyclingRaces";
-import CyclingRaceCard from "./CyclingRaceCard";
 
 import { useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
+import FinishedCyclingRaceCard from "./FinishedCyclingRaceCard";
+import { Box, CircularProgress } from "@mui/material";
 
-const CyclingRacesCalendar = () => {
+const ResultsList = () => {
   const [races, setRaces] = useState<CyclingRace[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -17,7 +16,7 @@ const CyclingRacesCalendar = () => {
     const handleRaces = async () => {
       try {
         setIsLoading(true);
-        const allRaces = await cyclingRacesService.getUpcomingRaces();
+        const allRaces = await cyclingRacesService.getPastRaces();
         console.log(allRaces);
         setRaces(allRaces);
       } catch (error) {
@@ -40,7 +39,7 @@ const CyclingRacesCalendar = () => {
       >
         <CircularProgress />
         <Typography color="white" variant="h6" ml={2}>
-          Cargando calendario de carreras...
+          Cargando resultados de carreras...
         </Typography>
       </Box>
     );
@@ -49,7 +48,7 @@ const CyclingRacesCalendar = () => {
   return (
     <>
       <Typography color="white" variant="h3" fontWeight="bold" mb={5} mt={0}>
-        Calendario Carreras 2025
+        Lista de resultados de carreras
       </Typography>
       <Grid
         container
@@ -60,7 +59,7 @@ const CyclingRacesCalendar = () => {
       >
         {races.map((race) => (
           <Grid key={race.id}>
-            <CyclingRaceCard race={race} />
+            <FinishedCyclingRaceCard race={race} />
           </Grid>
         ))}
       </Grid>
@@ -68,4 +67,4 @@ const CyclingRacesCalendar = () => {
   );
 };
 
-export default CyclingRacesCalendar;
+export default ResultsList;

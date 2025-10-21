@@ -21,7 +21,6 @@ export default function SignInPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  // Validación local antes de enviar
   const validateFields = () => {
     if (!rut || !name || !club || !n_dorsal || !password)
       return "Todos los campos son requeridos";
