@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 
 import { useState } from 'react';
 
-import InscriptionForm from './InscriptionForm';
+import SubscribeButton from './SubscribeInscription';
 import type { CyclingRace } from '../types/cyclingRace';
 import { formatDate } from '../utils/dates';
 
@@ -58,10 +58,11 @@ export default function ActiveCyclingRaceCard(props: { race: CyclingRace }) {
         </Stack>
         
       </CardContent>
-      <CardActions>
-        <Button size="small" color='info' onClick={() => setShowRegister(!showRegister)}>Inscribirse</Button>
-        <Button 
-          size="small" 
+      <CardActions sx={{ flexDirection: "column", alignItems: "stretch" }}>
+        <SubscribeButton raceId={race.id} />
+
+        <Button
+          size="small"
           href='https://www.relive.com/view/vMv8G1nVLPq'
           target="_blank"
           rel="noopener noreferrer"
@@ -70,10 +71,6 @@ export default function ActiveCyclingRaceCard(props: { race: CyclingRace }) {
           Circuito en Relieve
         </Button>
       </CardActions>
-
-      {showRegister && (
-        <InscriptionForm  />
-      )}
     </Card>
   );
 }

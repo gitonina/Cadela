@@ -1,6 +1,7 @@
-export type InscriptionData={
-    club:string;
-    fullname:string;
-    dorsalnumber:string;
-    category:string;
-}
+export type Inscription = {
+  id?: string;
+  cyclistId: string;
+  cyclingRaceId: string;
+  categoryId: string;
+  createdAt?: string;
+};

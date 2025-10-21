@@ -7,6 +7,8 @@ import ResultsPage from "./pages/ResultsPage";
 import AdminPage from "./pages/AdminPage";
 import CadelaAppBar from "./components/AppBar";
 import ResultsListPage from "./pages/ResultsListPage";
+import LoginPage from './pages/LoginPage'
+import SignInPage from './pages/SignInPage'
 
 function App() {
   return (
@@ -20,7 +22,9 @@ function App() {
           <Route path="/results" element={<ResultsListPage />} />
           <Route path="/results/:raceId" element={<ResultsPage />} />
           <Route path="/admin" element={<AdminPage />} />
-        </Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
+      </Routes>
       </Container>
     </Box>
   );

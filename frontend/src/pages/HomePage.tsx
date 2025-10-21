@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import type { CyclingRace } from "../types/cyclingRace";
 import cyclingRacesService from "../services/cyclingRaces";
 import { CircularProgress } from "@mui/material";
-
+import loginService from "../services/login";
+import Topbar from "../components/Topbar";
 export default function HomePage() {
   const [activeRace, setActiveRace] = useState<CyclingRace | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -29,8 +30,32 @@ export default function HomePage() {
     };
     fetchActiveRace();
   }, []);
+    const [user, setUser] = useState<any>(null);
 
-  return (
+  useEffect(() => {
+    const init = async () => {
+      const loggedUser = await loginService.restoreLogin();
+      setUser(loggedUser);
+    };
+    init();
+  }, []);
+
+  const handleLogout = async () => {
+    await loginService.logout();
+    setUser(null);
+    window.location.reload(); 
+  };
+
+
+
+
+
+
+
+
+    return (
+    <>
+    <Topbar />
     <Box sx={{ textAlign: "center", py: 8 }}>
       {/* Hero Section */}
       <Stack
@@ -94,5 +119,6 @@ export default function HomePage() {
         </Button>
       </Box>
     </Box>
+    </>
   );
 }
