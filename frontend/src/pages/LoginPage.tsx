@@ -50,7 +50,7 @@ export default function LoginPage() {
   if (cyclist) {
     return (
       <Stack spacing={3}>
-        <Alert severity="success">Sesión iniciada como {cyclist.name}</Alert>
+        <Alert severity="success">Has iniciado Sesión! {cyclist.name}</Alert>
         <Button variant="outlined" color="secondary" onClick={handleLogout}>
           Cerrar sesión
         </Button>
