@@ -12,6 +12,7 @@ import {
   Stack
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import type { InscriptionCreate } from "../types/inscription";
 
 
 const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
@@ -49,7 +50,7 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
       return;
     }
 
-    const payload = {
+    const payload : InscriptionCreate = {
       cyclistId: user.id,
       cyclingRaceId: raceId,
       categoryId: selectedCategory,

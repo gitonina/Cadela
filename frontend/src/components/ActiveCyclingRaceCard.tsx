@@ -34,7 +34,7 @@ export default function ActiveCyclingRaceCard(props: { race: CyclingRace }) {
       <CardMedia
         sx={{ height: 200 }}
         image={race.circuitId.pathPhoto}
-        title="autodromo vizcachas"
+        title={race.circuitId.name}
       />
       <CardContent>
         <Typography gutterBottom variant="h5">

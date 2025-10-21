@@ -5,3 +5,13 @@ export type Inscription = {
   categoryId: string;
   createdAt?: string;
 };
+
+export type InscriptionCreate = {
+  cyclistId: string;
+  cyclingRaceId: string;
+  categoryId: string;
+};
+
+export type InscriptionForm = {
+  categoryId: string;
+}
