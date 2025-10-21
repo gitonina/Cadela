@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import type { CyclingRace } from "../types/cyclingRace";
 import { Button, CardActions } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../utils/dates";
 
 const FinishedCyclingRaceCard = (props: { race: CyclingRace }) => {
   const { race } = props;
@@ -15,7 +16,7 @@ const FinishedCyclingRaceCard = (props: { race: CyclingRace }) => {
 
   return (
     <Card sx={{ width: 600 }}>
-      <CardMedia sx={{ height: 180 }} image={race.pathPhoto} />
+      <CardMedia sx={{ height: 180 }} image={race.circuitId.pathPhoto} />
       <CardContent>
         <Box
           sx={{
@@ -26,9 +27,11 @@ const FinishedCyclingRaceCard = (props: { race: CyclingRace }) => {
           }}
         >
           <Typography fontWeight="bold" sx={{ fontSize: 29 }}>
-            {race.name}
+            {race.circuitId.name}
           </Typography>
-          <Typography variant="h5">{race.date}</Typography>
+          <Typography variant="h5">
+            {formatDate(race.date)}
+          </Typography>
         </Box>
         <Box
           sx={{
@@ -48,17 +51,11 @@ const FinishedCyclingRaceCard = (props: { race: CyclingRace }) => {
               alignItems: "center",
             }}
           >
-            {race.isRaceCircuit ? (
-              <Typography color="grey" variant="h6">
-                Distancia de Circuito
-              </Typography>
-            ) : (
-              <Typography color="grey" variant="h6">
-                Distancia
-              </Typography>
-            )}
+            <Typography color="grey" variant="h6">
+              Distancia
+            </Typography>
             <Typography color="grey" variant="h4" fontWeight="bold">
-              {race.distance} km
+              {race.circuitId.distance} km
             </Typography>
           </Box>
           <Box
@@ -68,17 +65,11 @@ const FinishedCyclingRaceCard = (props: { race: CyclingRace }) => {
               alignItems: "center",
             }}
           >
-            {race.isRaceCircuit ? (
-              <Typography color="grey" variant="h6">
-                Desnivel positivo de Circuito
-              </Typography>
-            ) : (
-              <Typography color="grey" variant="h6">
-                Desnivel positivo
-              </Typography>
-            )}
+            <Typography color="grey" variant="h6">
+              Desnivel positivo
+            </Typography>
             <Typography color="grey" variant="h4" fontWeight="bold">
-              {race.elevationGain} m
+              {race.circuitId.elevationGain} m
             </Typography>
           </Box>
         </Box>
