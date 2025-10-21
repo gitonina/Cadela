@@ -1,8 +1,15 @@
-import { AppBar, Toolbar, Typography, Button, Stack } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Stack,
+  Box,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import loginService from "../services/login";
-import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike'
+import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 export default function Topbar() {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
@@ -22,24 +29,60 @@ export default function Topbar() {
   };
 
   return (
-    <AppBar position="fixed" color="primary" sx={{ mb: 2, width: "100%",
-    left: 0,
-    right: 0,}}>
+    <AppBar
+      position="fixed"
+      color="primary"
+      sx={{ mb: 2, width: "100%", left: 0, right: 0 }}
+    >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography
-          variant="h2"
-          sx={{ cursor: "pointer" }}
+        <Box
           onClick={() => navigate("/")}
+          sx={{
+            cursor: "pointer",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <DirectionsBikeIcon sx={{ fontSize: 48}} />  
-            CICLISMO CADELA
-           
-
-        </Typography>
+          <DirectionsBikeIcon sx={{ color: "white", fontSize: 42, m: 1 }} />
+          <Box
+            sx={{
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "flex-start",
+            }}
+          >
+            <Typography
+              variant="caption"
+              sx={{
+                fontSize: "0.7rem",
+                fontWeight: 400,
+                letterSpacing: "0.1em",
+                lineHeight: 1,
+                textAlign: "left",
+                ml: 0.5,
+              }}
+            >
+              Ciclismo
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                letterSpacing: "0.05em",
+                textAlign: "left",
+                lineHeight: 1,
+              }}
+            >
+              CADELA
+            </Typography>
+          </Box>
+        </Box>
 
         <Stack direction="row" spacing={2}>
-          
-
           {user ? (
             <>
               <Typography variant="body1" sx={{ alignSelf: "center" }}>
