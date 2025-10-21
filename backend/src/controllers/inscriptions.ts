@@ -5,12 +5,27 @@ import Cyclist from "../models/cyclist"
 const router=express.Router()
 
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const inscriptions = await Inscription.find({});
-    res.json(inscriptions);
-  } catch (error) {
-    next(error);
-  }
+  Inscription.find({})    
+    .populate({
+      path: 'cyclingRaceId',
+      populate: {
+        path: 'circuitId', 
+        select: 'name'
+      },
+      select: "date"
+    })
+    .populate({
+      path: 'cyclistId',
+      select: 'name club n_dorsal'
+    })
+    .populate({
+      path: 'categoryId',
+      select: 'name'
+    })
+    .then((inscriptions) => {
+      res.json(inscriptions);
+    })
+    .catch((error) => next(error));
 });
 
 router.post("/", async (request, response, next) => {
