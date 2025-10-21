@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
+import cors from "cors";
 import config from "../src/utils/config";
 import mongoose from "mongoose";
 import middleware from "../src/utils/middleware";
@@ -18,6 +19,8 @@ if (config.MONGODB_URI) {
     logger.error("error connecting to MongoDB:", error.message);
   });
 }
+
+app.use(cors())
 
 app.use(express.json());
 app.use(middleware.requestLogger);
