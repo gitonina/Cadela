@@ -24,8 +24,6 @@ if (config.MONGODB_URI) {
   });
 }
 
-app.use(cors())
-
 app.use(cors());
 app.use(cookieParser());
 

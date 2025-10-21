@@ -48,7 +48,12 @@ const CyclingRacesCalendar = () => {
 
   return (
     <>
-      <Typography color="white" variant="h3" fontWeight="bold" mb={5} mt={0}>
+      <Typography 
+        color="white"
+        variant="h3" 
+        fontWeight="bold" 
+        mb={5} 
+        mt={5}>
         Calendario Carreras 2025
       </Typography>
       <Grid

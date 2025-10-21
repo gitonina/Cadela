@@ -10,6 +10,7 @@ import type { CyclingRace } from "../types/cyclingRace";
 import cyclingRacesService from "../services/cyclingRaces";
 import { CircularProgress } from "@mui/material";
 import Topbar from "../components/Topbar";
+
 export default function HomePage() {
   const [activeRace, setActiveRace] = useState<CyclingRace | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -33,7 +34,7 @@ export default function HomePage() {
   return (
     <>
       <Topbar />
-      <Box sx={{ textAlign: "center", py: 8 }}>
+      <Box sx={{ textAlign: "center", alignItems: "center",justifyContent: "center", py: 8 }}>
         {/* Hero Section */}
         <Stack
           direction="row"
@@ -65,22 +66,34 @@ export default function HomePage() {
           PRÓXIMA CARRERA
         </Typography>
 
-        {isLoading ? (
-          <CircularProgress />
-        ) : activeRace ? (
-          <ActiveCyclingRaceCard race={activeRace} />
-        ) : (
-          <Typography variant="body1" color="text.secondary">
-            No hay carreras programadas por el momento.
-          </Typography>
-        )}
+        <Stack
+          direction="column"
+          alignItems="center"
+          spacing={2}
+          sx={{ mb: 3 }}
+        >
+          {isLoading ? (
+            <CircularProgress />
+          ) : activeRace ? (
+            <ActiveCyclingRaceCard race={activeRace} />
+          ) : (
+            <Typography variant="body1" color="text.secondary">
+              No hay carreras programadas por el momento.
+            </Typography>
+          )}
+        </Stack>
 
-        <Box sx={{ mt: 6 }}>
+        <Stack
+          direction="column"
+          alignItems="center"
+          spacing={2}
+          sx={{ mb: 3 }}
+        >
           <Button
             variant="contained"
             color="primary"
             size="large"
-            sx={{ mt: 4 }}
+            sx={{ mt: 4, margin: 2 }}
             onClick={() => navigate("/calendar")}
           >
             Ver calendario de carreras
@@ -89,12 +102,12 @@ export default function HomePage() {
             variant="contained"
             color="primary"
             size="large"
-            sx={{ mt: 4 }}
+            sx={{ mt: 4, margin: 2 }}
             onClick={() => navigate("/results")}
           >
             Ver resultados de carreras previas
           </Button>
-        </Box>
+        </Stack>
       </Box>
     </>
   );

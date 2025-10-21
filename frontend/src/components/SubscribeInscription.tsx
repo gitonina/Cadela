@@ -69,21 +69,49 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
   
    if (!user) {
     return (
-      <Button variant="outlined" onClick={() => navigate('/login')}>
-        Inicia sesión
-      </Button>
+      <Stack
+        direction="column"
+        alignItems="center"
+        spacing={2}
+        sx={{ mb: 2 }}
+      >
+        <Button 
+          variant="outlined" 
+          onClick={() => navigate('/login')}
+          sx={{ margin: 1, width: 200 }}
+        >
+          Inicia sesión
+        </Button>
+      </Stack>
     );
   }
   return (
-    <Stack spacing={2} direction="column" alignItems="flex-start">
-      <FormControl fullWidth>
-        <InputLabel id="category-label">Categoría</InputLabel>
+    <Stack 
+      spacing={2} 
+      direction="column" 
+      alignItems="center"
+    >
+      <FormControl
+        sx={{ 
+          width: 400,
+        }}
+      >
+        <InputLabel 
+          id="category-label"
+          sx={{ 
+            textAlign: "center",
+          }}
+        > Categoría
+        </InputLabel>
         <Select
           labelId="category-label"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
           label="Categoría"
           size="small"
+          sx={{ 
+            height: 50,
+          }}
         >
           {categories.map((cat) => (
             <MenuItem key={cat.id} value={cat.id}>
@@ -93,7 +121,13 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
         </Select>
       </FormControl>
 
-      <Button variant="contained" onClick={handleSubscribe}>
+      <Button 
+        variant="contained" 
+        onClick={handleSubscribe}
+        sx={{ 
+          height: 45,
+        }}
+      >
         Inscribirse
       </Button>
     </Stack>

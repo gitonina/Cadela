@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
 interface ICategory {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }
 
 const categorySchema = new mongoose.Schema<ICategory>({
-    name: {
-        type: String, 
-        required: true 
-    },
+  name: {
+      type: String, 
+      required: true 
+  },
 });
 
 categorySchema.set("toJSON", {

@@ -47,7 +47,12 @@ const ResultsList = () => {
 
   return (
     <>
-      <Typography color="white" variant="h3" fontWeight="bold" mb={5} mt={0}>
+      <Typography 
+        color="white" 
+        variant="h3" 
+        fontWeight="bold" 
+        mb={5} 
+        mt={5}>
         Lista de resultados de carreras
       </Typography>
       <Grid

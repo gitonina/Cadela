@@ -27,7 +27,7 @@ export default function ActiveCyclingRaceCard(props: { race: CyclingRace }) {
   }
 
   return (
-    <Card sx={{ maxWidth: 600 }}>
+    <Card sx={{ width: 600 }}>
       <CardMedia
         sx={{ height: 200 }}
         image={race.circuitId.pathPhoto}
@@ -68,6 +68,7 @@ export default function ActiveCyclingRaceCard(props: { race: CyclingRace }) {
           target="_blank"
           rel="noopener noreferrer"
           color="info"
+          sx={{ mb: 2, mt: 2, fontSize: 14 }}
         >
           Circuito en Relieve
         </Button>
