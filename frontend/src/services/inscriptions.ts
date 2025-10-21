@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { InscriptionData } from "../types/inscription";
 
-const baseUrl = "api/inscriptions";
+const baseUrl = "http://localhost:3001/api/inscriptions";
 
 export const getAll = async () => {
   const response = await axios.get<InscriptionData[]>(baseUrl);
