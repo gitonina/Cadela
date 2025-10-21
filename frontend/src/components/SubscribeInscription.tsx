@@ -13,10 +13,11 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import type { InscriptionCreate } from "../types/inscription";
+import type { Cyclist } from "../types/cyclist";
 
 
 const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<Cyclist | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const navigate = useNavigate();

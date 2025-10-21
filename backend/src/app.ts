@@ -11,7 +11,6 @@ import loginRouter from "../src/controllers/login";
 import signInRouter from "../src/controllers/cyclists";
 import logger from "./utils/logger";
 import path from "path";
-import cors from "cors";
 import cookieParser from "cookie-parser";
 const app = express();
 mongoose.set("strictQuery", false);

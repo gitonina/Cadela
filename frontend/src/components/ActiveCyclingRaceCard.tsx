@@ -9,15 +9,12 @@ import LandscapeIcon from "@mui/icons-material/Landscape";
 import EventIcon from "@mui/icons-material/Event";
 import Stack from "@mui/material/Stack";
 
-import { useState } from "react";
-
 import SubscribeButton from "./SubscribeInscription";
 import type { CyclingRace } from "../types/cyclingRace";
 import { formatDate } from "../utils/dates";
 
 export default function ActiveCyclingRaceCard(props: { race: CyclingRace }) {
   const { race } = props;
-  const [showRegister, setShowRegister] = useState<boolean>(false);
 
   // Defensive check - if circuitId is not populated, don't render
   if (!race.circuitId) {

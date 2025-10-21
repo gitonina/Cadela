@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import type { InscriptionData } from "../types/inscription";
+import type { Inscription, InscriptionForm } from "../types/inscription";
 import type { SelectChangeEvent } from "@mui/material";
 import {
-  TextField,
   Button,
   Container,
   Typography,
@@ -16,15 +15,12 @@ import {
 
 import inscriptionService from "../services/inscriptions";
 
-const InscriptionForm = () => {
-  const [form, setForm] = useState<InscriptionData>({
-    club: "",
-    fullname: "",
-    dorsalnumber: "",
-    category: ""
+const InscriptionForm = ( {cyclistId, cyclingRaceId} : {cyclistId : string, cyclingRaceId : string} ) => {
+  const [form, setForm] = useState<InscriptionForm>({
+    categoryId: ""
   });
 
-  const [inscriptions, setInscriptions] = useState<InscriptionData[]>([]);
+  const [inscriptions, setInscriptions] = useState<Inscription[]>([]);
 
   const handleInscriptions = () => {
     inscriptionService.getAllInscriptions().then((allInscriptions) => {
@@ -51,14 +47,6 @@ const InscriptionForm = () => {
     "Federado DAMAS"
   ];
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
   const onSelectChange = (event: SelectChangeEvent) => {
     const { name, value } = event.target;
     setForm(prev => ({
@@ -67,16 +55,17 @@ const InscriptionForm = () => {
     }));
   };
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setForm({
-      club: "",
-      fullname: "",
-      dorsalnumber: "",
-      category: ""
+      categoryId: ""
     });
-    inscriptionService.createIncription(form)
-    setInscriptions([...inscriptions, form]);
+    const newInscription = await inscriptionService.createInscription({
+      cyclistId,
+      cyclingRaceId,
+      categoryId: form.categoryId
+    });
+    setInscriptions([...inscriptions, newInscription]);
   };
     
   return (
@@ -92,33 +81,12 @@ const InscriptionForm = () => {
           flexDirection="column"
           gap={2}
         >
-          <TextField
-            label="Club"
-            name="club"
-            value={form.club}
-            onChange={onChange}
-            required
-          />
-          <TextField
-            label="Nombre completo"
-            name="fullname"
-            value={form.fullname}
-            onChange={onChange}
-            required
-          />
-          <TextField
-            label="Número de dorsal"
-            name="dorsalnumber"
-            value={form.dorsalnumber}
-            onChange={onChange}
-            required
-          />
           <FormControl required>
             <InputLabel id="category-select-label">Categoría</InputLabel>
             <Select
               labelId="category-select-label"
               id="category-select"
-              value={form.category}
+              value={form.categoryId}
               label="Categoría *"
               onChange={onSelectChange}
               name="category"
@@ -137,11 +105,6 @@ const InscriptionForm = () => {
         <Typography variant='h6' sx={{ mt: 2 }}>
           Ciclistas Inscritos:
         </Typography>
-          {inscriptions.map((inscription, index) => (
-            <Typography key={index} variant='body1'>
-              {index + 1}. {inscription.fullname} ({inscription.club}) N°{inscription.dorsalnumber} - {inscription.category}
-            </Typography>
-          ))}
       </Paper>
     </Container>
   );
