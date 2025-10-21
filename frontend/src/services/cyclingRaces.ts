@@ -23,7 +23,7 @@ export const getNextRace = async () => {
   return response.data[0] || null;
 }
 
-export const getRaceById = async (id: number) => {
+export const getRaceById = async (id: string) => {
   const response = await axios.get<CyclingRace>(`${baseUrl}/${id}`);
   return response.data;
 }

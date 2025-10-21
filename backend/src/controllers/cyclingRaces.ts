@@ -58,6 +58,23 @@ router.get("/past", (req: Request, res: Response, next: NextFunction) => {
     .catch((error) => next(error));
 });
 
+router.get("/:id", (req: Request, res: Response, next: NextFunction) => {
+  const id = req.params.id;
+  CyclingRace.findById(id)
+    .populate({
+      path: 'circuitId',
+      select: 'name distance elevationGain kml_path pathPhoto'
+    })
+    .then((cyclingRace) => {
+      if (cyclingRace) {
+        res.json(cyclingRace);
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch((error) => next(error));
+});
+
 router.post("/", (request, response, next) => {
   const body = request.body;
 
