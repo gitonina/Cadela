@@ -29,17 +29,19 @@ router.get("/upcoming", (req: Request, res: Response, next: NextFunction) => {
     .catch((error) => next(error));
 });
 
-router.get("/next", (req: Request, res: Response, next: NextFunction) => {
-  CyclingRace.find({
+router.get("/next", async (req: Request, res: Response, next: NextFunction) => {
+  let nextRace;
+  await CyclingRace.find({
       date: { $gt: new Date() }
     })
     .limit(1)
     .populate({
         path: 'circuitId',
-        select: 'name distance elevationGain kml_path pathPhoto'
+        select: 'name distance elevationGain kml_path pathPhoto',
     })
     .then((cyclingRaces) => {
       res.json(cyclingRaces);
+      nextRace = cyclingRaces;
     })
     .catch((error) => next(error));
 });

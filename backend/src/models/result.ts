@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 interface IResult{
     inscriptionId: mongoose.Types.ObjectId;
-    place: number;
+    placement: number;
     is_MV: boolean;
 }
 
@@ -12,13 +12,14 @@ const resultSchema = new mongoose.Schema<IResult>({
         required: true,
         ref: 'Inscription'
     },
-    place: {
+    placement: {
         type: Number, 
         required: true
     },
     is_MV: {
         type: Boolean, 
-        required: true
+        required: true,
+        default: false
     }
 }, {timestamps: true});
 

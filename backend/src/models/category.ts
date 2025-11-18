@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-interface Icategory {
-    id: string;
-    name: string;
+interface ICategory {
+  id: string;
+  name: string;
 }
 
-const categorySchema = new mongoose.Schema<Icategory>({
-    name: {
-        type: String, 
-        required: true 
-    },
+const categorySchema = new mongoose.Schema<ICategory>({
+  name: {
+      type: String, 
+      required: true 
+  },
 });
 
 categorySchema.set("toJSON", {
@@ -23,5 +23,4 @@ categorySchema.set("toJSON", {
   },
 });
 
-
-export const Category = mongoose.model("Category", categorySchema);
+export const Category = mongoose.model('Category', categorySchema);

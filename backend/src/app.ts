@@ -4,6 +4,7 @@ import config from "../src/utils/config";
 import mongoose from "mongoose";
 import middleware from "../src/utils/middleware";
 import inscriptionRouter from "../src/controllers/inscriptions";
+import categoriesRouter from "../src/controllers/categories";
 import circuitRouter from "../src/controllers/circuits";
 import cyclingRacesRouter from "../src/controllers/cyclingRaces";
 import resultRouter from "../src/controllers/results";
@@ -23,8 +24,6 @@ if (config.MONGODB_URI) {
   });
 }
 
-app.use(cors())
-
 app.use(cors());
 app.use(cookieParser());
 
@@ -42,6 +41,7 @@ app.use("/api/circuits", circuitRouter);
 app.use("/api/cycling-races", cyclingRacesRouter);
 app.use("/api/results", resultRouter);
 app.use("/api/cyclists", signInRouter);
+app.use("/api/categories", categoriesRouter);
 app.use("/api/login", loginRouter)
 
 app.use(middleware.unknownEndpoint);

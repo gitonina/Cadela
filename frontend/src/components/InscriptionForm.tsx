@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import type { Inscription, InscriptionForm } from "../types/inscription";
 import type { SelectChangeEvent } from "@mui/material";
+import type { Category } from "../types/categories";
+import categoriesService from "../services/categories";
+
 import {
   Button,
   Container,
@@ -16,6 +19,20 @@ import {
 import inscriptionService from "../services/inscriptions";
 
 const InscriptionForm = ( {cyclistId, cyclingRaceId} : {cyclistId : string, cyclingRaceId : string} ) => {
+  const [categories, setCategories] = useState<Category[] | null>(null);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const allCategories = await categoriesService.getAllCategories();
+        setCategories(allCategories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
+  
   const [form, setForm] = useState<InscriptionForm>({
     categoryId: ""
   });
@@ -29,41 +46,24 @@ const InscriptionForm = ( {cyclistId, cyclingRaceId} : {cyclistId : string, cycl
   }
   useEffect(handleInscriptions, []);
 
-  const categories = [
-    "Intermedia(15 y 16 años)",
-    "Junior(17 y 18 años)",
-    "Todo competidor(19 años y más)",
-    "Adultos A (18 años y más)",
-    "Master (35 a 49 años)",
-    "Master C (50 a 59 años)",
-    "Master D (60 a 69 años)",
-    "Master E (70 años y más)",
-    "Amateur (18 años y más)",
-    "Damas Adultos A (18 años y más)",
-    "Damas Master (35 años y más)",
-    "Federado JUNIOR",
-    "Federado INTERMEDIA",
-    "Federado ELITE/TODO COMPETIDOR",
-    "Federado DAMAS"
-  ];
-
   const onSelectChange = (event: SelectChangeEvent) => {
-    const { name, value } = event.target;
+    const { _, value } = event.target;
     setForm(prev => ({
       ...prev,
-      [name]: value
+      categoryId: value
     }));
+    console.log(form);
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setForm({
-      categoryId: ""
-    });
     const newInscription = await inscriptionService.createInscription({
       cyclistId,
       cyclingRaceId,
       categoryId: form.categoryId
+    });
+    setForm({
+      categoryId: ""
     });
     setInscriptions([...inscriptions, newInscription]);
   };
@@ -89,16 +89,20 @@ const InscriptionForm = ( {cyclistId, cyclingRaceId} : {cyclistId : string, cycl
               value={form.categoryId}
               label="Categoría *"
               onChange={onSelectChange}
-              name="category"
+              name="categoryId"
             >
-            {categories.map((category) => (
-              <MenuItem key={category} value={category}>
-                {category}
+            {categories?.map((category) => (
+              <MenuItem key={category.id} value={category.id}>
+                {category.name}
               </MenuItem>
             ))}
             </Select>
           </FormControl>
-          <Button type="submit" variant="contained" color="primary">
+          <Button 
+            type="submit" 
+            variant="contained" 
+            color="primary"
+          >
             Inscribirse
           </Button>
         </Box>
