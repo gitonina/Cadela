@@ -9,7 +9,8 @@ Proyecto para el ramo CC5003 - Aplicaciones Web Reactivas
 ```sh
 cd backend
 npm install
-npx json-server db.json -p 3001
+ts-node src/seed_data.ts
+npm run dev
 ```
 
 - Para correr el frontend:

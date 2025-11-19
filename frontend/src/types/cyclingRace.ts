@@ -1,10 +1,12 @@
+import type { Circuit } from "./circuit";
 
 export interface CyclingRace {
-    id: number;
-    name: string;
+    id: string;
+    circuitId: Circuit
     date: string;
-    distance?: string;
-    elevationGain?: string;
-    pathPhoto: string;
-    isRaceCircuit: boolean;
 };
+
+export interface CyclingRaceCreate {
+    circuitId: string;
+    date: string;
+}
