@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Inscription } from "../models/inscription";
 import Cyclist from "../models/cyclist"
+import { authenticateToken } from "../utils/middleware";
 
 const router=express.Router()
 
@@ -28,7 +29,7 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
     .catch((error) => next(error));
 });
 
-router.post("/", async (request, response, next) => {
+router.post("/",authenticateToken, async (request, response, next) => {
   try {
     const body = request.body;
     const user = await Cyclist.findById(body.cyclistId);

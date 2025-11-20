@@ -8,6 +8,7 @@ export interface ICyclist extends Document {
   n_dorsal: number,
   password: string,
   inscriptions: mongoose.Types.ObjectId[];
+  rolId: mongoose.Types.ObjectId
 }
 
 const cyclistSchema = new Schema<ICyclist>({
@@ -47,7 +48,12 @@ const cyclistSchema = new Schema<ICyclist>({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Inscription',
     default: [] 
-  }]
+  }],
+  rolId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Role",
+    required: true,
+  },
 })
 
 cyclistSchema.set("toJSON", {

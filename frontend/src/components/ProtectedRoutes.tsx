@@ -5,7 +5,7 @@ import rolesService from "../services/roles";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  roles?: string[]; 
+  roles?: string[]; // ejemplo: ["admin"]
 }
 
 export function ProtectedRoute({ children, roles }: ProtectedRouteProps) {
@@ -28,11 +28,11 @@ export function ProtectedRoute({ children, roles }: ProtectedRouteProps) {
 
     check();
   }, []);
-
+   console.log(roleName)
+  
   if (loading) return null;
 
   if (!user) return <Navigate to="/" replace />;
-
   if (roles && !roles.includes(roleName!)) {
     return <Navigate to="/" replace />;
   }

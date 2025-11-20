@@ -3,54 +3,64 @@ import bcrypt from "bcrypt";
 import express from "express";
 import Cyclist from "../models/cyclist";
 import config from "../utils/config";
-import { withUser } from "../utils/middleware";
+import { authenticateToken, withUser } from "../utils/middleware";
 
 const router = express.Router();
 
 router.post("/", async (request, response) => {
   const { name, password } = request.body;
-    if (!name || !password) {
+
+  if (!name || !password) {
     return response.status(400).json({ error: "Nombre y contraseña son requeridos" });
   }
-  const cyclist = await Cyclist.findOne({ name });
-  if (cyclist) {
-    const passwordCorrect = await bcrypt.compare(password, cyclist.password);
 
-    if (!passwordCorrect) {
-      response.status(401).json({
-        error: "invalid username or password",
-      });
-    } else {
-      const userForToken = {
-        id: cyclist._id,
-        name: cyclist.name,
-        csrf: crypto.randomUUID(),
-      };
+  const cyclist = await Cyclist.findOne({ name }).populate("rolId");
 
-      const token = jwt.sign(userForToken, config.JWT_SECRET, {
-        expiresIn: 60 * 60,
-      });
-      response.setHeader("X-CSRF-Token", userForToken.csrf);
-      response.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-      });
-      response.status(200).send({ username: cyclist.name });
-    }
-  } else {
-    response.status(401).json({
-      error: "invalid username or password",
-    });
+  
+  if (!cyclist) {
+    return response.status(401).json({ error: "invalid username or password" });
   }
+
+  const passwordCorrect = await bcrypt.compare(password, cyclist.password);
+
+  if (!passwordCorrect) {
+    return response.status(401).json({ error: "invalid username or password" });
+  }
+
+  const csrf = crypto.randomUUID();
+
+  const userForToken = {
+    id: cyclist._id,
+    name: cyclist.name,
+    rolId: cyclist.rolId._id.toString(), 
+    csrf: crypto.randomUUID()
+  };
+
+  const token = jwt.sign(userForToken, config.JWT_SECRET, {
+    expiresIn: 60 * 60, // 1 hora
+  });
+
+  response.setHeader("X-CSRF-Token", csrf);
+
+  response.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+
+  return response.status(200).json({
+    username: cyclist.name,
+    rolId: cyclist.rolId._id,
+  });
 });
 
-router.get("/me", withUser, async (request, response, next) => {
+router.get("/me", authenticateToken, async (request, response, next) => {
   const body = request.body;
   const cyclist = await Cyclist.findById(request.userId);
   response.status(200).json(cyclist);
 });
 
-router.post("/logout", (request, response) => {
+router.post("/logout",authenticateToken, (request, response) => {
   response.clearCookie("token");
   response.status(200).send({
     message: "Logged out successfully"

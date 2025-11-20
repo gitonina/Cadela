@@ -10,6 +10,7 @@ import cyclingRacesRouter from "../src/controllers/cyclingRaces";
 import resultRouter from "../src/controllers/results";
 import loginRouter from "../src/controllers/login";
 import signInRouter from "../src/controllers/cyclists";
+import roleRouter from "../src/controllers/roles"
 import logger from "./utils/logger";
 import path from "path";
 import cookieParser from "cookie-parser";
@@ -43,6 +44,7 @@ app.use("/api/results", resultRouter);
 app.use("/api/cyclists", signInRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/login", loginRouter)
+app.use("api/roles",roleRouter)
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
