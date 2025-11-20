@@ -44,7 +44,7 @@ app.use("/api/results", resultRouter);
 app.use("/api/cyclists", signInRouter);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/login", loginRouter)
-app.use("api/roles",roleRouter)
+app.use("/api/roles",roleRouter)
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
