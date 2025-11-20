@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import type { CyclingRace } from "../types/cyclingRace";
 import cyclingRacesService from "../services/cyclingRaces";
 import { CircularProgress } from "@mui/material";
-import Topbar from "../components/Topbar";
+import NewTopBar from "../components/ui/NewTopbar";
 
 export default function HomePage() {
   const [activeRace, setActiveRace] = useState<CyclingRace | null>(null);
@@ -33,9 +33,13 @@ export default function HomePage() {
 
   return (
     <>
-      <Topbar />
-      <Box sx={{ textAlign: "center", alignItems: "center",justifyContent: "center", py: 8 }}>
-        {/* Hero Section */}
+      <NewTopBar />
+      <Box sx={{ 
+        textAlign: "center", 
+        alignItems: "center",
+        justifyContent: "center", 
+        py: 8 
+      }}>
         <Stack
           direction="row"
           alignItems="center"

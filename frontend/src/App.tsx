@@ -8,14 +8,11 @@ import AdminPage from "./pages/AdminPage";
 import ResultsListPage from "./pages/ResultsListPage";
 import LoginPage from "./pages/LoginPage";
 import SignInPage from "./pages/SignInPage";
-import Topbar from "./components/Topbar";
 
 function App() {
   return (
     <Box>
-      <Topbar />
       <Container sx={{ mt: 4, flex: 1 }}>
-        {/* Routes */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/calendar" element={<CalendarPage />} />
