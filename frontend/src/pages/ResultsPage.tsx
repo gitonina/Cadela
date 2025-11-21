@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ResultsTable from "../components/ResultsTable";
-import type { CyclingRaceResults } from "../types/cyclingRaceResults";
+import type { CyclingRaceResult } from "../types/cyclingRaceResults";
 import CyclingRaceCard from "../components/CyclingRaceCard";
 import type { CyclingRace } from "../types/cyclingRace";
 import cyclingRacesService from "../services/cyclingRaces";
@@ -19,7 +19,7 @@ import resultsService from "../services/results";
 export default function ResultsPage() {
   const { raceId } = useParams<{ raceId: string }>();
   const [cyclingRace, setCyclingRace] = useState<CyclingRace | null>(null);
-  const [results, setResults] = useState<CyclingRaceResults[] | null>(null);
+  const [results, setResults] = useState<CyclingRaceResult[] | null>(null);
   const [isRaceLoading, setIsRaceLoading] = useState<boolean>(true);
   const [isResultsLoading, setIsResultsLoading] = useState<boolean>(true);
 

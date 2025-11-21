@@ -8,10 +8,10 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import type { CyclingRaceResults } from "../types/cyclingRaceResults";
+import type { CyclingRaceResult } from "../types/cyclingRaceResults";
 
 interface ResultsTableProps {
-  raceResults: CyclingRaceResults;
+  raceResults: CyclingRaceResult[];
 }
 
 export default function ResultsTable({ raceResults }: ResultsTableProps) {
