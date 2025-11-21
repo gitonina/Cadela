@@ -88,6 +88,36 @@ export default function ResultsPage() {
     );
   }
 
+  if (!results) {
+    return (
+      <Box sx={{ py: 4, textAlign: "center" }}>
+        <Typography>No hay resultados disponibles para esta carrera.</Typography>
+        <Button
+          component={Link}
+          to="/"
+          variant="outlined"
+          startIcon={<HomeIcon />}
+          sx={{ mt: 1 }}
+        >
+          Inicio
+        </Button>
+      </Box>
+    );
+  }
+
+  // Group results by category
+  const groupedResults = results.reduce((acc, result) => {
+    const categoryName = result.inscriptionId.categoryId.name;
+    if (!acc[categoryName]) {
+      acc[categoryName] = [];
+    }
+    acc[categoryName].push(result);
+    return acc;
+  }, {} as Record<string, CyclingRaceResult[]>);
+
+  // Sort categories alphabetically
+  const categories = Object.keys(groupedResults).sort();
+
   return (
     <Box sx={{ py: 4 }}>
       <Button
@@ -139,9 +169,9 @@ export default function ResultsPage() {
               alignItems="center"
               width="80vw"
             >
-              {results.map((result) => (
+              {categories.map((categoryName) => (
                 <Paper
-                  key={result.id}
+                  key={categoryName}
                   elevation={3}
                   sx={{
                     mb: 4,
@@ -149,7 +179,7 @@ export default function ResultsPage() {
                     borderRadius: 2,
                   }}
                 >
-                  <ResultsTable raceResults={result} />
+                  <ResultsTable raceResults={groupedResults[categoryName]} category={categoryName} />
                 </Paper>
               ))}
             </Grid>
