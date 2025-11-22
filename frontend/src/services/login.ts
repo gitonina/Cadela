@@ -7,7 +7,7 @@ type Credentials = {
 };
 
 const login = async (credentials: Credentials) => {
-    const response = await axios.post("/api/login", credentials);
+    const response = await axiosSecure.post("/login", credentials);
 
     const csrfToken = response.headers["x-csrf-token"];
 
@@ -28,7 +28,7 @@ const restoreLogin = async () => {
 };
 
 const logout = async () => {
-    await axios.post("/api/login/logout");
+    await axiosSecure.post("/login/logout");
     localStorage.removeItem("csrfToken");
 };
 

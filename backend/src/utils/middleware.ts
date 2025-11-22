@@ -2,12 +2,17 @@ import { NextFunction, Request, Response } from "express";
 import logger from "./logger";
 import jwt from "jsonwebtoken";
 import config from "./config";
-
+import { Role } from "../models/roles";
 
 declare global {
   namespace Express {
     interface Request {
-      userId?: string; 
+      userId?: string;
+      user?: {
+        id: string;
+        name?: string;
+        rolId?: string;
+      };
     }
   }
 }
@@ -77,6 +82,52 @@ export const withUser = async (
   } catch (error) {
     res.status(401).json({ error: "invalid token" });
   }
+};
+
+export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const token = req.cookies?.token;
+    if (!token) {
+      return res.status(401).json({ error: "No autenticado", message: "Token no proporcionado" });
+    }
+
+    jwt.verify(token, config.JWT_SECRET, (err: any, decoded: any) => {
+      if (err) {
+        return res.status(403).json({ error: "Token inválido", message: err.message });
+      }
+
+      req.user = {
+        id: decoded.id,
+        name: decoded.name,
+        rolId: decoded.rolId,
+      };
+      req.userId = decoded.id;
+
+      next();
+    });
+  } catch (error) {
+    console.error("Error en authenticateToken:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+export const requireRole = (roles: Array<"admin" | "cyclist">) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    if (!req.user) {
+      return res.status(401).json({ error: "No autenticado" });
+    }
+
+    const role = await Role.findById(req.user.rolId);
+    if (!role) {
+      return res.status(500).json({ error: "Rol no encontrado" });
+    }
+
+    if (!roles.includes(role.name)) {
+      return res.status(403).json({ error: "No autorizado" });
+    }
+
+    next();
+  };
 };
 
 
