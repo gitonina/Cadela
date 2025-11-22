@@ -3,6 +3,7 @@
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "json-server": "^1.0.0-beta.3",
@@ -27,7 +28,8 @@
     "build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "start:test": "cross-env NODE_ENV=test ts-node-dev --respawn --transpile-only src/index.ts"
   },
   "author": "",
   "license": "ISC"
