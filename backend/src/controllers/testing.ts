@@ -6,6 +6,7 @@ import { CyclingRace } from '../models/cyclingRace';
 import Cyclist from '../models/cyclist';
 import { Inscription } from '../models/inscription';
 import { Result } from '../models/result';
+import { Role } from "../models/roles";
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.post('/reset', async (_req, res) => {
   await Cyclist.deleteMany({});
   await Inscription.deleteMany({});
   await Result.deleteMany({});
+  await Role.deleteMany({});
   res.status(204).end();
 });
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import axiosSecure from "../utils/axiosSecure";
 import type { Inscription, InscriptionCreate } from "../types/inscription";
 
-const baseUrl = "http://localhost:3001/api/inscriptions";
+const baseUrl = "/inscriptions";
 
 export const getAll = async () => {
   const response = await axios.get<Inscription[]>(baseUrl);
