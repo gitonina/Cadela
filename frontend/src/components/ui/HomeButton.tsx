@@ -1,11 +1,13 @@
 import FlexRow from "./FlexRow"
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import { Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 
 const HomeButton = () => {
+  const navigate = useNavigate();
   return (
-    <FlexRow cursor="pointer">
+    <FlexRow cursor="pointer" onClick={() => navigate("/")}>
       <DirectionsBikeIcon sx={{ color: "white", fontSize: 42, m: 1 }} />
       <Box
         sx={{

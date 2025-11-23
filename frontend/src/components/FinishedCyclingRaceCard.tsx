@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import type { CyclingRace } from "../types/cyclingRace";
 import { Button, CardActions } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { formatDate } from "../utils/dates";
+import { formatDateNumber } from "../utils/dates";
 
 const FinishedCyclingRaceCard = (props: { race: CyclingRace }) => {
   const { race } = props;
@@ -30,7 +30,7 @@ const FinishedCyclingRaceCard = (props: { race: CyclingRace }) => {
             {race.circuitId.name}
           </Typography>
           <Typography variant="h5">
-            {formatDate(race.date)}
+            {formatDateNumber(race.date)}
           </Typography>
         </Box>
         <Box

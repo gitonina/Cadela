@@ -11,7 +11,7 @@ import Stack from "@mui/material/Stack";
 
 import SubscribeButton from "./SubscribeInscription";
 import type { CyclingRace } from "../types/cyclingRace";
-import { formatDate } from "../utils/dates";
+import { formatDateNumber } from "../utils/dates";
 
 export default function ActiveCyclingRaceCard(props: { race: CyclingRace }) {
   const { race } = props;
@@ -45,7 +45,7 @@ export default function ActiveCyclingRaceCard(props: { race: CyclingRace }) {
         >
           <EventIcon fontSize="small" sx={{ mr: 0.5 }} />
           <Typography variant="subtitle1" color="text.secondary">
-            {formatDate(race.date)}
+            {formatDateNumber(race.date)}
           </Typography>
         </Stack>
         <Stack direction="row" justifyContent="space-between" mb={1}>

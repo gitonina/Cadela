@@ -25,6 +25,7 @@ const populateCircuits = async () => {
     distance: 1.61,
     elevationGain: 14,
     pathPhoto: "src/circuits_images/autodromo.png",
+    location: "Puente Alto",
   };
 
   const dobleToyo = {
@@ -32,6 +33,7 @@ const populateCircuits = async () => {
     distance: 84.05,
     elevationGain: 1138,
     pathPhoto: "src/circuits_images/toyo.jpg",
+    location: "Valle del Cajón del Maipo",
   };
 
   const cuestaBarriga = {
@@ -39,6 +41,7 @@ const populateCircuits = async () => {
     distance: 86.50,
     elevationGain: 744,
     pathPhoto: "src/circuits_images/barriga.jpg",
+    location: "Talagante",
   };
 
   const cuestaChada = {
@@ -46,6 +49,7 @@ const populateCircuits = async () => {
     distance: 103.54,
     elevationGain: 675,
     pathPhoto: "src/circuits_images/chada.jpg",
+    location: "Paine",
   };
 
   const autodromoVizcacasDoc = new Circuit(autodromoVizcachas);

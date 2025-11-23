@@ -7,7 +7,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
   CyclingRace.find({})
     .populate({
         path: 'circuitId',
-        select: 'name distance elevationGain kml_path pathPhoto'
+        select: 'name distance elevationGain kml_path pathPhoto location'
     })
     .then((cyclingRaces) => {
       res.json(cyclingRaces);

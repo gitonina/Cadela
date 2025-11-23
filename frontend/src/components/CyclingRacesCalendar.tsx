@@ -5,11 +5,21 @@ import Box from "@mui/material/Box";
 import type { CyclingRace } from "../types/cyclingRace";
 import cyclingRacesService from "../services/cyclingRaces";
 import CyclingRaceCard from "./CyclingRaceCard";
+import NewCyclingRaceCard from "./NewCyclingRaceCard";
 
 import { useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
+import { 
+  CircularProgress, 
+  Select, 
+  MenuItem, 
+  FormControl,
+  type SelectChangeEvent
+} from "@mui/material";
+import { formatMonth } from "../utils/dates";
+import { months } from "../types/date";
 
 const CyclingRacesCalendar = () => {
+  const [selectedMonth, setSelectedMonth] = useState(0);
   const [races, setRaces] = useState<CyclingRace[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -17,8 +27,7 @@ const CyclingRacesCalendar = () => {
     const handleRaces = async () => {
       try {
         setIsLoading(true);
-        const allRaces = await cyclingRacesService.getUpcomingRaces();
-        console.log(allRaces);
+        const allRaces = await cyclingRacesService.getAllRaces();
         setRaces(allRaces);
       } catch (error) {
         console.error("Error fetching races:", error);
@@ -26,9 +35,14 @@ const CyclingRacesCalendar = () => {
         setIsLoading(false);
       }
     };
-
+    const today = new Date();
+    setSelectedMonth(formatMonth(today));
     handleRaces();
   }, []);
+
+  const onChangeMonthRaces = (event: SelectChangeEvent<number>) => {
+    setSelectedMonth(event.target.value);
+  };
 
   if (isLoading) {
     return (
@@ -46,16 +60,27 @@ const CyclingRacesCalendar = () => {
     );
   }
 
+  
   return (
     <>
-      <Typography 
-        color="white"
-        variant="h3" 
-        fontWeight="bold" 
-        mb={5} 
-        mt={5}>
-        Calendario Carreras 2025
-      </Typography>
+      <FormControl>  
+        <Select
+          id="demo-simple-select"
+          value={selectedMonth}
+          onChange={onChangeMonthRaces}
+          sx={{
+            backgroundColor:"white",
+            padding: 0,
+            mb: 6,
+            width: 300,
+            textAlign: "left"
+          }}
+        >
+          {[...Array(12).keys()].map(i => 
+            <MenuItem value={i+1}>{months[i+1]}</MenuItem>)}
+        </Select>
+      </FormControl>
+
       <Grid
         container
         spacing={6}
@@ -64,9 +89,10 @@ const CyclingRacesCalendar = () => {
         width="80vw"
       >
         {races.map((race) => (
+          formatMonth(race.date) === selectedMonth ?
           <Grid key={race.id}>
-            <CyclingRaceCard race={race} />
-          </Grid>
+            <NewCyclingRaceCard race={race} />
+          </Grid> : <></>
         ))}
       </Grid>
     </>

@@ -5,10 +5,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 import type { CyclingRace } from "../types/cyclingRace";
-import { formatDate } from "../utils/dates";
+import { formatDateNumber } from "../utils/dates";
 
-const CyclingRaceCard = (props: { race: CyclingRace }) => {
-  const { race } = props;
+const CyclingRaceCard = ({ race }: { race: CyclingRace }) => {
   return (
     <Card sx={{ width: 600 }}>
       <CardMedia sx={{ height: 180 }} image={race.circuitId.pathPhoto} />
@@ -24,7 +23,7 @@ const CyclingRaceCard = (props: { race: CyclingRace }) => {
           <Typography fontWeight="bold" sx={{ fontSize: 29 }}>
             {race.circuitId.name}
           </Typography>
-          <Typography variant="h5">{formatDate(race.date)}</Typography>
+          <Typography variant="h5">{formatDateNumber(race.date)}</Typography>
         </Box>
         <Box
           sx={{
@@ -72,21 +71,3 @@ const CyclingRaceCard = (props: { race: CyclingRace }) => {
 };
 
 export default CyclingRaceCard;
-
-<Box
-  sx={{
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    mx: 5,
-    mt: 4,
-    mb: 2,
-  }}
->
-  <Typography color="grey" variant="h4" fontWeight="bold">
-    100
-  </Typography>
-  <Typography color="grey" variant="h4" fontWeight="bold">
-    20
-  </Typography>
-</Box>;

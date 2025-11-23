@@ -8,11 +8,13 @@ import AdminPage from "./pages/AdminPage";
 import ResultsListPage from "./pages/ResultsListPage";
 import LoginPage from "./pages/LoginPage";
 import SignInPage from "./pages/SignInPage";
+import NewTopBar from "./components/ui/NewTopbar";
 
 function App() {
   return (
     <Box>
       <Container sx={{ mt: 4, flex: 1 }}>
+        <NewTopBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/calendar" element={<CalendarPage />} />

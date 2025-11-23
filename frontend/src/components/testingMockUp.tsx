@@ -1,4 +1,4 @@
-import { Calendar, MapPin, Mountain, Gauge } from 'lucide-react';
+ import { Calendar, MapPin, Mountain, Gauge } from 'lucide-react';
 
 const RaceCard = ({ race, isOpen, isPast }) => {
   return (

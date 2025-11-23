@@ -6,6 +6,7 @@ export interface ICircuit {
     elevationGain?: number;
     kml_path?: string
     pathPhoto?: string;
+    location?: string;
 };
 
 const circuitSchema = new mongoose.Schema<ICircuit>({
@@ -28,6 +29,10 @@ const circuitSchema = new mongoose.Schema<ICircuit>({
         default: null,
     },
     pathPhoto: {
+        type: String,
+        default: null,
+    },
+    location: {
         type: String,
         default: null,
     }
