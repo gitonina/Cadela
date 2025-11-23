@@ -94,6 +94,7 @@ export default function CreateCircuitForm() {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            data-testid="circuit_name"
             required
             fullWidth
           />
@@ -103,6 +104,7 @@ export default function CreateCircuitForm() {
             type="number"
             value={formData.distance}
             onChange={handleChange}
+            data-testid="distance"
             required
             fullWidth
           />
@@ -112,6 +114,7 @@ export default function CreateCircuitForm() {
             type="number"
             value={formData.elevationGain}
             onChange={handleChange}
+            data-testid="elevation"
             required
             fullWidth
           />

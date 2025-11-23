@@ -74,6 +74,7 @@ export default function LoginPage() {
               fullWidth
               value={name}
               onChange={(e) => setName(e.target.value)}
+              data-testid="username"
               required
             />
             <TextField
@@ -83,6 +84,7 @@ export default function LoginPage() {
               fullWidth
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              data-testid="password"
               required
             />
             <Stack direction="row" spacing={2}>

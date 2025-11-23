@@ -95,6 +95,7 @@ export default function SignInPage() {
               value={rut}
               onChange={(e) => setRut(e.target.value)}
               helperText="Ejemplo: 15892044 (sin puntos ni guion)"
+              data-testid="rut"
               required
             />
             <TextField
@@ -104,6 +105,7 @@ export default function SignInPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               helperText="Mínimo 7 caracteres"
+              data-testid="username"
               required
             />
             <TextField
@@ -114,6 +116,7 @@ export default function SignInPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               helperText="Debe tener al menos 6 caracteres"
+              data-testid="password"
               required
             />
             <TextField
@@ -123,6 +126,7 @@ export default function SignInPage() {
               value={club}
               onChange={(e) => setClub(e.target.value)}
               helperText="Mínimo 3 caracteres"
+              data-testid="club"
               required
             />
             <TextField
@@ -133,6 +137,7 @@ export default function SignInPage() {
               value={n_dorsal}
               onChange={(e) => setDorsal(e.target.value)}
               helperText="Debe ser un número único"
+              data-testid="n_dorsal"
               required
             />
 
