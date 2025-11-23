@@ -27,34 +27,33 @@ test.describe('Admin: Crear circuitos y carreras', () => {
     await page.getByTestId('elevation').locator('input').fill(CIRCUITO.elevationGain);
     await page.locator('form').getByRole('button', { name: 'CREAR CIRCUITO' }).click();
     await expect(page.getByText('¡Carrera creada exitosamente!')).toBeVisible();
+
     await page.getByRole('tab', { name: 'CREAR CARRERA' }).click();
+
     await page.getByRole('combobox', { name: 'Circuito' }).click();
     await page.getByRole('option', { name: CIRCUITO.name }).click();
-    /*
+
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 7);
     const day = String(tomorrow.getDate()).padStart(2, '0');
     const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
     const year = tomorrow.getFullYear();
-    const fechaFuturaString = `${day}/${month}/${year}`;
+    const fechaFuturaString = `${day}${month}${year}`;
 
-    const dateInput = page.getByRole('group', { name: 'Fecha de la carrera' }).locator('input');
-    await dateInput.click({ force: true });
-    await dateInput.press('Control+a'); 
-    await dateInput.press('Backspace');
-    await dateInput.pressSequentially(fechaFuturaString, { delay: 100 });
-    await page.keyboard.press('Enter');
-    await expect(dateInput).toHaveValue(fechaFuturaString);
-    */
+    await page.getByRole('group', { name: 'Fecha de la carrera' }).click(); 
+    await page.getByRole('group', { name: 'Fecha de la carrera' }).press('Control+a'); 
+    await page.getByRole('group', { name: 'Fecha de la carrera' }).press('Backspace');
+    await page.getByRole('group', { name: 'Fecha de la carrera' }).pressSequentially(fechaFuturaString, { delay: 100 });
+  
     await page.locator('form').getByRole('button', { name: 'CREAR CARRERA' }).click();
     await expect(page.getByText('¡Carrera creada exitosamente!')).toBeVisible();
-    /*
+    
     await page.goto('/');
     await expect(page.getByText(CIRCUITO.name)).toBeVisible();
     await page.getByRole('button', { name: 'VER CALENDARIO DE CARRERAS' }).click();
     await expect(page).toHaveURL(/^http:\/\/localhost:5173\/calendar\/?$/);
     await expect(page.getByText(CIRCUITO.name)).toBeVisible();
-    */
+    
 
   });
 
