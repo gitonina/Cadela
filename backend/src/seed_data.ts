@@ -24,7 +24,7 @@ const populateCircuits = async () => {
     name: "Autódromo Las Vizcachas",
     distance: 1.61,
     elevationGain: 14,
-    pathPhoto: "src/circuits_images/autodromo.png",
+    pathPhoto: "/src/circuits_images/autodromo.png",
     location: "Puente Alto",
   };
 
@@ -32,7 +32,7 @@ const populateCircuits = async () => {
     name: "Doble Toyo",
     distance: 84.05,
     elevationGain: 1138,
-    pathPhoto: "src/circuits_images/toyo.jpg",
+    pathPhoto: "/src/circuits_images/toyo.jpg",
     location: "Valle del Cajón del Maipo",
   };
 
@@ -40,7 +40,7 @@ const populateCircuits = async () => {
     name: "Cuesta Barriga",
     distance: 86.50,
     elevationGain: 744,
-    pathPhoto: "src/circuits_images/barriga.jpg",
+    pathPhoto: "/src/circuits_images/barriga.jpg",
     location: "Talagante",
   };
 
@@ -48,7 +48,7 @@ const populateCircuits = async () => {
     name: "Cuesta Chada",
     distance: 103.54,
     elevationGain: 675,
-    pathPhoto: "src/circuits_images/chada.jpg",
+    pathPhoto: "/src/circuits_images/chada.jpg",
     location: "Paine",
   };
 

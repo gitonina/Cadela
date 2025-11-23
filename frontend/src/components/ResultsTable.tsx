@@ -8,17 +8,18 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import type { CyclingRaceResults } from "../types/cyclingRaceResults";
+import type { CyclingRaceResult } from "../types/cyclingRaceResults";
 
 interface ResultsTableProps {
-  raceResults: CyclingRaceResults;
+  raceResults: CyclingRaceResult[];
+  category: string;
 }
 
-export default function ResultsTable({ raceResults }: ResultsTableProps) {
+export default function ResultsTable({ raceResults, category }: ResultsTableProps) {
   return (
     <Box sx={{ p: 2 }}>
       <Typography variant="h5" fontWeight="bold">
-        Categoría {raceResults.category}
+        Categoría {category}
       </Typography>
       <TableContainer>
         <Table>
@@ -35,12 +36,12 @@ export default function ResultsTable({ raceResults }: ResultsTableProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {raceResults.placements.map((result) => (
+            {raceResults.map((result) => (
               <TableRow key={result.id}>
-                <TableCell align="center">{result.place}</TableCell>
-                <TableCell align="center">{result.dorsalnumber}</TableCell>
-                <TableCell>{result.fullname}</TableCell>
-                <TableCell>{result.club}</TableCell>
+                <TableCell align="center">{result.placement}</TableCell>
+                <TableCell align="center">{result.inscriptionId.cyclistId.n_dorsal}</TableCell>
+                <TableCell>{result.inscriptionId.cyclistId.name}</TableCell>
+                <TableCell>{result.inscriptionId.cyclistId.club}</TableCell>
               </TableRow>
             ))}
           </TableBody>
