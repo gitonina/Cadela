@@ -10,13 +10,16 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Cyclist } from "../types/cyclist";
 import loginService from "../services/login";
+import { useAuthStore } from "../stores/authStore";
 
 export default function LoginPage() {
-  const navigate = useNavigate();
   const [cyclist, setCyclist] = useState<Cyclist | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
 
   useEffect(() => {
     const init = async () => {
@@ -30,6 +33,8 @@ export default function LoginPage() {
     event.preventDefault();
     try {
       const loggedUser = await loginService.login({ name, password });
+      const userData = await loginService.restoreLogin();
+      setUser(userData);
       setCyclist(loggedUser);
       setName("");
       setPassword("");
