@@ -5,27 +5,21 @@ import ActiveCyclingRaceCard from "../components/ActiveCyclingRaceCard";
 import Button from "@mui/material/Button";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import type { CyclingRace } from "../types/cyclingRace";
-import cyclingRacesService from "../services/cyclingRaces";
+import { useEffect} from "react";
 import { CircularProgress } from "@mui/material";
 import Topbar from "../components/Topbar";
+import { useCyclingRacesStore } from "../stores/cyclingRacesStore";
 
 export default function HomePage() {
-  const [activeRace, setActiveRace] = useState<CyclingRace | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { nextRace, fetchNextRace ,isLoading} = useCyclingRacesStore();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchActiveRace = async () => {
       try {
-        setIsLoading(true);
-        const nextRace = await cyclingRacesService.getNextRace();
-        setActiveRace(nextRace);
+        await fetchNextRace();
       } catch (error) {
         console.error("Error fetching active race:", error);
-      } finally {
-        setIsLoading(false);
       }
     };
     fetchActiveRace();
@@ -74,8 +68,8 @@ export default function HomePage() {
         >
           {isLoading ? (
             <CircularProgress />
-          ) : activeRace ? (
-            <ActiveCyclingRaceCard race={activeRace} />
+          ) : nextRace ? (
+            <ActiveCyclingRaceCard race={nextRace} />
           ) : (
             <Typography variant="body1" color="text.secondary">
               No hay carreras programadas por el momento.

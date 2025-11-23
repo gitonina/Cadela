@@ -1,29 +1,22 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
-import type { CyclingRace } from "../types/cyclingRace";
-import cyclingRacesService from "../services/cyclingRaces";
 import CyclingRaceCard from "./CyclingRaceCard";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CircularProgress } from "@mui/material";
+import { useCyclingRacesStore } from "../stores/cyclingRacesStore";
+
 
 const CyclingRacesCalendar = () => {
-  const [races, setRaces] = useState<CyclingRace[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { upcomingRaces, fetchUpcomingRaces, isLoading } = useCyclingRacesStore();
 
   useEffect(() => {
     const handleRaces = async () => {
       try {
-        setIsLoading(true);
-        const allRaces = await cyclingRacesService.getUpcomingRaces();
-        console.log(allRaces);
-        setRaces(allRaces);
+        await fetchUpcomingRaces();
       } catch (error) {
         console.error("Error fetching races:", error);
-      } finally {
-        setIsLoading(false);
       }
     };
 
@@ -63,7 +56,7 @@ const CyclingRacesCalendar = () => {
         alignItems="center"
         width="80vw"
       >
-        {races.map((race) => (
+        {upcomingRaces.map((race) => (
           <Grid key={race.id}>
             <CyclingRaceCard race={race} />
           </Grid>
