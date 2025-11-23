@@ -6,19 +6,61 @@ import { CalendarToday } from "@mui/icons-material";
 import { DirectionsBike } from "@mui/icons-material";
 import { Terrain } from "@mui/icons-material";
 import { LocationOn } from "@mui/icons-material";
+import { Chip } from "@mui/material";
+import { Button } from "@mui/material";
 
 import type { CyclingRace } from "../types/cyclingRace";
 import { formatDateString } from "../utils/dates";
+import { useNavigate } from "react-router-dom";
+
+type raceState = 'next' | 'active' | 'past'
 
 const NewCyclingRaceCard = ({ race }: { race: CyclingRace }) => {
+  const navigate = useNavigate();
+  const raceDate = new Date(race.date);
+  const todayDate = new Date(); 
+  const diffDays = (raceDate.getTime() - todayDate.getTime()) / (1000 * 60 * 60 * 24);
+  const raceState: raceState = diffDays < 0 ? 'past' : diffDays <= 7 ? 'active' : 'next'
   return (
-    <Card sx={{ width: 700, display: "flex" }}>
+    <Card sx={{ width: 700, display: "flex", opacity: raceState === 'past' ? 0.85 : 1, }}>
 
       <Box sx={{ width: '33%', position: 'relative' }}>
-        <CardMedia sx={{ height: 190 }} image={race.circuitId.pathPhoto} />      
+        <CardMedia sx={{ height: 190 }} image={race.circuitId.pathPhoto} />
       </Box>
 
-      <Box sx={{ width: '67%', display: 'flex', flexDirection: 'column', padding: 2 }}>
+      <Box sx={{ width: '67%', display: 'flex', flexDirection: 'column', padding: 2, position: 'relative' }}>
+
+        { raceState === 'active' ? 
+          <Chip
+            label="Inscripciones Abiertas"
+            color="success"
+            size="small"
+            sx={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              fontWeight: 'bold',
+              m: 1.5,
+              borderRadius: 2,
+              fontSize: 12
+            }}
+          /> : raceState === 'past' ? 
+          <Chip
+            label="Carrera ya finalizada"
+            size="small"
+            sx={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              fontWeight: 'bold',
+              m: 1.5,
+              borderRadius: 2,
+              fontSize: 12,
+              backgroundColor: "#A3A3A3",
+              color: "white"
+            }}
+          /> : <></>
+        }
 
         <Box sx={{ display: 'flex', mb: 1 }}>
           <CalendarToday sx={{ fontSize: 16, mr: 1, color: 'text.secondary' }} />
@@ -32,8 +74,8 @@ const NewCyclingRaceCard = ({ race }: { race: CyclingRace }) => {
         </Typography>
 
 
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, mt: 1 }}>
-          <LocationOn sx={{ fontSize: 18, mr: 1, color: 'text.secondary' }} />
+        <Box sx={{ display: 'flex', alignContent: 'center',  mb: 1, mt: 1 }}>
+          <LocationOn sx={{ fontSize: 20, mr: 1, color: 'text.secondary' }} />
           <Typography variant="body2" color="text.secondary">
             {race.circuitId.location}
           </Typography>
@@ -66,6 +108,26 @@ const NewCyclingRaceCard = ({ race }: { race: CyclingRace }) => {
             </Box>
           </Box>
         </Box>
+
+        { raceState === 'active' ? 
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ 
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              fontWeight: 'bold',
+              fontSize: 11,
+              m: 2,
+              borderRadius: 2,
+              backgroundColor: '#1F1885'
+            }}
+            onClick={() => navigate("/")}
+          >
+            Inscribirse
+          </Button> : <></>
+        }
       </Box>
     </Card>
   );
