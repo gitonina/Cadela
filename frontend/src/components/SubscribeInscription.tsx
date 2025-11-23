@@ -9,7 +9,8 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  Stack
+  Stack,
+  Typography
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import type { InscriptionCreate } from "../types/inscription";
@@ -72,47 +73,65 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
       <Stack
         direction="column"
         alignItems="center"
-        spacing={2}
-        sx={{ mb: 2 }}
       >
+        <Typography variant="subtitle1" color="text.secondary" sx={{ fontSize: 14, textAlign: "center", mb: 0 }}>
+          Debes iniciar sesión para inscribirte
+        </Typography>
         <Button 
-          variant="outlined" 
+          variant="contained"
+            size="small"
+            sx={{ 
+              mt: 4, 
+            
+              backgroundColor: '#dc2626'
+            }}
           onClick={() => navigate('/login')}
-          sx={{ margin: 1, width: 200 }}
         >
-          Inicia sesión
+          Iniciar sesión
         </Button>
       </Stack>
     );
   }
+
   return (
     <Stack 
-      spacing={2} 
+      spacing={1.5} 
       direction="column" 
       alignItems="center"
+      mb={1}
     >
-      <FormControl
-        sx={{ 
-          width: 400,
+      <Typography  
+        fontWeight="bold"
+        color="text.secondary"
+        sx={{
+          mb: 0,
         }}
       >
-        <InputLabel 
-          id="category-label"
-          sx={{ 
-            textAlign: "center",
-          }}
-        > Categoría
-        </InputLabel>
+        Selecciona la categoría de inscripción
+      </Typography>
+
+      <FormControl
+        sx={{ 
+          width: 350,
+        }}
+      >
         <Select
-          labelId="category-label"
+          id="demo-simple-select"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          label="Categoría"
-          size="small"
-          sx={{ 
-            height: 50,
+          displayEmpty
+          sx={{
+            backgroundColor:"white",
+            padding: 0,
+            width: 350,
+            height: 40,
+            textAlign: "left",
           }}
         >
+          <MenuItem value="" disabled>
+            Categoría no seleccionada
+          </MenuItem>
+
           {categories.map((cat) => (
             <MenuItem key={cat.id} value={cat.id}>
               {cat.name}
@@ -122,14 +141,17 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
       </FormControl>
 
       <Button 
-        variant="contained" 
+        variant="contained"
+          sx={{ 
+            backgroundColor: '#149c0fff',
+            mt: '15px !important',
+
+          }}
         onClick={handleSubscribe}
-        sx={{ 
-          height: 45,
-        }}
       >
         Inscribirse
       </Button>
+
     </Stack>
   );
 };

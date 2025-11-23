@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import ActiveCyclingRaceCard from "../components/ActiveCyclingRaceCard";
+import NewActiveCyclingRaceCard from "../components/NewActiveCyclingRaceCard";
 import Button from "@mui/material/Button";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import { useNavigate } from "react-router-dom";
@@ -36,18 +36,18 @@ export default function HomePage() {
         textAlign: "center", 
         alignItems: "center",
         justifyContent: "center", 
-        py: 8 
+        py: 8, 
       }}>
         <Stack
           direction="row"
-          alignItems="center"
+          alignItems="left"
           justifyContent="center"
           spacing={2}
-          sx={{ mb: 3 }}
+          sx={{ mb: 1 }}
         >
           <DirectionsBikeIcon sx={{ fontSize: 48, color: "secondary.main" }} />
           <Typography
-            variant="h2"
+            variant="h3"
             component="h1"
             fontWeight="bold"
             color="secondary.main"
@@ -57,16 +57,22 @@ export default function HomePage() {
         </Stack>
 
         <Typography
-          variant="h5"
+          variant="h6"
           color="secondary.light"
-          sx={{ mb: 4, maxWidth: 700, mx: "auto" }}
+          sx={{ m: 2, maxWidth: 700, mx: "auto" }}
         >
           Participa en las mejores carreras de ciclismo de Santiago
         </Typography>
 
-        <Typography variant="h6" color="secondary.light" sx={{ mb: 6 }}>
-          PRÓXIMA CARRERA
-        </Typography>
+        <Typography
+            variant="h5"
+            component="h1"
+            fontWeight="bold"
+            color="secondary.main"
+            margin={3}
+          >
+            PRÓXIMA CARRERA
+          </Typography>
 
         <Stack
           direction="column"
@@ -77,7 +83,7 @@ export default function HomePage() {
           {isLoading ? (
             <CircularProgress />
           ) : activeRace ? (
-            <ActiveCyclingRaceCard race={activeRace} />
+            <NewActiveCyclingRaceCard race={activeRace} />
           ) : (
             <Typography variant="body1" color="text.secondary">
               No hay carreras programadas por el momento.
@@ -93,9 +99,12 @@ export default function HomePage() {
         >
           <Button
             variant="contained"
-            color="primary"
             size="large"
-            sx={{ mt: 4, margin: 2 }}
+            sx={{ 
+              mt: 4, 
+              margin: 2,
+              backgroundColor: '#dc2626'
+            }}
             onClick={() => navigate("/calendar")}
           >
             Ver calendario de carreras
@@ -104,7 +113,11 @@ export default function HomePage() {
             variant="contained"
             color="primary"
             size="large"
-            sx={{ mt: 4, margin: 2 }}
+            sx={{ 
+              mt: 4, 
+              margin: 2,
+              backgroundColor: '#dc2626'
+            }}
             onClick={() => navigate("/results")}
           >
             Ver resultados de carreras previas
