@@ -24,28 +24,28 @@ const populateCircuits = async () => {
     name: "Autódromo Las Vizcachas",
     distance: 1.61,
     elevationGain: 14,
-    pathPhoto: "src/circuits_images/autodromo.png",
+    pathPhoto: "/src/circuits_images/autodromo.png",
   };
 
   const dobleToyo = {
     name: "Doble Toyo",
     distance: 84.05,
     elevationGain: 1138,
-    pathPhoto: "src/circuits_images/toyo.jpg",
+    pathPhoto: "/src/circuits_images/toyo.jpg",
   };
 
   const cuestaBarriga = {
     name: "Cuesta Barriga",
     distance: 86.50,
     elevationGain: 744,
-    pathPhoto: "src/circuits_images/barriga.jpg",
+    pathPhoto: "/src/circuits_images/barriga.jpg",
   };
 
   const cuestaChada = {
     name: "Cuesta Chada",
     distance: 103.54,
     elevationGain: 675,
-    pathPhoto: "src/circuits_images/chada.jpg",
+    pathPhoto: "/src/circuits_images/chada.jpg",
   };
 
   const autodromoVizcacasDoc = new Circuit(autodromoVizcachas);
