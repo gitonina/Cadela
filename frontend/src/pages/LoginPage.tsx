@@ -114,15 +114,20 @@ export default function LoginPage() {
           </Typography>
         </Stack>  
       </Paper>
-      {errorMessage && 
-        <Alert 
-          severity="error" 
-          sx={{ 
-            position: "absolute",
-            top: 320, 
-            left: 90, 
-            right: 90,
-          }}>{errorMessage}</Alert>}
+
+      <Box sx={{
+        position: "absolute",
+        top: 315,
+        left: -100,
+        right: -100,
+        height: 80,
+        alignContent: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}>
+        {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+      </Box>
     </Box>
   );
 }

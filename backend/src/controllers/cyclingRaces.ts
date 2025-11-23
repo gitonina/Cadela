@@ -21,7 +21,7 @@ router.get("/upcoming", (req: Request, res: Response, next: NextFunction) => {
     })
     .populate({
         path: 'circuitId',
-        select: 'name distance elevationGain kml_path pathPhoto'
+        select: 'name distance elevationGain kml_path pathPhoto location'
     })
     .then((cyclingRaces) => {
       res.json(cyclingRaces);
@@ -37,7 +37,7 @@ router.get("/next", async (req: Request, res: Response, next: NextFunction) => {
     .limit(1)
     .populate({
         path: 'circuitId',
-        select: 'name distance elevationGain kml_path pathPhoto',
+        select: 'name distance elevationGain kml_path pathPhoto location',
     })
     .then((cyclingRaces) => {
       res.json(cyclingRaces);
@@ -52,7 +52,7 @@ router.get("/past", (req: Request, res: Response, next: NextFunction) => {
     })
     .populate({
         path: 'circuitId',
-        select: 'name distance elevationGain kml_path pathPhoto'
+        select: 'name distance elevationGain kml_path pathPhoto location'
     })
     .then((cyclingRaces) => {
       res.json(cyclingRaces);
@@ -65,7 +65,7 @@ router.get("/:id", (req: Request, res: Response, next: NextFunction) => {
   CyclingRace.findById(id)
     .populate({
       path: 'circuitId',
-      select: 'name distance elevationGain kml_path pathPhoto'
+      select: 'name distance elevationGain kml_path pathPhoto location'
     })
     .then((cyclingRace) => {
       if (cyclingRace) {

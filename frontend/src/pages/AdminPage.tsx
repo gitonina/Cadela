@@ -43,15 +43,35 @@ export default function AdminPage() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ 
+      width: "100%",
+      height: 500, 
+      alignItems: "center", 
+      display: "flex",
+      flexDirection: "column"
+    }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="basic tabs example"
+          sx={{
+            '& .MuiTabs-indicator': {backgroundColor: 'white'},
+          }}
         >
-          <Tab label="Crear Circuito" {...a11yProps(0)} />
-          <Tab label="Crear Carrera" {...a11yProps(1)} />
+          <Tab 
+            label="Crear Circuito" 
+            {...a11yProps(0)} 
+            sx={{
+              '&.Mui-selected': {color: 'white'},
+            }}
+          />
+          <Tab 
+            label="Crear Carrera" 
+            {...a11yProps(1)} 
+            sx={{
+              '&.Mui-selected': {color: 'white'},
+            }}
+          />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
