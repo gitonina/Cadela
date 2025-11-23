@@ -6,25 +6,18 @@ import {
   Stack,
   Box,
 } from "@mui/material";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import loginService from "../services/login";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
+import { useAuthStore } from "../stores/authStore";
+
 export default function Topbar() {
   const navigate = useNavigate();
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    const init = async () => {
-      const loggedUser = await loginService.restoreLogin();
-      setUser(loggedUser);
-    };
-    init();
-  }, []);
+  const { user, clearUser } = useAuthStore();
 
   const handleLogout = async () => {
     await loginService.logout();
-    setUser(null);
+    clearUser();
     navigate("/login");
   };
 
