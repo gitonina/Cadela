@@ -7,7 +7,6 @@ import {
   Button,
   Select,
   MenuItem,
-  InputLabel,
   FormControl,
   Stack,
   Typography
@@ -79,11 +78,10 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
         </Typography>
         <Button 
           variant="contained"
-            size="small"
             sx={{ 
-              mt: 4, 
-            
-              backgroundColor: '#dc2626'
+              backgroundColor: '#dc2626',
+              mt: 2,
+              mb: 3
             }}
           onClick={() => navigate('/login')}
         >
@@ -100,13 +98,7 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
       alignItems="center"
       mb={1}
     >
-      <Typography  
-        fontWeight="bold"
-        color="text.secondary"
-        sx={{
-          mb: 0,
-        }}
-      >
+      <Typography variant="subtitle1" color="text.secondary" sx={{ fontSize: 14, textAlign: "center", mb: 0 }}>
         Selecciona la categoría de inscripción
       </Typography>
 
@@ -144,8 +136,8 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
         variant="contained"
           sx={{ 
             backgroundColor: '#149c0fff',
-            mt: '15px !important',
-
+            mt: '20px !important',
+            mb: '20px !important',
           }}
         onClick={handleSubscribe}
       >

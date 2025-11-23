@@ -34,7 +34,7 @@ export default function NewActiveCyclingRaceCard(props: { race: CyclingRace }) {
         title={race.circuitId.name}
       />
       <CardContent>
-        <Typography gutterBottom fontWeight="bold" variant="h5">
+        <Typography gutterBottom fontWeight="bold" variant="h5" sx={{ mt: 0 }}>
           {race.circuitId.name}
         </Typography>
         <Stack

@@ -1,8 +1,11 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import CyclingRacesCalendar from "../components/CyclingRacesCalendar";
 import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import HomeIcon from "@mui/icons-material/Home";
 
 const CalendarPage = () => {
+    const navigate = useNavigate();
     return(
         <Box sx={{
             alignItems: "center",
@@ -27,6 +30,18 @@ const CalendarPage = () => {
               Selecciona un mes para ver las carreras disponibles
             </Typography>
             <CyclingRacesCalendar />
+            <Button
+              onClick={() => navigate("/")}
+              startIcon={<HomeIcon />}
+              variant="contained"
+              size="large"
+              sx={{ 
+                mt: 4, 
+                backgroundColor: '#dc2626'
+              }}
+            >
+              Inicio
+            </Button>
         </Box>
     );
 }

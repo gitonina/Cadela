@@ -14,15 +14,16 @@ import { formatDateString } from "../utils/dates";
 import { useNavigate } from "react-router-dom";
 
 type raceState = 'next' | 'active' | 'past'
+type cardMode = 'calendar' | 'result'
 
-const NewCyclingRaceCard = ({ race }: { race: CyclingRace }) => {
+const NewCyclingRaceCard = ({ race, cardMode }: { race: CyclingRace, cardMode?: cardMode }) => {
   const navigate = useNavigate();
   const raceDate = new Date(race.date);
   const todayDate = new Date(); 
   const diffDays = (raceDate.getTime() - todayDate.getTime()) / (1000 * 60 * 60 * 24);
   const raceState: raceState = diffDays < 0 ? 'past' : diffDays <= 7 ? 'active' : 'next'
   return (
-    <Card sx={{ width: 700, display: "flex", opacity: raceState === 'past' ? 0.85 : 1, }}>
+    <Card sx={{ width: 700, display: "flex", opacity: raceState === 'past' && cardMode === "calendar" ? 0.85 : 1, }}>
 
       <Box sx={{ width: '33%', position: 'relative' }}>
         <CardMedia sx={{ height: 190 }} image={race.circuitId.pathPhoto} />
@@ -44,7 +45,7 @@ const NewCyclingRaceCard = ({ race }: { race: CyclingRace }) => {
               borderRadius: 2,
               fontSize: 12
             }}
-          /> : raceState === 'past' ? 
+          /> : raceState === 'past' && cardMode === 'calendar' ? 
           <Chip
             label="Carrera ya finalizada"
             size="small"
@@ -126,6 +127,24 @@ const NewCyclingRaceCard = ({ race }: { race: CyclingRace }) => {
             onClick={() => navigate("/")}
           >
             Inscribirse
+          </Button> : 
+          raceState === 'past' && cardMode === 'result' ? 
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ 
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              fontWeight: 'bold',
+              fontSize: 11,
+              m: 2,
+              borderRadius: 2,
+              backgroundColor: '#1F1885'
+            }}
+            onClick={() => navigate(`/results/${race.id}`)}
+          >
+            Ver Resultados
           </Button> : <></>
         }
       </Box>

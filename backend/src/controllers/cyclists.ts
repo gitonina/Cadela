@@ -17,10 +17,14 @@ const { rut, name, club, n_dorsal, password } = request.body;
     return response.status(400).json({ error: "Todos los campos son requeridos" });
   }
 
-   const existing = await Cyclist.findOne({ $or: [{ rut }, { n_dorsal }, { name }] });
-    if (existing) {
-      return response.status(400).json({ error: "Rut, nombre o número de dorsal ya registrados" });
-    }
+  const existingRut = await Cyclist.findOne({ rut });
+  const existingDorsal = await Cyclist.findOne({ n_dorsal });
+  if (existingRut) {
+    return response.status(400).json({ error: "Rut ya registrado" });
+  }
+  if (existingDorsal) {
+    return response.status(400).json({ error: "Dorsal ya registrado, por favor escoger otro" });
+  }
 
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);

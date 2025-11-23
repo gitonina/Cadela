@@ -91,7 +91,7 @@ const CyclingRacesCalendar = () => {
         {races.map((race) => (
           formatMonth(race.date) === selectedMonth ?
           <Grid key={race.id}>
-            <NewCyclingRaceCard race={race} />
+            <NewCyclingRaceCard race={race} cardMode="calendar"/>
           </Grid> : <></>
         ))}
       </Grid>

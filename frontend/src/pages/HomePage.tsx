@@ -36,7 +36,7 @@ export default function HomePage() {
         textAlign: "center", 
         alignItems: "center",
         justifyContent: "center", 
-        py: 8, 
+        py: 6, 
       }}>
         <Stack
           direction="row"
