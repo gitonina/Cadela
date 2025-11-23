@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { CyclingRace, CyclingRaceCreate } from "../types/cyclingRace";
 
-const baseUrl = "http://localhost:3001/api/cycling-races";
+const baseUrl = "api/cycling-races";
 
 export const getAllRaces = async () => {
   const request = await axios.get<CyclingRace[]>(baseUrl);
@@ -29,7 +29,7 @@ export const getRaceById = async (id: string) => {
 }
 
 export const create = async (newData: CyclingRaceCreate) => {
-  const response = await axios.post<CyclingRace>(baseUrl, newData);
+  const response = await axios.post<CyclingRace>(baseUrl, newData, {withCredentials: true});
   return response.data;
 };
 
