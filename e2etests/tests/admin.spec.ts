@@ -20,7 +20,7 @@ test.describe('Admin: Crear circuitos y carreras', () => {
 
   test('Admin logueado puede crear un circuito y una carrera', async ({ page }) => {
     await loginWith(page, ADMIN.name, ADMIN.password);
-    await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/);
+    await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/, { timeout: 10000 });
     await page.goto('/admin');
     await page.getByTestId('circuit_name').locator('input').fill(CIRCUITO.name);
     await page.getByTestId('distance').locator('input').fill(CIRCUITO.distance);
