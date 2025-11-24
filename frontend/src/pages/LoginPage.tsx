@@ -82,7 +82,7 @@ export default function LoginPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)} 
                 icon={<PersonIcon sx={{ color: '#666', fontSize: 23 }}/>} 
-                data-testid="username"
+                data_testid="username"
               />
 
               <FormInput
@@ -91,7 +91,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 icon={<Lock sx={{ color: '#666', fontSize: 23 }} />} 
                 type="password"
-                data-testid="password"
+                data_testid="password"
               />
 
               <Button type="submit" variant="contained" sx={{ backgroundColor: '#dc2626' }}>

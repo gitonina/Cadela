@@ -8,10 +8,11 @@ interface FormInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
   helper?: string; 
-  type?: "password" | "numeric" | "rut"
+  type?: "password" | "numeric" | "rut";
+  data_testid?: string;
 }
 
-const FormInput = ({placeholder, icon, onChange, value, helper, type}: FormInputProps) => {
+const FormInput = ({placeholder, icon, onChange, value, helper, type, data_testid}: FormInputProps) => {
   return (
     <Stack display="flex" flexDirection="column" alignItems="left" textAlign="left" gap={0.5}>
       <Input
@@ -44,6 +45,7 @@ const FormInput = ({placeholder, icon, onChange, value, helper, type}: FormInput
             display: 'none', 
           }
         }}
+        data-testid={data_testid}
       />
       { helper ? 
         <Typography variant="subtitle1" color="text.secondary" sx={{ fontSize: 12, ml: 0.2 }}>

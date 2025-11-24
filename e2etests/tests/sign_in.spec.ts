@@ -18,17 +18,17 @@ test.describe('Registro de Usuarios (Sign In)', () => {
 
   test('Usuario puede registrarse exitosamente', async ({ page }) => {
     await signIn(page, USER.rut, USER.password, USER.name, USER.club, USER.n_dorsal);
-    await page.getByRole('button', { name: 'Registrar', exact: true }).click();
+    await page.getByRole('button', { name:'Crear Cuenta', exact: true }).click();
     await expect(page.getByText('Cuenta creada con éxito, ahora puedes iniciar sesión')).toBeVisible();
     await expect(page).toHaveURL(/login/);
   });
 
   test('Usuario intenta registrarse con datos ya registrados', async ({ page }) => {
     await signIn(page, USER.rut, USER.password, USER.name, USER.club, USER.n_dorsal);
-    await page.getByRole('button', { name: 'Registrar', exact: true }).click();
+    await page.getByRole('button', { name:'Crear Cuenta', exact: true }).click();
     await page.goto('/sign-in');
     await signIn(page, USER.rut, USER.password, USER.name, USER.club, USER.n_dorsal);
-    await page.getByRole('button', { name: 'Registrar', exact: true }).click();
-    await expect(page.getByText('Rut, nombre o número de dorsal ya registrados')).toBeVisible();
+    await page.getByRole('button', { name:'Crear Cuenta', exact: true }).click();
+    await expect(page.getByText('Rut ya registrado')).toBeVisible();
   });
 });

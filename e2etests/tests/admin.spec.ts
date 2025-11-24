@@ -26,11 +26,13 @@ test.describe('Admin: Crear circuitos y carreras', () => {
     await page.getByTestId('distance').locator('input').fill(CIRCUITO.distance);
     await page.getByTestId('elevation').locator('input').fill(CIRCUITO.elevationGain);
     await page.locator('form').getByRole('button', { name: 'CREAR CIRCUITO' }).click();
-    await expect(page.getByText('¡Carrera creada exitosamente!')).toBeVisible();
+    await expect(page.getByText('¡Circuito creado exitosamente!')).toBeVisible();
 
     await page.getByRole('tab', { name: 'CREAR CARRERA' }).click();
 
-    await page.getByRole('combobox', { name: 'Circuito' }).click();
+    //await page.getByRole('combobox', { name: 'Seleccionar Circuito' }).locator('input').click();
+    await page.getByText('Seleccionar Circuito').click();
+    //await page.getByRole('combobox', { name: 'Circuito' }).click();
     await page.getByRole('option', { name: CIRCUITO.name }).click();
 
     const tomorrow = new Date();

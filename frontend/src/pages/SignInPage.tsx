@@ -118,7 +118,7 @@ export default function SignInPage() {
                 icon={<FingerprintIcon sx={{ color: '#666', fontSize: 23 }} />}
                 helper="Ejemplo: 15000111k (sin puntos ni guion)"
                 type="rut"
-                data-testid="rut"
+                data_testid="rut"
               />
 
               <FormInput 
@@ -127,7 +127,7 @@ export default function SignInPage() {
                 onChange={(e) => setName(e.target.value)}
                 icon={<PersonIcon sx={{ color: '#666', fontSize: 23 }} />}
                 helper="Mínimo 7 caracteres"
-                data-testid="username"
+                data_testid="username"
               />
 
               <FormInput 
@@ -137,7 +137,7 @@ export default function SignInPage() {
                 icon={<Lock sx={{ color: '#666', fontSize: 23 }} />}
                 helper="Debe tener al menos 6 caracteres"
                 type="password"
-                data-testid="password"
+                data_testid="password"
               />
 
               <FormInput 
@@ -146,7 +146,7 @@ export default function SignInPage() {
                 onChange={(e) => setClub(e.target.value)}
                 icon={<GroupsIcon sx={{ color: '#666', fontSize: 23 }} />}
                 helper="Mínimo 3 caracteres"
-                data-testid="club"
+                data_testid="club"
               />
 
               <FormInput 
@@ -156,7 +156,7 @@ export default function SignInPage() {
                 icon={<NumbersIcon sx={{ color: '#666', fontSize: 23 }} />}
                 helper="Debe ser un número único"
                 type="numeric"
-                data-testid="n_dorsal"
+                data_testid="n_dorsal"
               />
 
               <Button type="submit" variant="contained" sx={{ backgroundColor: '#dc2626', mt: 1}}>

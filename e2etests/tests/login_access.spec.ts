@@ -40,7 +40,7 @@ test.describe('Login y Acceso Protegido', () => {
 
   test('Login redirije a crear una cuenta', async ({ page }) => {
     await page.goto('/login');
-    await page.getByRole('button', { name: /Crear Cuenta/i }).click();
+    await page.getByRole('button', { name: /Regístrate aquí/i }).click();
     await expect(page).toHaveURL(/^http:\/\/localhost:5173\/sign-in\/?$/);
   })
 
