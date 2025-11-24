@@ -4,7 +4,8 @@ import { loginWith } from './helper';
 test.describe('Admin: Crear circuitos y carreras', () => {
     const ADMIN = {
     name: 'Administrador E2E',
-    password: 'adminpassword'
+    password: 'adminpassword',
+    rut: "999999999",
   };
 
   const CIRCUITO = {
@@ -19,7 +20,7 @@ test.describe('Admin: Crear circuitos y carreras', () => {
   });
 
   test('Admin logueado puede crear un circuito y una carrera', async ({ page }) => {
-    await loginWith(page, ADMIN.name, ADMIN.password);
+    await loginWith(page, ADMIN.rut, ADMIN.password);
     await expect(page.getByText(/Has iniciado/i)).toBeVisible();
     await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/);
     await page.goto('/admin');

@@ -1,8 +1,8 @@
 import { Page } from '@playwright/test';
 
-export const loginWith = async (page: Page, username: string, password: string) => {
+export const loginWith = async (page: Page, rut: string, password: string) => {
   await page.goto('/login');
-  await page.getByTestId('username').locator('input').fill(username); 
+  await page.getByTestId('rut').locator('input').fill(rut); 
   await page.getByTestId('password').locator('input').fill(password);
   await page.getByRole('button', { name: /iniciar sesión/i }).click();
 };

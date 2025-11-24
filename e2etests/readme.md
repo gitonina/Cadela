@@ -1,4 +1,4 @@
-Pruebas End-to-End (E2E) - Cadela
+# Pruebas End-to-End (E2E) - Cadela
 
 Este directorio contiene las pruebas automatizadas de extremo a extremo para la aplicación Cadela, implementadas con Playwright.
 
@@ -16,7 +16,7 @@ Puerto esperado: 3001
 
 Base de Datos: test_cadela (MongoDB)
 
-# En la terminal del Backend (/backend)
+## En la terminal del Backend (/backend)
 
 npm run start:test
 
@@ -28,7 +28,7 @@ El frontend debe estar servido para que Playwright pueda navegar por él.
 
 Puerto esperado: 5173 (Vite default)
 
-# En la terminal del Frontend (/frontend)
+## En la terminal del Frontend (/frontend)
 
 npm run dev
 
