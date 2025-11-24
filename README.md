@@ -21,4 +21,9 @@ npm install
 npm run dev
 ```
 
+Mapa de rutas:
+
+Como registrarse: Colocas tu nombre, tu rut, numero de dorsal y club. 
+Como loguearse: Colocas tu rut y tu contraseña.
+
 Finalmente, abrir el sitio web en [localhost](http://localhost:5173/) en el puerto 5173
