@@ -9,7 +9,7 @@ Proyecto para el ramo CC5003 - Aplicaciones Web Reactivas
 ```sh
 cd backend
 npm install
-ts-node src/seed_data.ts
+npm run seed
 npm run dev
 ```
 
@@ -20,11 +20,6 @@ cd frontend
 npm install
 npm run dev
 ```
-
-Mapa de rutas:
-
-Como registrarse: Colocas tu nombre, tu rut, numero de dorsal y club. 
-Como loguearse: Colocas tu rut y tu contraseña.
 
 Finalmente, abrir el sitio web en [localhost](http://localhost:5173/) en el puerto 5173
 
@@ -113,6 +108,29 @@ npm run test:report
 
 Genera y abre un reporte HTML detallado de la última ejecución.
 
+## Estado Global
+
+**Librería usada:** Zustand
+
+**Stores implementados**:
+- AuthStore: Guarda la información del usuario junto a su rol.
+- CyclingRacesStore: Guarda la información de las carreras.
+
+## Mapa de Rutas:
+
+- **/**: (Home Page) Página con bienvenida, mostrando la próxima carrera con la opción de inscribirse en ella.
+- **/calendar**: Calendario con todas las carreras.
+- **/results**: Listado de las carreras ya finalizadas, con la opción de ver sus resultados.
+- **/results/:raceId**: Detalle de los resultados de la carrera con id **{raceId}** para cada categoría.
+- **/admin**: (Ruta restringida solo para usuarios con rol de administrador): Página para crear circuitos y carreras.
+- **/login**: Página para iniciar sesión.
+- **/sign-in**: Página para registrarse
+
+## Flujo de Autenticación
+
+**Como registrarse**: Colocas tu nombre, tu rut, numero de dorsal y club.
+
+**Como loguearse**: Colocas tu rut y tu contraseña.
 
 ## Diseño y Estilo
 
