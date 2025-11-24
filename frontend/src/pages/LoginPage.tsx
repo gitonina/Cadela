@@ -20,7 +20,7 @@ import FormInput from "../components/ui/FormInput";
 export default function LoginPage() {
   const [cyclist, setCyclist] = useState<Cyclist | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [name, setName] = useState("");
+  const [rut, setRut] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
@@ -38,13 +38,13 @@ export default function LoginPage() {
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const loggedUser = await loginService.login({ name, password });
+      const loggedUser = await loginService.login({ rut, password });
       const userData = await loginService.restoreLogin();
       setUser(userData);
       const role = await rolesService.getRoleById(userData.rolId);
       setRole(role);
       setCyclist(loggedUser);
-      setName("");
+      setRut("");
       setPassword("");
       setTimeout(() => navigate("/"), 1500);
     } catch (error: any) {
@@ -82,11 +82,11 @@ export default function LoginPage() {
               alignItems: "center"
             }}>
               <FormInput
-                placeholder="Usuario*"
-                value={name}
-                onChange={(e) => setName(e.target.value)} 
+                placeholder="RUT*"
+                value={rut}
+                onChange={(e) => setRut(e.target.value)} 
                 icon={<PersonIcon sx={{ color: '#666', fontSize: 23 }}/>} 
-                data_testid="username"
+                data_testid="rut"
               />
 
               <FormInput

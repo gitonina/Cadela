@@ -1,7 +1,7 @@
 import axiosSecure from "../utils/axiosSecure";
 
 type Credentials = {
-    name: string;
+    rut: string;
     password: string;
 };
 
