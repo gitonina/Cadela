@@ -7,7 +7,6 @@ import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import { useNavigate } from "react-router-dom";
 import { useEffect} from "react";
 import { CircularProgress } from "@mui/material";
-import Topbar from "../components/Topbar";
 import { useCyclingRacesStore } from "../stores/cyclingRacesStore";
 
 export default function HomePage() {

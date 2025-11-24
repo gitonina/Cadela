@@ -4,26 +4,18 @@ import FlexRow from "./FlexRow";
 import TopBarButton from "./TopBarButton";
 import HomeButton from "./HomeButton";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useAuthStore } from "../../stores/authStore";
 import loginService from "../../services/login"
 
 const NewTopBar = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<any>(null);
+  const { user, clearUser } = useAuthStore();
   const location = useLocation();
-
-  useEffect(() => {
-    const init = async () => {
-      const loggedUser = await loginService.restoreLogin();
-      setUser(loggedUser);
-    };
-    init();
-  }, []);
 
   const handleLogout = async () => {
     await loginService.logout();
+    clearUser();
     navigate("/login");
-    setUser(null);
   };
 
   return (
@@ -50,7 +42,7 @@ const NewTopBar = () => {
             <>
               <PersonIcon sx={{ pb: 0.1 }}/>  
               <Typography variant="body1" sx={{ alignSelf: "center" }}>
-                Esteban
+                Hola, {user.name}
               </Typography>
               <Button color="inherit" onClick={() => {handleLogout()}}>
                 Cerrar sesión
