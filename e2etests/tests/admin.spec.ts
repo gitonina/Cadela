@@ -20,6 +20,7 @@ test.describe('Admin: Crear circuitos y carreras', () => {
 
   test('Admin logueado puede crear un circuito y una carrera', async ({ page }) => {
     await loginWith(page, ADMIN.name, ADMIN.password);
+    await expect(page.getByText(/Has iniciado/i)).toBeVisible();
     await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/);
     await page.goto('/admin');
     await page.getByTestId('circuit_name').locator('input').fill(CIRCUITO.name);
@@ -30,9 +31,7 @@ test.describe('Admin: Crear circuitos y carreras', () => {
 
     await page.getByRole('tab', { name: 'CREAR CARRERA' }).click();
 
-    //await page.getByRole('combobox', { name: 'Seleccionar Circuito' }).locator('input').click();
     await page.getByText('Seleccionar Circuito').click();
-    //await page.getByRole('combobox', { name: 'Circuito' }).click();
     await page.getByRole('option', { name: CIRCUITO.name }).click();
 
     const tomorrow = new Date();
