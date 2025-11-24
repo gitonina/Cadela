@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Cyclist } from "../types/cyclist";
 import loginService from "../services/login";
+import rolesService from "../services/roles";
 import { useAuthStore } from "../stores/authStore";
 import { Lock } from "@mui/icons-material";
 import PersonIcon from '@mui/icons-material/Person';
@@ -24,6 +25,7 @@ export default function LoginPage() {
 
   const navigate = useNavigate();
   const setUser = useAuthStore((state) => state.setUser);
+  const setRole = useAuthStore((state) => state.setRole);
 
   useEffect(() => {
     const init = async () => {
@@ -39,6 +41,8 @@ export default function LoginPage() {
       const loggedUser = await loginService.login({ name, password });
       const userData = await loginService.restoreLogin();
       setUser(userData);
+      const role = await rolesService.getRoleById(userData.rolId);
+      setRole(role);
       setCyclist(loggedUser);
       setName("");
       setPassword("");

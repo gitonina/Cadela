@@ -7,4 +7,10 @@ export interface User {
   club: string;
   n_dorsal: number;
   inscriptions: Inscription[];
+  role: UserRole;
+}
+
+export interface UserRole {
+  id: string;
+  name: string;
 }

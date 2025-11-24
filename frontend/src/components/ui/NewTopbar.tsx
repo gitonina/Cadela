@@ -4,18 +4,19 @@ import FlexRow from "./FlexRow";
 import TopBarButton from "./TopBarButton";
 import HomeButton from "./HomeButton";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../stores/authStore";
 import loginService from "../../services/login"
+import { useAuthStore } from "../../stores/authStore";
 
 const NewTopBar = () => {
   const navigate = useNavigate();
-  const { user, clearUser } = useAuthStore();
   const location = useLocation();
+  const { user, clearUser, role } = useAuthStore();
 
   const handleLogout = async () => {
     await loginService.logout();
     clearUser();
     navigate("/login");
+    clearUser();
   };
 
   return (
@@ -34,7 +35,9 @@ const NewTopBar = () => {
           <HomeButton />
           <TopBarButton text="Calendario" onClick={() => navigate("/calendar")}/>
           <TopBarButton text="Resultados" onClick={() => navigate("/results")}/>
-          <TopBarButton text="Admin" onClick={() => navigate("/admin")}/>
+          {role?.name === "admin" &&
+            <TopBarButton text="Admin" onClick={() => navigate("/admin")}/>
+          }
         </FlexRow>
 
         <FlexRow gap={2}>
