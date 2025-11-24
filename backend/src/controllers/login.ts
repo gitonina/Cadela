@@ -8,30 +8,30 @@ import { authenticateToken, withUser } from "../utils/middleware";
 const router = express.Router();
 
 router.post("/", async (request, response) => {
-  const { name, password } = request.body;
+  const { rut, password } = request.body;
 
-  if (!name || !password) {
+  if (!rut || !password) {
     return response.status(400).json({ error: "Nombre y contraseña son requeridos" });
   }
 
-  const cyclist = await Cyclist.findOne({ name }).populate("rolId");
+  const cyclist = await Cyclist.findOne({ rut }).populate("rolId");
 
   
   if (!cyclist) {
-    return response.status(401).json({ error: "invalid username or password" });
+    return response.status(401).json({ error: "invalid rut or password" });
   }
 
   const passwordCorrect = await bcrypt.compare(password, cyclist.password);
 
   if (!passwordCorrect) {
-    return response.status(401).json({ error: "invalid username or password" });
+    return response.status(401).json({ error: "invalid rut or password" });
   }
 
   const csrf = crypto.randomUUID();
 
   const userForToken = {
     id: cyclist._id,
-    name: cyclist.name,
+    rut: cyclist.rut,
     rolId: cyclist.rolId._id.toString(), 
     csrf: crypto.randomUUID()
   };
@@ -49,7 +49,7 @@ router.post("/", async (request, response) => {
   });
 
   return response.status(200).json({
-    username: cyclist.name,
+    rut: cyclist.rut,
     rolId: cyclist.rolId._id,
   });
 });
