@@ -6,13 +6,12 @@ import {
   Alert,
   Box
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import cyclistService from "../services/cyclists";
 import { useNavigate } from "react-router-dom";
 import { Lock } from "@mui/icons-material";
 import PersonIcon from '@mui/icons-material/Person';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
-import { Link } from "@mui/material";
 import FormInput from "../components/ui/FormInput";
 import GroupsIcon from '@mui/icons-material/Groups';
 import NumbersIcon from '@mui/icons-material/Numbers';
@@ -27,14 +26,6 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-  useEffect(() => {
-    setRut("15000222k");
-    setName("Marco Antonio Solis");
-    setPassword("password");
-    setClub("Mexico Cycling");
-    setDorsal("300");
-  }, [])
 
   const validateFields = () => {
     if (!rut || !name || !club || !n_dorsal || !password)
