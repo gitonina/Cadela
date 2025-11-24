@@ -6,6 +6,7 @@ import {
   FormControl,
   MenuItem,
   Paper,
+  Select,
   Stack,
   TextField,
   Typography,
@@ -17,6 +18,9 @@ import type { Circuit } from "../../types/circuit";
 import circuitsService from "../../services/circuits";
 import cyclingRacesService from "../../services/cyclingRaces";
 import type { CyclingRaceCreate } from "../../types/cyclingRace";
+import FormInput from "../ui/FormInput";
+import PersonIcon from '@mui/icons-material/Person';
+
 
 export default function CreateCyclingRaceForm() {
   const [formData, setFormData] = useState({
@@ -91,60 +95,90 @@ export default function CreateCyclingRaceForm() {
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 4, maxWidth: 600, mx: "auto" }}>
-      <Typography variant="h5" gutterBottom>
-        Crear Nueva Carrera
-      </Typography>
+    <Box sx={{ position: "relative"}} component="form" onSubmit={handleSubmit}>
+      <Paper elevation={7}>
+        <Stack sx={{ 
+          height: 300,
+          mt: 5,
+          mb: 5, 
+          ml: 10,
+          mr: 10,
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center" 
+        }}>
+          <Typography gutterBottom fontWeight="bold" variant="h5" sx={{ mb: 2 }}>
+            Crear Nueva Carrera
+          </Typography>
 
-      {error && (
-        <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError(null)}>
-          {error}
-        </Alert>
-      )}
-
-      {success && (
-        <Alert
-          severity="success"
-          sx={{ mb: 2 }}
-          onClose={() => setSuccess(false)}
-        >
-          ¡Carrera creada exitosamente!
-        </Alert>
-      )}
-
-      <Box component="form" onSubmit={handleSubmit}>
-        <Stack spacing={3}>
-          <FormControl fullWidth required>
-            <TextField
+          <FormControl
+            sx={{ 
+              width: 250,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 3
+            }}
+          >
+            <Select
               value={formData.circuitId}
-              label="Circuito"
               onChange={handleSelectChange}
               disabled={isCircuitsLoading}
-              select
+              displayEmpty
+              sx={{
+                backgroundColor:"white",
+                padding: 0,
+                width: 250,
+                height: 50,
+                textAlign: "left",
+              }}
             >
+              <MenuItem value="" disabled>
+                Seleccionar Circuito
+              </MenuItem>
+            
               {circuits.map((circuit) => (
-                <MenuItem value={circuit.id}>{circuit.name}</MenuItem>
+                <MenuItem key={circuit.id} value={circuit.id}>
+                  {circuit.name}
+                </MenuItem>
               ))}
-            </TextField>
+            </Select>
+
+            <DatePicker
+              label="Fecha de la carrera"
+              name="date"
+              value={formData.date}
+              onChange={handleDateChange}
+              sx={{
+                '&.MuiInputBase-root': {
+                  height: '30px',
+                },
+              }}
+            />
+
+            <Button type="submit" variant="contained" sx={{ backgroundColor: '#dc2626' }}>
+              Crear Carrera
+            </Button>
           </FormControl>
-          <DatePicker
-            label="Fecha de la carrera"
-            name="date"
-            value={formData.date}
-            onChange={handleDateChange}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            size="large"
-            fullWidth
-            disabled={isLoading}
-            startIcon={isLoading ? <CircularProgress size={20} /> : null}
-          >
-            {isLoading ? "Creando..." : "Crear Carrera"}
-          </Button>
-        </Stack>
+        </Stack>  
+      </Paper>
+      <Box sx={{
+        position: "absolute",
+        top: 320,
+        left: -100,
+        right: -100,
+        height: 80,
+        alignContent: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}>
+        {error && <Alert severity="error" onClose={() => setError(null)}>{error}</Alert>}
+        {success && <Alert severity="success" onClose={() => setSuccess(false)}>¡Carrera creada exitosamente!</Alert>}
       </Box>
-    </Paper>
+    </Box>
   );
 }
+
+
+

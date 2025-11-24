@@ -34,6 +34,7 @@ const populateCircuits = async () => {
     distance: 1.61,
     elevationGain: 14,
     pathPhoto: "/src/circuits_images/autodromo.png",
+    location: "Puente Alto",
   };
 
   const dobleToyo = {
@@ -41,6 +42,7 @@ const populateCircuits = async () => {
     distance: 84.05,
     elevationGain: 1138,
     pathPhoto: "/src/circuits_images/toyo.jpg",
+    location: "Valle del Cajón del Maipo",
   };
 
   const cuestaBarriga = {
@@ -48,6 +50,7 @@ const populateCircuits = async () => {
     distance: 86.50,
     elevationGain: 744,
     pathPhoto: "/src/circuits_images/barriga.jpg",
+    location: "Talagante",
   };
 
   const cuestaChada = {
@@ -55,6 +58,7 @@ const populateCircuits = async () => {
     distance: 103.54,
     elevationGain: 675,
     pathPhoto: "/src/circuits_images/chada.jpg",
+    location: "Paine",
   };
 
   const autodromoVizcacasDoc = new Circuit(autodromoVizcachas);
@@ -123,7 +127,7 @@ const populateCyclists = async () => {
     rolId: adminRole._id
   }
   const cyclist0 = {
-    rut: "21022072-0",
+    rut: "210220720",
     name: "Esteban Romero Berríos",
     club: "ECUCH",
     n_dorsal: 136,
@@ -132,7 +136,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist1 = {
-    rut: "21432432-2",
+    rut: "214324322",
     name: "Ricardo Fernández Reyes",
     club: "Talca Cycling",
     n_dorsal: 9,
@@ -141,7 +145,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist2 = {
-    rut: "21789432-8",
+    rut: "217894328",
     name: "Victor Alfaro P.",
     club: "Colo Colo Cycling",
     n_dorsal: 39,
@@ -150,7 +154,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist3 = {
-    rut: "21678436-k",
+    rut: "21678436k",
     name: "Champi Villalobos C.",
     club: "Beauchef Cycling",
     n_dorsal: 100,
@@ -159,7 +163,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist4 = {
-    rut: "21083920-3",
+    rut: "210839203",
     name: "Edgar Morales Gonzáles",
     club: "Nvim Cycling",
     n_dorsal: 21,
@@ -168,7 +172,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist5 = {
-    rut: "21999002-5",
+    rut: "219990025",
     name: "Jean Paul Duchens",
     club: "TocToc Cycling",
     n_dorsal: 99,
@@ -177,7 +181,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist6 = {
-    rut: "23093202-2",
+    rut: "230932022",
     name: "Juan Ortega Castro",
     club: "TocToc Cycling",
     n_dorsal: 169, 
@@ -186,7 +190,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist7 = {
-    rut: "20145678-3",
+    rut: "201456783",
     name: "Carlos Muñoz Sepúlveda",
     club: "Santiago Riders",
     n_dorsal: 45,
@@ -195,7 +199,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist8 = {
-    rut: "22567890-1",
+    rut: "225678901",
     name: "Diego Torres Valdés",
     club: "Valparaíso Cycling",
     n_dorsal: 78,
@@ -204,7 +208,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist9 = {
-    rut: "21345678-k",
+    rut: "21345678k",
     name: "Andrés Silva Contreras",
     club: "Team Cordillera",
     n_dorsal: 152,
@@ -213,7 +217,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist10 = {
-    rut: "20789432-6",
+    rut: "207894326",
     name: "Felipe Ramírez Soto",
     club: "Pucon Bikers",
     n_dorsal: 267,
@@ -222,7 +226,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist11 = {
-    rut: "22890123-4",
+    rut: "228901234",
     name: "Luis Castillo Moreno",
     club: "Andes Cycling Team",
     n_dorsal: 189,
@@ -231,7 +235,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist12 = {
-    rut: "21567234-7",
+    rut: "215672347",
     name: "Matías Rojas Fuentes",
     club: "La Reina Cyclists",
     n_dorsal: 234,
@@ -240,7 +244,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist13 = {
-    rut: "20456789-2",
+    rut: "204567892",
     name: "Jorge Peña Herrera",
     club: "Concepción Racing",
     n_dorsal: 67,
@@ -249,7 +253,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist14 = {
-    rut: "22123456-9",
+    rut: "221234569",
     name: "Rodrigo Vega Campos",
     club: "Viña Cycling Club",
     n_dorsal: 123,
@@ -258,7 +262,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist15 = {
-    rut: "21890765-5",
+    rut: "218907655",
     name: "Sebastián Pinto Núñez",
     club: "Maipo Valley Riders",
     n_dorsal: 198,
@@ -267,7 +271,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist16 = {
-    rut: "20678901-k",
+    rut: "20678901k",
     name: "Pablo Gutiérrez Leiva",
     club: "Temuco Wheelers",
     n_dorsal: 56,
@@ -276,7 +280,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist17 = {
-    rut: "22345123-8",
+    rut: "223451238",
     name: "Cristián Díaz Paredes",
     club: "Rancagua Cycling",
     n_dorsal: 145,
@@ -285,7 +289,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist18 = {
-    rut: "20912345-7",
+    rut: "209123457",
     name: "Marco López Bravo",
     club: "Osorno Bikers",
     n_dorsal: 213,
@@ -294,7 +298,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist19 = {
-    rut: "21234567-3",
+    rut: "212345673",
     name: "Tomás Sánchez Rivera",
     club: "Quilicura Riders",
     n_dorsal: 88,
@@ -303,7 +307,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist20 = {
-    rut: "22678234-0",
+    rut: "226782340",
     name: "Nicolás Álvarez Cortés",
     club: "Antofagasta Cycling",
     n_dorsal: 171,
@@ -312,7 +316,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist21 = {
-    rut: "20543210-6",
+    rut: "205432106",
     name: "Ignacio Hernández Lagos",
     club: "Puerto Montt Team",
     n_dorsal: 254,
@@ -321,7 +325,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist22 = {
-    rut: "21876543-1",
+    rut: "218765431",
     name: "Gabriel Vargas Medina",
     club: "Chillán Wheelers",
     n_dorsal: 92,
@@ -330,7 +334,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist23 = {
-    rut: "22456789-k",
+    rut: "22456789k",
     name: "Manuel Castro Espinoza",
     club: "La Serena Cycling",
     n_dorsal: 134,
@@ -339,7 +343,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist24 = {
-    rut: "20234567-9",
+    rut: "202345679",
     name: "Francisco Mora Guzmán",
     club: "Iquique Riders",
     n_dorsal: 276,
@@ -348,7 +352,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist25 = {
-    rut: "21654321-4",
+    rut: "216543214",
     name: "Alejandro Núñez Tapia",
     club: "Curicó Cycling Club",
     n_dorsal: 107,
@@ -357,7 +361,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist26 = {
-    rut: "22789456-2",
+    rut: "227894562",
     name: "Javier Fuentes Rojas",
     club: "Arica Bikers",
     n_dorsal: 163,
@@ -366,7 +370,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist27 = {
-    rut: "20876543-5",
+    rut: "208765435",
     name: "Maximiliano Ortiz Salas",
     club: "Copiapó Racing",
     n_dorsal: 241,
@@ -375,7 +379,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist28 = {
-    rut: "21987654-8",
+    rut: "219876548",
     name: "Benjamín Carrasco Pérez",
     club: "Linares Cycling",
     n_dorsal: 118,
@@ -384,7 +388,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist29 = {
-    rut: "22234567-7",
+    rut: "222345677",
     name: "Gonzalo Bravo Muñoz",
     club: "Los Ángeles Team",
     n_dorsal: 287,
@@ -393,7 +397,7 @@ const populateCyclists = async () => {
   };
 
   const cyclist30 = {
-    rut: "20345678-k",
+    rut: "20345678k",
     name: "Patricio Soto Ramírez",
     club: "Valdivia Wheelers",
     n_dorsal: 74,

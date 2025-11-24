@@ -2,15 +2,19 @@ import {
   Stack,
   Typography,
   Paper,
-  TextField,
   Button,
   Alert,
+  Box,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Cyclist } from "../types/cyclist";
 import loginService from "../services/login";
 import { useAuthStore } from "../stores/authStore";
+import { Lock } from "@mui/icons-material";
+import PersonIcon from '@mui/icons-material/Person';
+import { Link } from "@mui/material";
+import FormInput from "../components/ui/FormInput";
 
 export default function LoginPage() {
   const [cyclist, setCyclist] = useState<Cyclist | null>(null);
@@ -47,66 +51,90 @@ export default function LoginPage() {
     }
   };
 
-  const handleLogout = async () => {
-    await loginService.logout();
-    setCyclist(null);
-  };
-
   if (cyclist) {
     return (
       <Stack spacing={3}>
         <Alert severity="success">Has iniciado Sesión! {cyclist.name}</Alert>
-        <Button variant="outlined" color="secondary" onClick={handleLogout}>
-          Cerrar sesión
-        </Button>
       </Stack>
     );
   }
 
   return (
-    <Stack spacing={3} sx={{ maxWidth: 600, margin: "40px auto" }}>
-      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+    <Box sx={{ position: "relative"}}>
+      <Paper elevation={7}>
+        <Stack sx={{ 
+          height: 300,
+          margin: 10, 
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center" 
+        }}>
+          <Typography gutterBottom fontWeight="bold" variant="h5" sx={{ mb: 2 }}>
+            Iniciar sesión
+          </Typography>
+          <form onSubmit={handleLogin}>
+            <Stack sx={{
+              gap: 2,
+              alignItems: "center"
+            }}>
+              <FormInput
+                placeholder="Usuario*"
+                value={name}
+                onChange={(e) => setName(e.target.value)} 
+                icon={<PersonIcon sx={{ color: '#666', fontSize: 23 }}/>} 
+                data-testid="username"
+              />
 
-      <Paper elevation={3} sx={{ p: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Iniciar sesión
-        </Typography>
-        <form onSubmit={handleLogin}>
-          <Stack spacing={2}>
-            <TextField
-              label="Usuario"
-              variant="outlined"
-              fullWidth
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              data-testid="username"
-              required
-            />
-            <TextField
-              label="Contraseña"
-              variant="outlined"
-              type="password"
-              fullWidth
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              data-testid="password"
-              required
-            />
-            <Stack direction="row" spacing={2}>
-              <Button type="submit" variant="contained" color="primary">
-                Entrar
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => navigate("/sign-in")}
-              >
-                Crear cuenta
+              <FormInput
+                placeholder="Contraseña*"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                icon={<Lock sx={{ color: '#666', fontSize: 23 }} />} 
+                type="password"
+                data-testid="password"
+              />
+
+              <Button type="submit" variant="contained" sx={{ backgroundColor: '#dc2626' }}>
+                Iniciar sesión
               </Button>
             </Stack>
-          </Stack>
-        </form>
+          </form>
+
+          <Typography gutterBottom variant="body2" color="text.secondary" sx={{ mt: 2.5, mb: 0 }}>
+            ¿No tienes una cuenta?{' '}
+            <Link 
+              component="button"
+              variant="body2"
+              onClick={() => navigate('/sign-in')}
+              underline="hover"
+              sx={{ 
+                color: '#1976d2',
+                fontWeight: 600,
+                cursor: 'pointer',
+                background: 'none',
+                border: 'none',
+                padding: 0,
+              }}
+            >
+              Regístrate aquí
+            </Link>
+          </Typography>
+        </Stack>  
       </Paper>
-    </Stack>
+
+      <Box sx={{
+        position: "absolute",
+        top: 315,
+        left: -100,
+        right: -100,
+        height: 80,
+        alignContent: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}>
+        {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+      </Box>
+    </Box>
   );
 }

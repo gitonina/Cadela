@@ -1,4 +1,4 @@
-import { Button, Box } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import ResultsList from "../components/ResultsList";
@@ -12,13 +12,34 @@ export default function ResultsListPage() {
         display: "flex",
         flexDirection: "column",
       }}
-    >
+    > 
+      <Typography
+        color="white"
+        variant="h4" 
+        fontWeight="bold" 
+        mt={5}
+        mb={3} 
+      >
+        Resultados de Carreras
+      </Typography>
+      <Typography 
+        color="white"
+        variant="h6" 
+        fontWeight="bold" 
+        mb={3} 
+      >
+        Selecciona un mes para ver los resultados
+      </Typography>
       <ResultsList />
       <Button
         onClick={() => navigate("/")}
-        variant="outlined"
         startIcon={<HomeIcon />}
-        sx={{ m: 5 }}
+        variant="contained"
+        size="large"
+        sx={{ 
+          mt: 4, 
+          backgroundColor: '#dc2626'
+        }}
       >
         Inicio
       </Button>

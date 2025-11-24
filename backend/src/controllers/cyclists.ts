@@ -29,15 +29,15 @@ router.post("/", async (request, response) => {
         .json({ error: "Rol 'cyclist' no encontrado en la base de datos" });
     }
 
-    const existing = await Cyclist.findOne({
-      $or: [{ rut }, { n_dorsal }, { name }],
-    });
-
-    if (existing) {
-      return response
-        .status(400)
-        .json({ error: "Rut, nombre o número de dorsal ya registrados" });
-    }
+  const existingRut = await Cyclist.findOne({ rut });
+  const existingDorsal = await Cyclist.findOne({ n_dorsal });
+  
+  if (existingRut) {
+    return response.status(400).json({ error: "Rut ya registrado" });
+  }
+  if (existingDorsal) {
+    return response.status(400).json({ error: "Dorsal ya registrado, por favor escoger otro" });
+  }
 
     const passwordHash = await bcrypt.hash(password, 10);
 

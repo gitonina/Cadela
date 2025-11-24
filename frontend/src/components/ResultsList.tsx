@@ -1,12 +1,15 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { useEffect } from "react";
-import FinishedCyclingRaceCard from "./FinishedCyclingRaceCard";
-import { Box, CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Box, CircularProgress, FormControl, MenuItem, Select } from "@mui/material";
 
 import { useCyclingRacesStore } from "../stores/cyclingRacesStore";
+import { months } from "../types/date";
+import { formatMonth } from "../utils/dates";
+import NewCyclingRaceCard from "./NewCyclingRaceCard";
 
 const ResultsList = () => {
+  const [selectedMonth, setSelectedMonth] = useState(0);
   const { pastRaces, fetchPastRaces, isLoading } = useCyclingRacesStore();
 
   useEffect(() => {
@@ -17,9 +20,14 @@ const ResultsList = () => {
         console.error("Error fetching races:", error);
       }
     };
-
+    const today = new Date();
+    setSelectedMonth(formatMonth(today));
     handleRaces();
   }, []);
+
+  const onChangeMonthRaces = (event: SelectChangeEvent<number>) => {
+    setSelectedMonth(event.target.value);
+  };
 
   if (isLoading) {
     return (
@@ -39,14 +47,23 @@ const ResultsList = () => {
 
   return (
     <>
-      <Typography 
-        color="white" 
-        variant="h3" 
-        fontWeight="bold" 
-        mb={5} 
-        mt={5}>
-        Lista de resultados de carreras
-      </Typography>
+      <FormControl>  
+        <Select
+          id="demo-simple-select"
+          value={selectedMonth}
+          onChange={onChangeMonthRaces}
+          sx={{
+            backgroundColor:"white",
+            padding: 0,
+            mb: 6,
+            width: 300,
+            textAlign: "left"
+          }}
+        >
+          {[...Array(12).keys()].map(i => 
+            <MenuItem value={i+1}>{months[i+1]}</MenuItem>)}
+        </Select>
+      </FormControl>
       <Grid
         container
         spacing={6}
@@ -55,9 +72,10 @@ const ResultsList = () => {
         width="80vw"
       >
         {pastRaces.map((race) => (
+          formatMonth(race.date) === selectedMonth ?
           <Grid key={race.id}>
-            <FinishedCyclingRaceCard race={race} />
-          </Grid>
+            <NewCyclingRaceCard race={race} cardMode="result"/>
+          </Grid> : <></>
         ))}
       </Grid>
     </>

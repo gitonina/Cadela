@@ -2,14 +2,24 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CyclingRaceCard from "./CyclingRaceCard";
+import NewCyclingRaceCard from "./NewCyclingRaceCard";
 
-import { useEffect } from "react";
-import { CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
+import { 
+  CircularProgress, 
+  Select, 
+  MenuItem, 
+  FormControl,
+  type SelectChangeEvent
+} from "@mui/material";
+import { formatMonth } from "../utils/dates";
+import { months } from "../types/date";
 import { useCyclingRacesStore } from "../stores/cyclingRacesStore";
 
 
 const CyclingRacesCalendar = () => {
   const { upcomingRaces, fetchUpcomingRaces, isLoading } = useCyclingRacesStore();
+  const [selectedMonth, setSelectedMonth] = useState(0);
 
   useEffect(() => {
     const handleRaces = async () => {
@@ -19,9 +29,14 @@ const CyclingRacesCalendar = () => {
         console.error("Error fetching races:", error);
       }
     };
-
+    const today = new Date();
+    setSelectedMonth(formatMonth(today));
     handleRaces();
   }, []);
+
+  const onChangeMonthRaces = (event: SelectChangeEvent<number>) => {
+    setSelectedMonth(event.target.value);
+  };
 
   if (isLoading) {
     return (
@@ -39,16 +54,26 @@ const CyclingRacesCalendar = () => {
     );
   }
 
+  
   return (
     <>
-      <Typography 
-        color="white"
-        variant="h3" 
-        fontWeight="bold" 
-        mb={5} 
-        mt={5}>
-        Calendario Carreras 2025
-      </Typography>
+      <FormControl>  
+        <Select
+          value={selectedMonth}
+          onChange={onChangeMonthRaces}
+          sx={{
+            backgroundColor:"white",
+            padding: 0,
+            mb: 6,
+            width: 300,
+            textAlign: "left"
+          }}
+        >
+          {[...Array(12).keys()].map(i => 
+            <MenuItem value={i+1}>{months[i+1]}</MenuItem>)}
+        </Select>
+      </FormControl>
+
       <Grid
         container
         spacing={6}
@@ -57,9 +82,10 @@ const CyclingRacesCalendar = () => {
         width="80vw"
       >
         {upcomingRaces.map((race) => (
+          formatMonth(race.date) === selectedMonth ?
           <Grid key={race.id}>
-            <CyclingRaceCard race={race} />
-          </Grid>
+            <NewCyclingRaceCard race={race} cardMode="calendar"/>
+          </Grid> : <></>
         ))}
       </Grid>
     </>

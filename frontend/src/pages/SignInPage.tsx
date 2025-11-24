@@ -2,13 +2,20 @@ import {
   Stack,
   Typography,
   Paper,
-  TextField,
   Button,
   Alert,
+  Box
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cyclistService from "../services/cyclists";
 import { useNavigate } from "react-router-dom";
+import { Lock } from "@mui/icons-material";
+import PersonIcon from '@mui/icons-material/Person';
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
+import { Link } from "@mui/material";
+import FormInput from "../components/ui/FormInput";
+import GroupsIcon from '@mui/icons-material/Groups';
+import NumbersIcon from '@mui/icons-material/Numbers';
 
 export default function SignInPage() {
   const navigate = useNavigate();
@@ -21,24 +28,32 @@ export default function SignInPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  useEffect(() => {
+    setRut("15000222k");
+    setName("Marco Antonio Solis");
+    setPassword("password");
+    setClub("Mexico Cycling");
+    setDorsal("300");
+  }, [])
+
   const validateFields = () => {
     if (!rut || !name || !club || !n_dorsal || !password)
       return "Todos los campos son requeridos";
 
+    if (rut.length < 8)
+      return "El RUT debe tener al menos 8 dígitos (sin puntos ni guion)";
+
     if (name.length < 7)
       return "El nombre de usuario debe tener al menos 7 caracteres";
-
-    if (club.length < 3)
-      return "El nombre del club debe tener al menos 3 caracteres";
 
     if (password.length < 6)
       return "La contraseña debe tener al menos 6 caracteres";
 
+    if (club.length < 3)
+      return "El nombre del club debe tener al menos 3 caracteres";
+
     if (isNaN(Number(n_dorsal)))
       return "El número de dorsal debe ser numérico";
-
-    if (rut.length < 8)
-      return "El RUT debe tener al menos 8 dígitos (sin puntos ni guion)";
 
     return null;
   };
@@ -78,84 +93,93 @@ export default function SignInPage() {
   };
 
   return (
-    <Stack spacing={3} sx={{ maxWidth: 600, margin: "40px auto" }}>
-      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-      {successMessage && <Alert severity="success">{successMessage}</Alert>}
+    <Box sx={{ position: "relative"}}>
+      <Paper elevation={7}>
+        <Stack sx={{ 
+          height: 550,
+          margin: 10, 
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center" 
+        }}>
+          <Typography gutterBottom fontWeight="bold" variant="h5" sx={{ mb: 2 }}>
+            Crea tu cuenta ciclista
+          </Typography>
+          <form onSubmit={handleRegister}>
+            <Stack sx={{
+              gap: 1.2,
+              alignItems: "center"
+            }}>
 
-      <Paper elevation={3} sx={{ p: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Crea tu cuenta ciclista
-        </Typography>
-        <form onSubmit={handleRegister}>
-          <Stack spacing={2}>
-            <TextField
-              label="RUT"
-              variant="outlined"
-              fullWidth
-              value={rut}
-              onChange={(e) => setRut(e.target.value)}
-              helperText="Ejemplo: 15892044 (sin puntos ni guion)"
-              data-testid="rut"
-              required
-            />
-            <TextField
-              label="Usuario"
-              variant="outlined"
-              fullWidth
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              helperText="Mínimo 7 caracteres"
-              data-testid="username"
-              required
-            />
-            <TextField
-              label="Contraseña"
-              variant="outlined"
-              type="password"
-              fullWidth
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              helperText="Debe tener al menos 6 caracteres"
-              data-testid="password"
-              required
-            />
-            <TextField
-              label="Club"
-              variant="outlined"
-              fullWidth
-              value={club}
-              onChange={(e) => setClub(e.target.value)}
-              helperText="Mínimo 3 caracteres"
-              data-testid="club"
-              required
-            />
-            <TextField
-              label="Número de dorsal"
-              variant="outlined"
-              fullWidth
-              type="number"
-              value={n_dorsal}
-              onChange={(e) => setDorsal(e.target.value)}
-              helperText="Debe ser un número único"
-              data-testid="n_dorsal"
-              required
-            />
+              <FormInput 
+                placeholder="RUT*"
+                value={rut}
+                onChange={(e) => setRut(e.target.value)}
+                icon={<FingerprintIcon sx={{ color: '#666', fontSize: 23 }} />}
+                helper="Ejemplo: 15000111k (sin puntos ni guion)"
+                type="rut"
+                data-testid="rut"
+              />
 
-            <Stack direction="row" spacing={2}>
-              <Button type="submit" variant="contained" color="primary">
-                Registrar
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => navigate("/login")}
-              >
-                Volver
+              <FormInput 
+                placeholder="Usuario*"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                icon={<PersonIcon sx={{ color: '#666', fontSize: 23 }} />}
+                helper="Mínimo 7 caracteres"
+                data-testid="username"
+              />
+
+              <FormInput 
+                placeholder="Contraseña*"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                icon={<Lock sx={{ color: '#666', fontSize: 23 }} />}
+                helper="Debe tener al menos 6 caracteres"
+                type="password"
+                data-testid="password"
+              />
+
+              <FormInput 
+                placeholder="Club*"
+                value={club}
+                onChange={(e) => setClub(e.target.value)}
+                icon={<GroupsIcon sx={{ color: '#666', fontSize: 23 }} />}
+                helper="Mínimo 3 caracteres"
+                data-testid="club"
+              />
+
+              <FormInput 
+                placeholder="Número de dorsal*"
+                value={n_dorsal}
+                onChange={(e) => setDorsal(e.target.value)}
+                icon={<NumbersIcon sx={{ color: '#666', fontSize: 23 }} />}
+                helper="Debe ser un número único"
+                type="numeric"
+                data-testid="n_dorsal"
+              />
+
+              <Button type="submit" variant="contained" sx={{ backgroundColor: '#dc2626', mt: 1}}>
+                Crear Cuenta
               </Button>
             </Stack>
-          </Stack>
-        </form>
+          </form>
+        </Stack>  
       </Paper>
-    </Stack>
+      <Box sx={{
+        position: "absolute",
+        top: 570,
+        left: -100,
+        right: -100,
+        height: 80,
+        alignContent: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+      }}>
+        {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+        {successMessage && <Alert severity="success">{successMessage}</Alert>}
+      </Box>
+    </Box>
   );
 }

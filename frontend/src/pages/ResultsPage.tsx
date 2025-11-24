@@ -120,15 +120,17 @@ export default function ResultsPage() {
 
   return (
     <Box sx={{ py: 4 }}>
-      <Button
-        component={Link}
-        to="/results"
-        variant="outlined"
-        startIcon={<HomeIcon />}
-        sx={{ mb: 3 }}
+      <Typography
+        variant="h3"
+        component="h1"
+        fontWeight="bold"
+        color="secondary.main"
+        sx={{
+          mb: 3
+        }}
       >
-        Volver a Resultados
-      </Button>
+        Resultados
+      </Typography>
 
       <Box
         sx={{

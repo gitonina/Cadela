@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import circuitsService from "../../services/circuits";
 import type { CircuitCreate } from "../../types/circuit";
 
@@ -23,6 +23,7 @@ export default function CreateCircuitForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -66,70 +67,79 @@ export default function CreateCircuitForm() {
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 4, maxWidth: 600, mx: "auto" }}>
-      <Typography variant="h5" gutterBottom>
-        Crear Nuevo Circuito
-      </Typography>
+      <Box sx={{ position: "relative"}} component="form" onSubmit={handleSubmit}>
+        <Paper elevation={7}>
+          <Stack sx={{ 
+            height: 350,
+            mt: 5,
+            mb: 5, 
+            ml: 10,
+            mr: 10,
+            display: "flex", 
+            justifyContent: "center", 
+            alignItems: "center",
+            gap: 2
+          }}>
+            <Typography gutterBottom fontWeight="bold" variant="h5" sx={{ mb: 0 }}>
+              Crear Nuevo Circuito
+            </Typography>
 
-      {error && (
-        <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError(null)}>
-          {error}
-        </Alert>
-      )}
+            <TextField
+              label="Nombre del Circuito"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              fullWidth
+              data-testid="circuit_name"
+            />
+            <TextField
+              label="Distancia (km)"
+              name="distance"
+              type="number"
+              value={formData.distance}
+              onChange={handleChange}
+              required
+              fullWidth
+              data-testid="distance"
+            />
+            <TextField
+              label="Elevación (m)"
+              name="elevationGain"
+              type="number"
+              value={formData.elevationGain}
+              onChange={handleChange}
+              required
+              fullWidth
+              data-testid="elevation"
+            />
+            
+            <Button 
+              type="submit" 
+              variant="contained" 
+              disabled={isLoading}
+              startIcon={isLoading ? <CircularProgress size={20} /> : null}
+              sx={{ backgroundColor: '#dc2626' }}
+            >
+              Crear Circuito
+            </Button>
 
-      {success && (
-        <Alert
-          severity="success"
-          sx={{ mb: 2 }}
-          onClose={() => setSuccess(false)}
-        >
-          ¡Carrera creada exitosamente!
-        </Alert>
-      )}
-
-      <Box component="form" onSubmit={handleSubmit}>
-        <Stack spacing={3}>
-          <TextField
-            label="Nombre del Circuito"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            data-testid="circuit_name"
-            required
-            fullWidth
-          />
-          <TextField
-            label="Distancia (km)"
-            name="distance"
-            type="number"
-            value={formData.distance}
-            onChange={handleChange}
-            data-testid="distance"
-            required
-            fullWidth
-          />
-          <TextField
-            label="Elevación (m)"
-            name="elevationGain"
-            type="number"
-            value={formData.elevationGain}
-            onChange={handleChange}
-            data-testid="elevation"
-            required
-            fullWidth
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            size="large"
-            fullWidth
-            disabled={isLoading}
-            startIcon={isLoading ? <CircularProgress size={20} /> : null}
-          >
-            {isLoading ? "Creando..." : "Crear Circuito"}
-          </Button>
-        </Stack>
+          </Stack>  
+        </Paper>
+        <Box sx={{
+          position: "absolute",
+          top: 360,
+          left: -100,
+          right: -100,
+          height: 80,
+          alignContent: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}>
+          {error && <Alert severity="error" onClose={() => setError(null)}>{error}</Alert>}
+          {success && <Alert severity="success" onClose={() => setSuccess(false)}>¡Circuito creado exitosamente!</Alert>}
+        </Box>
       </Box>
-    </Paper>
   );
 }

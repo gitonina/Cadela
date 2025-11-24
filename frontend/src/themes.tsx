@@ -18,12 +18,10 @@ const theme = createTheme({
       main: '#1976d2', // Blue
       light: '#42a5f5',
     },
-    // You can customize other colors too
     background: {
-      default: '#1c3e90',
+      default: '#154798ff',
       paper: '#ffffff',
     },
-    
   },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',

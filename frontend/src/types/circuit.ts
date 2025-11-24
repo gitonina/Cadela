@@ -5,6 +5,7 @@ export interface Circuit {
     elevationGain: number;
     kml_path: string;
     pathPhoto: string;
+    location: string;
 }
 
 export interface CircuitCreate {
@@ -13,4 +14,5 @@ export interface CircuitCreate {
     elevationGain: number;
     kml_path?: string;
     pathPhoto?: string;
+    location: string;
 }
