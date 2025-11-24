@@ -112,3 +112,11 @@ Recomendado. Abre una interfaz interactiva para ver los tests corriendo paso a p
 npm run test:report
 
 Genera y abre un reporte HTML detallado de la última ejecución.
+
+
+Diseño y Estilo
+
+Se usó la librería de estilos Material UI, con sus respectivos componentes (Box, Typography, Paper, Button, Grid, CircularProgres, etc) e íconos (Lock, PersonIcon, NumbersIcon, FingerprintIcon). 
+
+Además, se implementaron varios componentes en la carpeta /frontend/src/components/ui para así mejorar el diseño de la aplicación.
+
