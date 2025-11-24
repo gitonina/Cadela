@@ -91,6 +91,7 @@ export default function CreateCircuitForm() {
               onChange={handleChange}
               required
               fullWidth
+              data-testid="circuit_name"
             />
             <TextField
               label="Distancia (km)"
@@ -100,6 +101,7 @@ export default function CreateCircuitForm() {
               onChange={handleChange}
               required
               fullWidth
+              data-testid="distance"
             />
             <TextField
               label="Elevación (m)"
@@ -109,6 +111,7 @@ export default function CreateCircuitForm() {
               onChange={handleChange}
               required
               fullWidth
+              data-testid="elevation"
             />
             
             <Button 

@@ -7,6 +7,7 @@ import Cyclist from "./models/cyclist"
 import { Category } from "./models/category";
 import { Inscription } from "./models/inscription";
 import { Result } from "./models/result";
+import { Role, IRole } from "./models/roles";
 
 
 const resetDataBase = async () => {
@@ -17,6 +18,14 @@ const resetDataBase = async () => {
   await Inscription.deleteMany({});
   await Result.deleteMany({});
 };
+
+const populateRoles = async () => { 
+  await Role.deleteMany({}); 
+  const admin = new Role({ name: "admin" }); 
+  const cyclist = new Role({ name: "cyclist" }); 
+  await admin.save(); await cyclist.save(); 
+  console.log("Populate Roles"); 
+  return { admin, cyclist }; };
 
 const populateCircuits = async () => {
 
@@ -98,12 +107,32 @@ const populateCyclingRaces = async (nraces: number) => {
 
 const populateCyclists = async () => {
 
+  const roles = await Role.find();
+  const cyclistRole = roles.find((r: IRole) => r.name === "cyclist");
+  const adminRole = roles.find((r: IRole) => r.name === "admin");
+  if (!cyclistRole) {
+  throw new Error("No se encontró el rol cyclist en la base de datos");
+}
+
+   if (!adminRole) {
+  throw new Error("No se encontró el rol admin en la base de datos");
+}
+
+  const admin={
+    rut:"111111111",
+    name:"admin124",
+    club:"adminclub",
+    n_dorsal:50,
+    password:"password",
+    rolId: adminRole._id
+  }
   const cyclist0 = {
     rut: "210220720",
     name: "Esteban Romero Berríos",
     club: "ECUCH",
     n_dorsal: 136,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist1 = {
@@ -112,6 +141,7 @@ const populateCyclists = async () => {
     club: "Talca Cycling",
     n_dorsal: 9,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist2 = {
@@ -120,6 +150,7 @@ const populateCyclists = async () => {
     club: "Colo Colo Cycling",
     n_dorsal: 39,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist3 = {
@@ -128,6 +159,7 @@ const populateCyclists = async () => {
     club: "Beauchef Cycling",
     n_dorsal: 100,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist4 = {
@@ -136,6 +168,7 @@ const populateCyclists = async () => {
     club: "Nvim Cycling",
     n_dorsal: 21,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist5 = {
@@ -144,6 +177,7 @@ const populateCyclists = async () => {
     club: "TocToc Cycling",
     n_dorsal: 99,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist6 = {
@@ -152,6 +186,7 @@ const populateCyclists = async () => {
     club: "TocToc Cycling",
     n_dorsal: 169, 
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist7 = {
@@ -160,6 +195,7 @@ const populateCyclists = async () => {
     club: "Santiago Riders",
     n_dorsal: 45,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist8 = {
@@ -168,6 +204,7 @@ const populateCyclists = async () => {
     club: "Valparaíso Cycling",
     n_dorsal: 78,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist9 = {
@@ -176,6 +213,7 @@ const populateCyclists = async () => {
     club: "Team Cordillera",
     n_dorsal: 152,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist10 = {
@@ -184,6 +222,7 @@ const populateCyclists = async () => {
     club: "Pucon Bikers",
     n_dorsal: 267,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist11 = {
@@ -192,6 +231,7 @@ const populateCyclists = async () => {
     club: "Andes Cycling Team",
     n_dorsal: 189,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist12 = {
@@ -200,6 +240,7 @@ const populateCyclists = async () => {
     club: "La Reina Cyclists",
     n_dorsal: 234,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist13 = {
@@ -208,6 +249,7 @@ const populateCyclists = async () => {
     club: "Concepción Racing",
     n_dorsal: 67,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist14 = {
@@ -216,6 +258,7 @@ const populateCyclists = async () => {
     club: "Viña Cycling Club",
     n_dorsal: 123,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist15 = {
@@ -224,6 +267,7 @@ const populateCyclists = async () => {
     club: "Maipo Valley Riders",
     n_dorsal: 198,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist16 = {
@@ -232,6 +276,7 @@ const populateCyclists = async () => {
     club: "Temuco Wheelers",
     n_dorsal: 56,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist17 = {
@@ -240,6 +285,7 @@ const populateCyclists = async () => {
     club: "Rancagua Cycling",
     n_dorsal: 145,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist18 = {
@@ -248,6 +294,7 @@ const populateCyclists = async () => {
     club: "Osorno Bikers",
     n_dorsal: 213,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist19 = {
@@ -256,6 +303,7 @@ const populateCyclists = async () => {
     club: "Quilicura Riders",
     n_dorsal: 88,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist20 = {
@@ -264,6 +312,7 @@ const populateCyclists = async () => {
     club: "Antofagasta Cycling",
     n_dorsal: 171,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist21 = {
@@ -272,6 +321,7 @@ const populateCyclists = async () => {
     club: "Puerto Montt Team",
     n_dorsal: 254,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist22 = {
@@ -280,6 +330,7 @@ const populateCyclists = async () => {
     club: "Chillán Wheelers",
     n_dorsal: 92,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist23 = {
@@ -288,6 +339,7 @@ const populateCyclists = async () => {
     club: "La Serena Cycling",
     n_dorsal: 134,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist24 = {
@@ -296,6 +348,7 @@ const populateCyclists = async () => {
     club: "Iquique Riders",
     n_dorsal: 276,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist25 = {
@@ -304,6 +357,7 @@ const populateCyclists = async () => {
     club: "Curicó Cycling Club",
     n_dorsal: 107,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist26 = {
@@ -312,6 +366,7 @@ const populateCyclists = async () => {
     club: "Arica Bikers",
     n_dorsal: 163,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist27 = {
@@ -320,6 +375,7 @@ const populateCyclists = async () => {
     club: "Copiapó Racing",
     n_dorsal: 241,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist28 = {
@@ -328,6 +384,7 @@ const populateCyclists = async () => {
     club: "Linares Cycling",
     n_dorsal: 118,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist29 = {
@@ -336,6 +393,7 @@ const populateCyclists = async () => {
     club: "Los Ángeles Team",
     n_dorsal: 287,
     password: "password",
+    rolId: cyclistRole._id
   };
 
   const cyclist30 = {
@@ -344,8 +402,10 @@ const populateCyclists = async () => {
     club: "Valdivia Wheelers",
     n_dorsal: 74,
     password: "password",
+    rolId: cyclistRole._id
   };
-
+  
+  const admin1=new Cyclist(admin)
   const cyclistDoc0 = new Cyclist(cyclist0);
   const cyclistDoc1 = new Cyclist(cyclist1);
   const cyclistDoc2 = new Cyclist(cyclist2);
@@ -377,7 +437,8 @@ const populateCyclists = async () => {
   const cyclistDoc28 = new Cyclist(cyclist28);
   const cyclistDoc29 = new Cyclist(cyclist29);
   const cyclistDoc30 = new Cyclist(cyclist30);
-
+  
+  await admin1.save()
   await cyclistDoc0.save();
   await cyclistDoc1.save();
   await cyclistDoc2.save();
@@ -532,6 +593,7 @@ const seedDatabase = async () => {
     const nCyclingRaces = 20; 
 
     await resetDataBase();
+    await populateRoles();
     await populateCircuits();
     await populateCyclingRaces(nCyclingRaces);
     await populateCyclists();

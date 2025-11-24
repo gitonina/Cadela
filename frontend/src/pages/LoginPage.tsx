@@ -10,17 +10,20 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Cyclist } from "../types/cyclist";
 import loginService from "../services/login";
+import { useAuthStore } from "../stores/authStore";
 import { Lock } from "@mui/icons-material";
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from "@mui/material";
 import FormInput from "../components/ui/FormInput";
 
 export default function LoginPage() {
-  const navigate = useNavigate();
   const [cyclist, setCyclist] = useState<Cyclist | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
 
   useEffect(() => {
     const init = async () => {
@@ -34,6 +37,8 @@ export default function LoginPage() {
     event.preventDefault();
     try {
       const loggedUser = await loginService.login({ name, password });
+      const userData = await loginService.restoreLogin();
+      setUser(userData);
       setCyclist(loggedUser);
       setName("");
       setPassword("");
@@ -77,6 +82,7 @@ export default function LoginPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)} 
                 icon={<PersonIcon sx={{ color: '#666', fontSize: 23 }}/>} 
+                data-testid="username"
               />
 
               <FormInput
@@ -85,6 +91,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 icon={<Lock sx={{ color: '#666', fontSize: 23 }} />} 
                 type="password"
+                data-testid="password"
               />
 
               <Button type="submit" variant="contained" sx={{ backgroundColor: '#dc2626' }}>

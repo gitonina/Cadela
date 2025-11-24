@@ -1,31 +1,23 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-
-import type { CyclingRace } from "../types/cyclingRace";
-import cyclingRacesService from "../services/cyclingRaces";
-
 import { useEffect, useState } from "react";
 import { Box, CircularProgress, FormControl, MenuItem, Select } from "@mui/material";
+
+import { useCyclingRacesStore } from "../stores/cyclingRacesStore";
 import { months } from "../types/date";
 import { formatMonth } from "../utils/dates";
 import NewCyclingRaceCard from "./NewCyclingRaceCard";
 
 const ResultsList = () => {
   const [selectedMonth, setSelectedMonth] = useState(0);
-  const [races, setRaces] = useState<CyclingRace[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { pastRaces, fetchPastRaces, isLoading } = useCyclingRacesStore();
 
   useEffect(() => {
     const handleRaces = async () => {
       try {
-        setIsLoading(true);
-        const allRaces = await cyclingRacesService.getPastRaces();
-        console.log(allRaces);
-        setRaces(allRaces);
+        await fetchPastRaces();
       } catch (error) {
         console.error("Error fetching races:", error);
-      } finally {
-        setIsLoading(false);
       }
     };
     const today = new Date();
@@ -79,7 +71,7 @@ const ResultsList = () => {
         alignItems="center"
         width="80vw"
       >
-        {races.map((race) => (
+        {pastRaces.map((race) => (
           formatMonth(race.date) === selectedMonth ?
           <Grid key={race.id}>
             <NewCyclingRaceCard race={race} cardMode="result"/>

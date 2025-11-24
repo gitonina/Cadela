@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import  inscriptionService  from "../services/inscriptions";
-import loginService from "../services/login";
 import categoriesService from "../services/categories";
 import type { Category } from "../types/categories";
 import {
@@ -13,22 +12,16 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import type { InscriptionCreate } from "../types/inscription";
-import type { Cyclist } from "../types/cyclist";
+import { useAuthStore } from "../stores/authStore";
 
 
 const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
-  const [user, setUser] = useState<Cyclist | null>(null);
+  const { user } = useAuthStore();
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const init = async () => {
-      const loggedUser = await loginService.restoreLogin();
-      setUser(loggedUser);
-    };
-    init();
-
     const loadCategories = async () => {
       try {
         const data = await categoriesService.getAllCategories();

@@ -9,7 +9,7 @@ import ResultsListPage from "./pages/ResultsListPage";
 import LoginPage from "./pages/LoginPage";
 import SignInPage from "./pages/SignInPage";
 import NewTopBar from "./components/ui/NewTopbar";
-
+import {ProtectedRoute} from "./components/ProtectedRoutes"
 function App() {
   return (
     <Box>
@@ -20,7 +20,14 @@ function App() {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/results" element={<ResultsListPage />} />
           <Route path="/results/:raceId" element={<ResultsPage />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin" 
+          element={
+          <ProtectedRoute roles={["admin"]}>
+          <AdminPage />
+        </ProtectedRoute>
+        } 
+          
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
         </Routes>

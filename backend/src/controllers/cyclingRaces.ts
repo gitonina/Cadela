@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import { CyclingRace } from "../models/cyclingRace";
+import { authenticateToken ,requireRole} from "../utils/middleware";
 
 const router=express.Router()
 
@@ -77,7 +78,7 @@ router.get("/:id", (req: Request, res: Response, next: NextFunction) => {
     .catch((error) => next(error));
 });
 
-router.post("/", (request, response, next) => {
+router.post("/", authenticateToken,requireRole(["admin"]),(request, response, next) => {
   const body = request.body;
 
   if (!body.circuitId || !body.date) {
