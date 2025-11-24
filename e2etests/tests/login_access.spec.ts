@@ -37,7 +37,7 @@ test.describe('Login y Acceso Protegido', () => {
 
   test('Login falla con contraseña incorrecta', async ({ page }) => {
     await loginWith(page, USER.rut, 'wrongpass');
-    await expect(page.getByText('invalid username or password')).toBeVisible();
+    await expect(page.getByText('invalid rut or password')).toBeVisible();
   });
 
   test('Login redirije a crear una cuenta', async ({ page }) => {
