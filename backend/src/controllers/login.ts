@@ -49,8 +49,10 @@ router.post("/", async (request, response) => {
   });
 
   return response.status(200).json({
+    name: cyclist.name,
     rut: cyclist.rut,
     rolId: cyclist.rolId._id,
+    id: cyclist.id,
   });
 });
 
@@ -60,7 +62,7 @@ router.get("/me", authenticateToken, async (request, response, next) => {
   response.status(200).json(cyclist);
 });
 
-router.post("/logout",authenticateToken, (request, response) => {
+router.post("/logout", (request, response) => {
   response.clearCookie("token");
   response.status(200).send({
     message: "Logged out successfully"

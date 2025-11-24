@@ -57,6 +57,7 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
     } catch (error) {
       console.error(error);
       alert(error);
+      setErrorMessage(error as string)
     }
   };
 

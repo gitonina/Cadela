@@ -18,32 +18,25 @@ import { Link } from "@mui/material";
 import FormInput from "../components/ui/FormInput";
 
 export default function LoginPage() {
-  const [cyclist, setCyclist] = useState<Cyclist | null>(null);
+  const { user, setUser, setRole } = useAuthStore();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [rut, setRut] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const setUser = useAuthStore((state) => state.setUser);
-  const setRole = useAuthStore((state) => state.setRole);
 
   useEffect(() => {
-    const init = async () => {
-      const loggedUser = await loginService.restoreLogin();
-      if (loggedUser) setCyclist(loggedUser);
-    };
-    init();
+    if (user) 
+      navigate('/')
   }, []);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const loggedUser = await loginService.login({ rut, password });
-      const userData = await loginService.restoreLogin();
-      setUser(userData);
-      const role = await rolesService.getRoleById(userData.rolId);
+      const role = await rolesService.getRoleById(loggedUser.rolId);
       setRole(role);
-      setCyclist(loggedUser);
+      setUser(loggedUser);
       setRut("");
       setPassword("");
       setTimeout(() => navigate("/"), 1500);
@@ -55,10 +48,10 @@ export default function LoginPage() {
     }
   };
 
-  if (cyclist) {
+  if (user) {
     return (
       <Stack spacing={3}>
-        <Alert severity="success">Has iniciado Sesión! {cyclist.name}</Alert>
+        <Alert severity="success">Has iniciado Sesión! {user.name}</Alert>
       </Stack>
     );
   }
