@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { CyclingRace, CyclingRaceCreate } from "../types/cyclingRace";
 
-const baseUrl = "api/cycling-races";
+const baseUrl = "/api/cycling-races";
 
 export const getAllRaces = async () => {
   const request = await axios.get<CyclingRace[]>(baseUrl);

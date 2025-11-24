@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { Circuit, CircuitCreate } from "../types/circuit";
 
-const baseUrl = "api/circuits";
+const baseUrl = "/api/circuits";
 
 export const getAllCircuits = async () => {
   const request = await axios.get<Circuit[]>(baseUrl);
