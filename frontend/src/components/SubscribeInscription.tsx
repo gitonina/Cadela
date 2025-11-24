@@ -20,6 +20,7 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<String>("");
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -55,7 +56,7 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
       alert("Inscripción creada con éxito ");
     } catch (error) {
       console.error(error);
-      alert("Error al crear inscripción ");
+      alert(error);
     }
   };
 

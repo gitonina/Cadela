@@ -10,8 +10,21 @@ export const getAll = async () => {
 };
 
 export const create = async (newData: InscriptionCreate) => {
-  const response = await axiosSecure.post<Inscription>(baseUrl, newData);
-  return response.data as Inscription;
+  try {
+    const response = await axiosSecure.post<Inscription>(baseUrl, newData);
+    return response.data as Inscription;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage = error.response?.data?.message 
+                        || error.response?.data?.error
+                        || error.message
+                        || 'Error al crear la inscripción';
+      
+      throw new Error(errorMessage);
+    } else {
+      throw new Error('Error inesperado al crear la inscripción');
+    }
+  }
 };
 
 export const deleteInscriptionById = async (inscriptionId: string): Promise<void> => {
