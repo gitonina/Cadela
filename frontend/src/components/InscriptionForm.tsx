@@ -47,7 +47,7 @@ const InscriptionForm = ( {cyclistId, cyclingRaceId} : {cyclistId : string, cycl
   useEffect(handleInscriptions, []);
 
   const onSelectChange = (event: SelectChangeEvent) => {
-    const { _, value } = event.target;
+    const { value } = event.target;
     setForm(prev => ({
       ...prev,
       categoryId: value

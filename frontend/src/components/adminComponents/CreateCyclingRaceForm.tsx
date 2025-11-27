@@ -2,14 +2,13 @@ import {
   Alert,
   Box,
   Button,
-  CircularProgress,
   FormControl,
   MenuItem,
   Paper,
   Select,
   Stack,
-  TextField,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
@@ -18,8 +17,7 @@ import type { Circuit } from "../../types/circuit";
 import circuitsService from "../../services/circuits";
 import cyclingRacesService from "../../services/cyclingRaces";
 import type { CyclingRaceCreate } from "../../types/cyclingRace";
-import FormInput from "../ui/FormInput";
-import PersonIcon from '@mui/icons-material/Person';
+
 
 
 export default function CreateCyclingRaceForm() {
@@ -93,6 +91,21 @@ export default function CreateCyclingRaceForm() {
       setIsLoading(false);
     }
   };
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="50vh"
+      >
+        <CircularProgress />
+        <Typography color="white" variant="h6" ml={2}>
+          Cargando
+        </Typography>
+      </Box>
+    );
+  } 
 
   return (
     <Box sx={{ position: "relative"}} component="form" onSubmit={handleSubmit}>

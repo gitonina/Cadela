@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import circuitsService from "../../services/circuits";
 import type { CircuitCreate } from "../../types/circuit";
 

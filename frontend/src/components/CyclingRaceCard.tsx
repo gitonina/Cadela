@@ -9,7 +9,7 @@ import EventIcon from "@mui/icons-material/Event";
 
 
 import type { CyclingRace } from "../types/cyclingRace";
-import { formatDateNumber, formatDateString } from "../utils/dates";
+import { formatDateString } from "../utils/dates";
 import { Stack } from "@mui/material";
 
 const CyclingRaceCard = ({ race }: { race: CyclingRace }) => {

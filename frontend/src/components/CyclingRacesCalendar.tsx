@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import CyclingRaceCard from "./CyclingRaceCard";
 import NewCyclingRaceCard from "./NewCyclingRaceCard";
 
 import { useEffect, useState } from "react";

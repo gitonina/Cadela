@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import loginService from "../services/login";
-import rolesService from "../services/roles";
 import { useAuthStore } from "../stores/authStore";
 
 interface ProtectedRouteProps {

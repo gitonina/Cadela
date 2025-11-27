@@ -6,7 +6,6 @@ import HomeButton from "./HomeButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import loginService from "../../services/login"
 import { useAuthStore } from "../../stores/authStore";
-import { useEffect } from "react";
 
 const NewTopBar = () => {
   const navigate = useNavigate();
