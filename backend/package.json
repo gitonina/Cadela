@@ -26,6 +26,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p .",
+    "build:ui": "cd ../frontend && npm run build",
+    "copy:ui": "rm -rf dist/static && mkdir -p dist/static && cp -r ../frontend/dist/* dist/static",
+    "build:full": "npm run build && npm run build:ui && npm run copy:ui",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "start": "node dist/index.js",
