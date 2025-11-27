@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Cyclist } from "../types/cyclist";
 import loginService from "../services/login";
 import rolesService from "../services/roles";
 import { useAuthStore } from "../stores/authStore";
