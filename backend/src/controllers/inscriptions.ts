@@ -49,7 +49,7 @@ router.post("/",authenticateToken, async (request, response, next) => {
     });
 
     if (existingInscription) {
-      return response.status(400).json({ error: "This user is already enrolled in this career" });
+      return response.status(400).json({ error: "Este usuario ya se encuentra registrado a esta carrera" });
     }
 
     const inscription = new Inscription({

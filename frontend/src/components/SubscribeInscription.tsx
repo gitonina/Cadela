@@ -13,14 +13,15 @@ import {
 import { useNavigate } from "react-router-dom";
 import type { InscriptionCreate } from "../types/inscription";
 import { useAuthStore } from "../stores/authStore";
+import { useErrorStore } from "../stores/errorStore";
 
 
 const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
   const { user } = useAuthStore();
+  const { setMessage, setAlert, setAlertType} = useErrorStore();
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState<String>("");
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -34,14 +35,20 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
     loadCategories();
   }, []);
 
+  const callAlert = (message: string, alertType: 'error' | 'success') => {
+    setMessage(message);
+    setAlertType(alertType)
+    setAlert(true);
+  }
+
   const handleSubscribe = async () => {
     if (!user) {
-      alert("Debes iniciar sesión para inscribirte");
+      callAlert("Debes iniciar sesión para inscribirte", 'error');
       return;
     }
 
     if (!selectedCategory) {
-      alert("Selecciona una categoría antes de inscribirte");
+      callAlert("Selecciona una categoría antes de inscribirte", 'error');
       return;
     }
 
@@ -53,11 +60,9 @@ const SimpleSubscribeButton = ({ raceId }: { raceId: string }) => {
 
     try {
       await inscriptionService.createInscription(payload);
-      alert("Inscripción creada con éxito ");
+      callAlert("Inscripción realizada con éxito", 'success');
     } catch (error) {
-      console.error(error);
-      alert(error);
-      setErrorMessage(error as string)
+      callAlert(error!.toString(), 'error');
     }
   };
 
