@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import CyclingRaceCard from "./CyclingRaceCard";
 import NewCyclingRaceCard from "./NewCyclingRaceCard";
 
 import { useEffect, useState } from "react";
@@ -18,13 +17,13 @@ import { useCyclingRacesStore } from "../stores/cyclingRacesStore";
 
 
 const CyclingRacesCalendar = () => {
-  const { upcomingRaces, fetchUpcomingRaces, isLoading } = useCyclingRacesStore();
+  const { races, fetchAllRaces, isLoading } = useCyclingRacesStore();
   const [selectedMonth, setSelectedMonth] = useState(0);
 
   useEffect(() => {
     const handleRaces = async () => {
       try {
-        await fetchUpcomingRaces();
+        await fetchAllRaces();
       } catch (error) {
         console.error("Error fetching races:", error);
       }
@@ -81,7 +80,7 @@ const CyclingRacesCalendar = () => {
         alignItems="center"
         width="80vw"
       >
-        {upcomingRaces.map((race) => (
+        {races.map((race) => (
           formatMonth(race.date) === selectedMonth ?
           <Grid key={race.id}>
             <NewCyclingRaceCard race={race} cardMode="calendar"/>

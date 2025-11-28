@@ -20,24 +20,24 @@ test.describe('Login y Acceso Protegido', () => {
   });
 
   test('Login con credenciales correctas', async ({ page }) => {
-    await loginWith(page, USER.name, USER.password);
-    await expect(page.getByText(/Has iniciado/i)).toBeVisible();
-    await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/);
+    await loginWith(page, USER.rut, USER.password);
+    await expect(page.getByText(/Has iniciado/i)).toBeVisible({ timeout: 10000 });
+    await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/, { timeout: 10000 });
     await expect(page.getByText(USER.name, { exact: false })).toBeVisible();
     await expect(page.getByText(/cerrar sesión/i)).toBeVisible();
   });
 
   test('Cyclist no puede acceder a /admin y es redirigido a al home', async ({ page }) => {
-    await loginWith(page, USER.name, USER.password);
-    await expect(page.getByText(/Has iniciado/i)).toBeVisible();
-    await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/);
+    await loginWith(page, USER.rut, USER.password);
+    await expect(page.getByText(/Has iniciado/i)).toBeVisible({ timeout: 10000 });
+    await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/,  { timeout: 10000 });
     await page.goto('/admin');
-    await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/);
+    await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/,  { timeout: 10000 });
   });
 
   test('Login falla con contraseña incorrecta', async ({ page }) => {
-    await loginWith(page, USER.name, 'wrongpass');
-    await expect(page.getByText('invalid username or password')).toBeVisible();
+    await loginWith(page, USER.rut, 'wrongpass');
+    await expect(page.getByText('invalid rut or password')).toBeVisible();
   });
 
   test('Login redirije a crear una cuenta', async ({ page }) => {

@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { Inscription } from "../models/inscription";
 import Cyclist from "../models/cyclist"
 import { authenticateToken } from "../utils/middleware";
+import mongoose from "mongoose";
 
 const router=express.Router()
 
@@ -39,12 +40,22 @@ router.post("/",authenticateToken, async (request, response, next) => {
     }
 
     if (!body.cyclingRaceId || !body.categoryId) {
-    return response.status(400).json({ error: "missing required fields" });
+      return response.status(400).json({ error: "missing required fields" });
     }
+
+    const existingInscription = await Inscription.findOne({ 
+      "cyclistId": body.cyclistId,
+      "cyclingRaceId": body.cyclingRaceId,
+    });
+
+    if (existingInscription) {
+      return response.status(400).json({ error: "Este usuario ya se encuentra registrado a esta carrera" });
+    }
+
     const inscription = new Inscription({
-    cyclingRaceId: body.cyclingRaceId,
-    cyclistId: user?.id,
-    categoryId: body.categoryId,
+      cyclingRaceId: body.cyclingRaceId,
+      cyclistId: user?.id,
+      categoryId: body.categoryId,
     });
 
     const savedInscription = await inscription.save();

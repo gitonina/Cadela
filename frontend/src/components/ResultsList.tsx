@@ -1,12 +1,13 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
-import { Box, CircularProgress, FormControl, MenuItem, Select } from "@mui/material";
+import { Box, CircularProgress, FormControl, MenuItem, Select, type SelectChangeEvent } from "@mui/material";
 
 import { useCyclingRacesStore } from "../stores/cyclingRacesStore";
 import { months } from "../types/date";
 import { formatMonth } from "../utils/dates";
 import NewCyclingRaceCard from "./NewCyclingRaceCard";
+
 
 const ResultsList = () => {
   const [selectedMonth, setSelectedMonth] = useState(0);

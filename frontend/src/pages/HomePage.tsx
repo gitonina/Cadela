@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect} from "react";
 import { CircularProgress } from "@mui/material";
 import { useCyclingRacesStore } from "../stores/cyclingRacesStore";
+import SimpleSnackbar from "../components/ui/SimpleAlert";
 
 export default function HomePage() {
   const { nextRace, fetchNextRace ,isLoading} = useCyclingRacesStore();
@@ -118,6 +119,8 @@ export default function HomePage() {
           </Button>
         </Stack>
       </Box>
+
+      <SimpleSnackbar />
     </>
   );
 }

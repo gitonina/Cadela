@@ -16,7 +16,6 @@ const NewTopBar = () => {
     await loginService.logout();
     clearUser();
     navigate("/login");
-    clearUser();
   };
 
   return (

@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import circuitsService from "../../services/circuits";
 import type { CircuitCreate } from "../../types/circuit";
 
@@ -18,6 +18,7 @@ export default function CreateCircuitForm() {
     distance: "",
     elevationGain: "",
     gpxFile: null,
+    location: "",
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -46,6 +47,7 @@ export default function CreateCircuitForm() {
         name: formData.name,
         distance: Number(formData.distance),
         elevationGain: Number(formData.elevationGain),
+        location: formData.location,
       } as CircuitCreate);
 
       // Clear form after success
@@ -54,6 +56,7 @@ export default function CreateCircuitForm() {
         distance: "",
         elevationGain: "",
         gpxFile: null,
+        location: "",
       });
 
       setSuccess(true);
@@ -70,8 +73,8 @@ export default function CreateCircuitForm() {
       <Box sx={{ position: "relative"}} component="form" onSubmit={handleSubmit}>
         <Paper elevation={7}>
           <Stack sx={{ 
-            height: 350,
-            mt: 5,
+            height: 430,
+            mt: 1,
             mb: 5, 
             ml: 10,
             mr: 10,
@@ -113,6 +116,15 @@ export default function CreateCircuitForm() {
               fullWidth
               data-testid="elevation"
             />
+            <TextField
+              label="Ubicación"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              required
+              fullWidth
+              data-testid="location"
+            />
             
             <Button 
               type="submit" 
@@ -123,12 +135,11 @@ export default function CreateCircuitForm() {
             >
               Crear Circuito
             </Button>
-
           </Stack>  
         </Paper>
         <Box sx={{
           position: "absolute",
-          top: 360,
+          top: 450,
           left: -100,
           right: -100,
           height: 80,

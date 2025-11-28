@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosSecure = axios.create({
     withCredentials: true,
-     baseURL: "/api",
+    baseURL: "/api",
 });
 
 

@@ -4,13 +4,15 @@ import { loginWith } from './helper';
 test.describe('Admin: Crear circuitos y carreras', () => {
     const ADMIN = {
     name: 'Administrador E2E',
-    password: 'adminpassword'
+    password: 'adminpassword',
+    rut: "999999999",
   };
 
   const CIRCUITO = {
     name: 'Circuito Test E2E',
     distance: '45',
-    elevationGain: '1200'
+    elevationGain: '1200',
+    location: 'Test location 123',
   };
 
   test.beforeEach(async ({ page, request }) => {
@@ -19,20 +21,20 @@ test.describe('Admin: Crear circuitos y carreras', () => {
   });
 
   test('Admin logueado puede crear un circuito y una carrera', async ({ page }) => {
-    await loginWith(page, ADMIN.name, ADMIN.password);
+    await loginWith(page, ADMIN.rut, ADMIN.password);
+    await expect(page.getByText(/Has iniciado/i)).toBeVisible();
     await expect(page).toHaveURL(/^http:\/\/localhost:5173\/?$/);
     await page.goto('/admin');
     await page.getByTestId('circuit_name').locator('input').fill(CIRCUITO.name);
     await page.getByTestId('distance').locator('input').fill(CIRCUITO.distance);
     await page.getByTestId('elevation').locator('input').fill(CIRCUITO.elevationGain);
+    await page.getByTestId('location').locator('input').fill(CIRCUITO.location);
     await page.locator('form').getByRole('button', { name: 'CREAR CIRCUITO' }).click();
     await expect(page.getByText('¡Circuito creado exitosamente!')).toBeVisible();
 
     await page.getByRole('tab', { name: 'CREAR CARRERA' }).click();
 
-    //await page.getByRole('combobox', { name: 'Seleccionar Circuito' }).locator('input').click();
     await page.getByText('Seleccionar Circuito').click();
-    //await page.getByRole('combobox', { name: 'Circuito' }).click();
     await page.getByRole('option', { name: CIRCUITO.name }).click();
 
     const tomorrow = new Date();

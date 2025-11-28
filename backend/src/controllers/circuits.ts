@@ -14,7 +14,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
 router.post("/",authenticateToken,requireRole(["admin"]), (request, response, next) => {
   const body = request.body;
 
-  if (!body.name || !body.distance || !body.elevationGain) {
+  if (!body.name || !body.distance || !body.elevationGain || !body.location) {
     return response.status(400).json({ error: "metrics missing" });
   };
 
@@ -24,6 +24,7 @@ router.post("/",authenticateToken,requireRole(["admin"]), (request, response, ne
     elevationGain: body.elevationGain,
     kml_path: null,
     pathPhoto: null,
+    location: body.location,
   };
 
   const circuitDocument = new Circuit(circuit);

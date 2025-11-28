@@ -1,12 +1,13 @@
 import axiosSecure from "../utils/axiosSecure";
+import axios from "axios";
 
 type Credentials = {
-    name: string;
+    rut: string;
     password: string;
 };
 
 const login = async (credentials: Credentials) => {
-    const response = await axiosSecure.post("/login", credentials);
+    const response = await axios.post("/api/login", credentials);
 
     const csrfToken = response.headers["x-csrf-token"];
 
@@ -27,7 +28,7 @@ const restoreLogin = async () => {
 };
 
 const logout = async () => {
-    await axiosSecure.post("/login/logout");
+    await axios.post("/api/login/logout");
     localStorage.removeItem("csrfToken");
 };
 

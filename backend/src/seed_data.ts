@@ -1,6 +1,6 @@
 import { Circuit } from "./models/circuit";
 import { CyclingRace } from "./models/cyclingRace";
-import config from "../src/utils/config";
+import config from "./utils/config";
 import mongoose from "mongoose";
 import logger from "./utils/logger";
 import Cyclist from "./models/cyclist"
@@ -8,7 +8,7 @@ import { Category } from "./models/category";
 import { Inscription } from "./models/inscription";
 import { Result } from "./models/result";
 import { Role, IRole } from "./models/roles";
-
+import bcrypt from "bcrypt";
 
 const resetDataBase = async () => {
   await Circuit.deleteMany({});
@@ -33,7 +33,7 @@ const populateCircuits = async () => {
     name: "Autódromo Las Vizcachas",
     distance: 1.61,
     elevationGain: 14,
-    pathPhoto: "/src/circuits_images/autodromo.png",
+    pathPhoto: "/circuits_images/autodromo.png",
     location: "Puente Alto",
   };
 
@@ -41,7 +41,7 @@ const populateCircuits = async () => {
     name: "Doble Toyo",
     distance: 84.05,
     elevationGain: 1138,
-    pathPhoto: "/src/circuits_images/toyo.jpg",
+    pathPhoto: "/circuits_images/toyo.jpg",
     location: "Valle del Cajón del Maipo",
   };
 
@@ -49,7 +49,7 @@ const populateCircuits = async () => {
     name: "Cuesta Barriga",
     distance: 86.50,
     elevationGain: 744,
-    pathPhoto: "/src/circuits_images/barriga.jpg",
+    pathPhoto: "/circuits_images/barriga.jpg",
     location: "Talagante",
   };
 
@@ -57,7 +57,7 @@ const populateCircuits = async () => {
     name: "Cuesta Chada",
     distance: 103.54,
     elevationGain: 675,
-    pathPhoto: "/src/circuits_images/chada.jpg",
+    pathPhoto: "/circuits_images/chada.jpg",
     location: "Paine",
   };
 
@@ -110,6 +110,9 @@ const populateCyclists = async () => {
   const roles = await Role.find();
   const cyclistRole = roles.find((r: IRole) => r.name === "cyclist");
   const adminRole = roles.find((r: IRole) => r.name === "admin");
+  const adminPasswordHash = await bcrypt.hash("adminpassword", 10);
+  const passwordHash = await bcrypt.hash("password", 10);
+
   if (!cyclistRole) {
   throw new Error("No se encontró el rol cyclist en la base de datos");
 }
@@ -119,11 +122,11 @@ const populateCyclists = async () => {
 }
 
   const admin={
-    rut:"111111111",
-    name:"admin124",
-    club:"adminclub",
-    n_dorsal:50,
-    password:"password",
+    rut: "111111111",
+    name: "admin124",
+    club: "adminclub",
+    n_dorsal: 50,
+    password: adminPasswordHash,
     rolId: adminRole._id
   }
   const cyclist0 = {
@@ -131,7 +134,7 @@ const populateCyclists = async () => {
     name: "Esteban Romero Berríos",
     club: "ECUCH",
     n_dorsal: 136,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -140,7 +143,7 @@ const populateCyclists = async () => {
     name: "Ricardo Fernández Reyes",
     club: "Talca Cycling",
     n_dorsal: 9,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -149,7 +152,7 @@ const populateCyclists = async () => {
     name: "Victor Alfaro P.",
     club: "Colo Colo Cycling",
     n_dorsal: 39,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -158,7 +161,7 @@ const populateCyclists = async () => {
     name: "Champi Villalobos C.",
     club: "Beauchef Cycling",
     n_dorsal: 100,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -167,7 +170,7 @@ const populateCyclists = async () => {
     name: "Edgar Morales Gonzáles",
     club: "Nvim Cycling",
     n_dorsal: 21,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -176,7 +179,7 @@ const populateCyclists = async () => {
     name: "Jean Paul Duchens",
     club: "TocToc Cycling",
     n_dorsal: 99,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -185,7 +188,7 @@ const populateCyclists = async () => {
     name: "Juan Ortega Castro",
     club: "TocToc Cycling",
     n_dorsal: 169, 
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -194,7 +197,7 @@ const populateCyclists = async () => {
     name: "Carlos Muñoz Sepúlveda",
     club: "Santiago Riders",
     n_dorsal: 45,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -203,7 +206,7 @@ const populateCyclists = async () => {
     name: "Diego Torres Valdés",
     club: "Valparaíso Cycling",
     n_dorsal: 78,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -212,7 +215,7 @@ const populateCyclists = async () => {
     name: "Andrés Silva Contreras",
     club: "Team Cordillera",
     n_dorsal: 152,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -221,7 +224,7 @@ const populateCyclists = async () => {
     name: "Felipe Ramírez Soto",
     club: "Pucon Bikers",
     n_dorsal: 267,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -230,7 +233,7 @@ const populateCyclists = async () => {
     name: "Luis Castillo Moreno",
     club: "Andes Cycling Team",
     n_dorsal: 189,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -239,7 +242,7 @@ const populateCyclists = async () => {
     name: "Matías Rojas Fuentes",
     club: "La Reina Cyclists",
     n_dorsal: 234,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -248,7 +251,7 @@ const populateCyclists = async () => {
     name: "Jorge Peña Herrera",
     club: "Concepción Racing",
     n_dorsal: 67,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -257,7 +260,7 @@ const populateCyclists = async () => {
     name: "Rodrigo Vega Campos",
     club: "Viña Cycling Club",
     n_dorsal: 123,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -266,7 +269,7 @@ const populateCyclists = async () => {
     name: "Sebastián Pinto Núñez",
     club: "Maipo Valley Riders",
     n_dorsal: 198,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -275,7 +278,7 @@ const populateCyclists = async () => {
     name: "Pablo Gutiérrez Leiva",
     club: "Temuco Wheelers",
     n_dorsal: 56,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -284,7 +287,7 @@ const populateCyclists = async () => {
     name: "Cristián Díaz Paredes",
     club: "Rancagua Cycling",
     n_dorsal: 145,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -293,7 +296,7 @@ const populateCyclists = async () => {
     name: "Marco López Bravo",
     club: "Osorno Bikers",
     n_dorsal: 213,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -302,7 +305,7 @@ const populateCyclists = async () => {
     name: "Tomás Sánchez Rivera",
     club: "Quilicura Riders",
     n_dorsal: 88,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -311,7 +314,7 @@ const populateCyclists = async () => {
     name: "Nicolás Álvarez Cortés",
     club: "Antofagasta Cycling",
     n_dorsal: 171,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -320,7 +323,7 @@ const populateCyclists = async () => {
     name: "Ignacio Hernández Lagos",
     club: "Puerto Montt Team",
     n_dorsal: 254,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -329,7 +332,7 @@ const populateCyclists = async () => {
     name: "Gabriel Vargas Medina",
     club: "Chillán Wheelers",
     n_dorsal: 92,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -338,7 +341,7 @@ const populateCyclists = async () => {
     name: "Manuel Castro Espinoza",
     club: "La Serena Cycling",
     n_dorsal: 134,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -347,7 +350,7 @@ const populateCyclists = async () => {
     name: "Francisco Mora Guzmán",
     club: "Iquique Riders",
     n_dorsal: 276,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -356,7 +359,7 @@ const populateCyclists = async () => {
     name: "Alejandro Núñez Tapia",
     club: "Curicó Cycling Club",
     n_dorsal: 107,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -365,7 +368,7 @@ const populateCyclists = async () => {
     name: "Javier Fuentes Rojas",
     club: "Arica Bikers",
     n_dorsal: 163,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -374,7 +377,7 @@ const populateCyclists = async () => {
     name: "Maximiliano Ortiz Salas",
     club: "Copiapó Racing",
     n_dorsal: 241,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -383,7 +386,7 @@ const populateCyclists = async () => {
     name: "Benjamín Carrasco Pérez",
     club: "Linares Cycling",
     n_dorsal: 118,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -392,7 +395,7 @@ const populateCyclists = async () => {
     name: "Gonzalo Bravo Muñoz",
     club: "Los Ángeles Team",
     n_dorsal: 287,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
 
@@ -401,7 +404,7 @@ const populateCyclists = async () => {
     name: "Patricio Soto Ramírez",
     club: "Valdivia Wheelers",
     n_dorsal: 74,
-    password: "password",
+    password: passwordHash,
     rolId: cyclistRole._id
   };
   

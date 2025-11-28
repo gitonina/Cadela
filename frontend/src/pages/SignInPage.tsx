@@ -15,6 +15,7 @@ import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import FormInput from "../components/ui/FormInput";
 import GroupsIcon from '@mui/icons-material/Groups';
 import NumbersIcon from '@mui/icons-material/Numbers';
+import { useErrorStore } from "../stores/errorStore";
 
 export default function SignInPage() {
   const navigate = useNavigate();
@@ -24,8 +25,8 @@ export default function SignInPage() {
   const [club, setClub] = useState("");
   const [n_dorsal, setDorsal] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const {alertType, setAlertType} = useErrorStore();
 
   const validateFields = () => {
     if (!rut || !name || !club || !n_dorsal || !password)
@@ -49,13 +50,18 @@ export default function SignInPage() {
     return null;
   };
 
+  const callAlert = (message: string, alertType: 'success' | 'error') => {
+    setAlertMessage(message);
+    setAlertType(alertType);
+  }
+
   const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const validationError = validateFields();
     if (validationError) {
-      setErrorMessage(validationError);
-      setTimeout(() => setErrorMessage(null), 4000);
+      callAlert(validationError, 'error');
+      setTimeout(() => setAlertMessage(null), 4000);
       return;
     }
 
@@ -69,17 +75,17 @@ export default function SignInPage() {
       };
 
       await cyclistService.create(newCyclist);
-      setSuccessMessage("Cuenta creada con éxito, ahora puedes iniciar sesión");
+      callAlert("Cuenta creada con éxito, ahora puedes iniciar sesión", 'success');
       setTimeout(() => {
-        setSuccessMessage(null);
+        setAlertMessage(null);
         navigate("/login");
       }, 3000);
     } catch (error: any) {
       const msg =
         error.response?.data?.error ||
         "Error al registrar cuenta. Verifica tus datos.";
-      setErrorMessage(msg);
-      setTimeout(() => setErrorMessage(null), 4000);
+      callAlert(msg, 'error');
+      setTimeout(() => setAlertMessage(null), 4000);
     }
   };
 
@@ -168,8 +174,7 @@ export default function SignInPage() {
         flexDirection: "column",
         alignItems: "center"
       }}>
-        {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-        {successMessage && <Alert severity="success">{successMessage}</Alert>}
+        {alertMessage && <Alert severity={alertType}>{alertMessage}</Alert>}
       </Box>
     </Box>
   );

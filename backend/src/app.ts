@@ -1,17 +1,17 @@
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
-import config from "../src/utils/config";
+import config from "./utils/config";
 import mongoose from "mongoose";
-import middleware from "../src/utils/middleware";
-import inscriptionRouter from "../src/controllers/inscriptions";
-import categoriesRouter from "../src/controllers/categories";
-import circuitRouter from "../src/controllers/circuits";
-import cyclingRacesRouter from "../src/controllers/cyclingRaces";
-import resultRouter from "../src/controllers/results";
-import loginRouter from "../src/controllers/login";
-import signInRouter from "../src/controllers/cyclists";
-import testingRouter from "../src/controllers/testing"; 
-import roleRouter from "../src/controllers/roles"
+import middleware from "./utils/middleware";
+import inscriptionRouter from "./controllers/inscriptions";
+import categoriesRouter from "./controllers/categories";
+import circuitRouter from "./controllers/circuits";
+import cyclingRacesRouter from "./controllers/cyclingRaces";
+import resultRouter from "./controllers/results";
+import loginRouter from "./controllers/login";
+import signInRouter from "./controllers/cyclists";
+import testingRouter from "./controllers/testing"; 
+import roleRouter from "./controllers/roles"
 import logger from "./utils/logger";
 import path from "path";
 import cookieParser from "cookie-parser";
@@ -50,6 +50,12 @@ app.use("/api/roles",roleRouter)
 if (process.env.NODE_ENV === 'test') {    
   app.use("/api/testing", testingRouter);
 }
+
+// https://stackoverflow.com/a/73161538 avoid 'unknown endpoint' after reloading
+app.use(function (req: Request, res: Response) {
+  res.sendFile(path.join(__dirname, "/dist/index.html"));
+});
+
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
