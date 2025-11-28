@@ -11,7 +11,8 @@ test.describe('Admin: Crear circuitos y carreras', () => {
   const CIRCUITO = {
     name: 'Circuito Test E2E',
     distance: '45',
-    elevationGain: '1200'
+    elevationGain: '1200',
+    location: 'Test location 123',
   };
 
   test.beforeEach(async ({ page, request }) => {
@@ -27,6 +28,7 @@ test.describe('Admin: Crear circuitos y carreras', () => {
     await page.getByTestId('circuit_name').locator('input').fill(CIRCUITO.name);
     await page.getByTestId('distance').locator('input').fill(CIRCUITO.distance);
     await page.getByTestId('elevation').locator('input').fill(CIRCUITO.elevationGain);
+    await page.getByTestId('location').locator('input').fill(CIRCUITO.location);
     await page.locator('form').getByRole('button', { name: 'CREAR CIRCUITO' }).click();
     await expect(page.getByText('¡Circuito creado exitosamente!')).toBeVisible();
 
