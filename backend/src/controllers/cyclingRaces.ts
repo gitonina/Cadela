@@ -35,6 +35,7 @@ router.get("/next", async (req: Request, res: Response, next: NextFunction) => {
   await CyclingRace.find({
       date: { $gt: new Date() }
     })
+    .sort({ date: 1 })
     .limit(1)
     .populate({
         path: 'circuitId',
