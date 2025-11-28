@@ -51,6 +51,12 @@ if (process.env.NODE_ENV === 'test') {
   app.use("/api/testing", testingRouter);
 }
 
+// https://stackoverflow.com/a/73161538 avoid 'unknown endpoint' after reloading
+app.use(function (req: Request, res: Response) {
+  res.sendFile(path.join(__dirname, "/dist/index.html"));
+});
+
+
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
