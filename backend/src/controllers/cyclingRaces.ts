@@ -10,6 +10,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
         path: 'circuitId',
         select: 'name distance elevationGain kml_path pathPhoto location'
     })
+    .sort({ date: 1 })
     .then((cyclingRaces) => {
       res.json(cyclingRaces);
     })
@@ -20,6 +21,7 @@ router.get("/upcoming", (req: Request, res: Response, next: NextFunction) => {
   CyclingRace.find({
       date: { $gt: new Date() }
     })
+    .sort({ date: 1 })
     .populate({
         path: 'circuitId',
         select: 'name distance elevationGain kml_path pathPhoto location'
@@ -52,6 +54,7 @@ router.get("/past", (req: Request, res: Response, next: NextFunction) => {
   CyclingRace.find({
       date: { $lt: new Date() }
     })
+    .sort({ date: 1 })
     .populate({
         path: 'circuitId',
         select: 'name distance elevationGain kml_path pathPhoto location'
