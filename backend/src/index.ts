@@ -1,5 +1,5 @@
-import config from "../src/utils/config";
-import logger from "../src/utils/logger";
+import config from "./utils/config";
+import logger from "./utils/logger";
 import app from "./app";
 
 app.listen(config.PORT, () => {
