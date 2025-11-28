@@ -25,8 +25,6 @@ export default function SignInPage() {
   const [club, setClub] = useState("");
   const [n_dorsal, setDorsal] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const {alertType, setAlertType} = useErrorStore();
 

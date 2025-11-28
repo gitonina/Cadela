@@ -13,7 +13,7 @@ const SimpleSnackbar = () => {
     if (reason === 'clickaway') {
       return;
     }
-
+    console.log(event);
     setAlert(false);
   };
 

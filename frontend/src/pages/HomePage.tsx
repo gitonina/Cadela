@@ -5,14 +5,13 @@ import NewActiveCyclingRaceCard from "../components/NewActiveCyclingRaceCard";
 import Button from "@mui/material/Button";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState} from "react";
+import { useEffect} from "react";
 import { CircularProgress } from "@mui/material";
 import { useCyclingRacesStore } from "../stores/cyclingRacesStore";
 import SimpleSnackbar from "../components/ui/SimpleAlert";
 
 export default function HomePage() {
   const { nextRace, fetchNextRace ,isLoading} = useCyclingRacesStore();
-  const [messageIsOpen, setMessageIsOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
